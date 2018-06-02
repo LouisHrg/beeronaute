@@ -53,3 +53,8 @@ body, html {
     background: #FFF;
     margin-bottom: 20px;
 }
+.login-modal-container{
+    background: #FFF;
+    border-radius: 5px;
+    padding: 20px;
+}

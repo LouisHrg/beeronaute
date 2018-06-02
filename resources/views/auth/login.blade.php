@@ -4,32 +4,27 @@
 <div class="container-fluid bg-login">
     <div class="row justify-content-center">
         <div class="col-md-3 login-modal">
-            <div class="card card border-primary">
-                <div class="card-header">Se connecter</div>
-
-                <div class="card-body">
+            <div class="login-modal-container">
+                <h1 class="text-center"> Se connecter </h1>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="text-md-left">E-mail</label>
-
                             <div class="col-md-12">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="name" type="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" placeholder="Nom d'utilisateur" required autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('name'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="text-md-left">Mot de passe</label>
 
                             <div class="col-md-12">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Mot de passe"  required>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback">
@@ -61,7 +56,6 @@
                             </div>
                         </div>
                     </form>
-                </div>
             </div>
         </div>
     </div>
