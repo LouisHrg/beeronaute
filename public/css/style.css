@@ -20,3 +20,36 @@ body, html {
     width: 30px;
     border-radius: 50%;
 }
+
+
+.bg-login {
+    /* The image used */
+    background-image: url("../img/onepage/bg-login.jpg");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-modal{
+    top:25vh;
+}
+/*.home-bg{
+    background-image: url('../img/onepage/bg-pattern.jpg');
+        background-position: center;
+    background-repeat: repeat;
+    min-height: 100%;
+}*/
+
+.feed{
+    margin-top:100px;
+}
+
+.feed-element{
+    background: #FFF;
+    margin-bottom: 20px;
+}

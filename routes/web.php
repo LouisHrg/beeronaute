@@ -11,6 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Auth::routes();
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::get('/', 'IndexController@index')->name('index')->middleware('guest');
+
+Route::group(['prefix' => '/home',  'middleware' => 'auth'], function()
+{
+	Route::get('/', 'HomeController@index')->name('home');
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+
 });

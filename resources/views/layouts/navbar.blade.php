@@ -1,6 +1,7 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
   <a class="navbar-brand" href="#">
     <img src="{{ asset('img/brand/beer.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+    {{ setting('site.title') }}
 
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,13 +11,16 @@
   <div class="collapse navbar-collapse" id="navbarColor03">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#us">Qui somme-nous ?<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#us">Fil d'actualité<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#concept">Concept</a>
+        <a class="nav-link" href="#concept">Rechercher un bar</a>
+      </li>      
+      <li class="nav-item">
+        <a class="nav-link" href="#concept">Recommandations</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#news">News</a>
+        <a class="nav-link" href="#news">Evenements</a>
       </li>
     </ul>
 
@@ -31,7 +35,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <h6 class="dropdown-header"></h6>
           <a class="dropdown-item" href=""><span class="icon icon-user"></span> Profile</a>
-          <a class="dropdown-item" href=""><span class="icon icon-exit"></span> Logout</a>
+          <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-exit"></span> Logout</a>
         </div>
       </li>
       @else

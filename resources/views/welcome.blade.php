@@ -1,9 +1,9 @@
-@extends('layout.layout')
+@extends('layouts.layout')
 
 
 @section('content')
 
-@include('layout.navbar-home')
+@include('layouts.navbar-home')
 <div class="bg"></div>
 
 
