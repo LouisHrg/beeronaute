@@ -4,58 +4,58 @@
 <div class="container-fluid bg-login">
     <div class="row justify-content-center">
         <div class="col-md-3 login-modal">
-            <div class="login-modal-container">
-                <h1 class="text-center"> Se connecter </h1>
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+            <div class="card login-modal-container">
+                <h1 class="text-center"><img src="{{ asset('img/brand/beer.png') }}" width="30" height="30" alt="">  Se connecter </h1>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
 
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <input id="name" type="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" placeholder="Nom d'utilisateur" required autofocus>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <input id="name" type="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" placeholder="Nom d'utilisateur" required autofocus>
 
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+                            @if ($errors->has('name'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Mot de passe"  required>
+
+                            @if ($errors->has('password'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6 offset-md-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Se souvenir de moi
+                                </label>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
+                    <div class="form-group row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <button type="submit" class="btn btn-primary">
+                                Connexion
+                            </button>
 
-                            <div class="col-md-12">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Mot de passe"  required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                Mot de passe oublié ?
+                            </a>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Se souvenir de moi
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Connexion
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Mot de passe oublié ?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

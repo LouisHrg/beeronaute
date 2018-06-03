@@ -13,7 +13,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+        \Form::component('bsText', 'form.text', ['name', 'displayname', 'placeholder'=>null,'value'=> null, 'attributes' =>[], 'helper'=> null ]);
+
+        \Form::component('slug', 'form.slug', ['name', 'displayname', 'placeholder'=>null,'value'=> null, 'attributes' =>[], 'helper'=> null ]);
+
+        \Form::component('trumbo', 'form.trumbo', ['name', 'displayname', 'value'=> null, 'attributes' =>[], 'helper'=> null ]);
+        
+        \Form::component('bsSubmit', 'form.submit', ['name', 'helper'=>null]);
+
     }
 
     /**

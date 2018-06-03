@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" id="navbar-home">
   <a class="navbar-brand" href="#">
     <img src="{{ asset('img/brand/beer.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-    {{ setting('site.title') }}
+    
 
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,8 +10,8 @@
 
   <div class="collapse navbar-collapse" id="navbarColor03">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#us">Qui somme-nous ?<span class="sr-only">(current)</span></a>
+      <li class="nav-item ">
+        <a class="nav-link" href="#us">Qui somme-nous ?</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#concept">Concept</a>
@@ -39,7 +39,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('register') }}">S'inscrire</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{{ route('login') }}">Se connecter <span class="sr-only">(current)</span></a>
       </li>
       @endauth

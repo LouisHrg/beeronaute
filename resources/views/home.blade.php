@@ -4,7 +4,7 @@
 @include('layouts.navbar')
 <div class="container feed">
     <div class="row">
-        <div class="col-md-offset-2 col-md-8">
+        <div class="mx-auto col-md-8">
 
             <div class="card feed-element">
                 <div class="card-body">

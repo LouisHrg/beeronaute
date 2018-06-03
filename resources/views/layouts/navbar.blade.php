@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
   <a class="navbar-brand" href="#">
     <img src="{{ asset('img/brand/beer.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-    {{ setting('site.title') }}
+    
 
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,16 +11,19 @@
   <div class="collapse navbar-collapse" id="navbarColor03">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#us">Fil d'actualité<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="">Fil d'actualité<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#concept">Rechercher un bar</a>
+        <a class="nav-link" href="">Rechercher un bar</a>
       </li>      
       <li class="nav-item">
-        <a class="nav-link" href="#concept">Recommandations</a>
+        <a class="nav-link" href="">Recommandations</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#news">Evenements</a>
+        <a class="nav-link" href="">Evenements</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('news') }} ">Toutes les news</a>
       </li>
     </ul>
 

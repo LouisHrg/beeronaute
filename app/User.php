@@ -4,13 +4,19 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use Spatie\Permission\Traits\HasRoles;
 
+use Illuminate\Database\Eloquent\Model;
 
-class User extends \TCG\Voyager\Models\User
+
+
+class User extends Authenticatable
 {
     use Notifiable;
-    // use HasRoles;
+    use HasRoles;
+
+    protected $guard_name = 'web';
 
     /**
      * The attributes that are mass assignable.
@@ -33,7 +39,5 @@ class User extends \TCG\Voyager\Models\User
     protected $table = 'users';
     
     public $timestamps = true;
-
-
 
 }
