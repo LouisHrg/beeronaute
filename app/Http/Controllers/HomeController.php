@@ -29,4 +29,12 @@ class HomeController extends Controller
 
         return view('news',['posts'=>$posts]);
     }
+
+    public function singlePublication(Request $request, $slug){
+        
+        $post = Publication::where('slug',$slug)->first();
+
+        return view('single.publication', ['post'=>$post]);
+
+    }
 }

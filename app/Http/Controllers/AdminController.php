@@ -11,11 +11,14 @@ class AdminController extends Controller
     	return view('admin.home');
     }
 
-    function publications(){
+    function publications(Request $request){
 		
-		$items = Publication::all();
+        $search = $request->input('search');
 
-    	return view('admin.publications.browse',['items'=>$items]);
+        $items = Publication::where('title', 'like', '%'.$search.'%')
+                ->orWhere('content', 'like', '%' . $search . '%')->paginate(15);
+
+    	return view('admin.publications.browse',['items'=>$items->appends($request->except('page'))]);
     }    
     function newPublication(){
 		

@@ -22,6 +22,7 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/news', 'HomeController@news')->name('news');
+	Route::get('/news/{slug}', ['uses' =>'HomeController@singlePublication', 'as'=>'publication-single']);
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], function () {

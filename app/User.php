@@ -18,26 +18,52 @@ class User extends Authenticatable
 
     protected $guard_name = 'web';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'email', 'password','name'
+
+    protected $dates = [
+        'birthdate'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token'
     ];
 
-    protected $table = 'users';
-    
-    public $timestamps = true;
+    protected $fillable = [
+        'name',
+        'bio',
+        'birthdate',
+        'firstname',
+        'lastname',
+        'email',
+        'avatar',
+        'password',
+    ];
+
+
+
+    public function bars()
+    {
+        return $this->hasMany(\App\Bar::class, 'manager');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(\App\Comment::class, 'author');
+    }
+
+    public function events()
+    {
+        return $this->hasMany(\App\Event::class, 'author');
+    }
+
+    public function publications()
+    {
+        return $this->hasMany(\App\Publication::class, 'author');
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(\App\Subscription::class);
+    }
 
 }
