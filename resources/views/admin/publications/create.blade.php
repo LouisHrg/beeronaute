@@ -29,7 +29,7 @@
         @endif
 
 
-        {!! Form::open(['action' => 'AdminController@savePublication','files'=>'true']) !!}
+        {!! Form::open(['action' => 'AdminController@updatePublication']) !!}
         {{ Form::token() }}
 
 

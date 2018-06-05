@@ -29,17 +29,17 @@
         @endif
 
 
-        {!! Form::open(['action' => 'AdminController@savePublication','files'=>'true']) !!}
+        {!! Form::open() !!}
         {{ Form::token() }}
 
 
-        {{ Form::bsText('title','Titre','Le titre', old('title'),[],"Le titre de l'article") }}
+        {{ Form::bsText('title','Titre','Le titre', $post->title,[],"Le titre de l'article") }}
 
-        {{ Form::trumbo('content','Contenu', old('content'),[],"Le contenu de l'article") }}           
+        {{ Form::trumbo('content','Contenu', $post->content,[],"Le contenu de l'article") }}           
 
         {{ Form::date('published', \Carbon\Carbon::now()) }}
 
-        {{ Form::slug('slug','Slug','Slug', old('title'),[],"Chemin vers l'article sur le site") }}
+        {{ Form::slug('slug','Slug','Slug', $post->slug,[],"Chemin vers l'article sur le site") }}
 
         {{ Form::bsFile('featured','Image mise en avant','Uploader')}}
         
