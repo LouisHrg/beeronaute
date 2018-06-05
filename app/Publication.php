@@ -8,10 +8,13 @@
 namespace App;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 
-
-class Publication extends Eloquent
+class Publication extends Eloquent implements HasMedia
 {
+use HasMediaTrait;
+
 	protected $casts = [
 		'author' => 'int'
 	];

@@ -14,12 +14,14 @@ class FakePublications extends Seeder
     public function run()
     {	
     	$faker = Faker::create();
+        
     	$user = User::where('name','admin')->first();
     	foreach (range(1,50) as $index) {
 
         DB::table('publications')->insert([
-            'content' => $faker->text,
-            'title' => $faker->words($nb = 3, $asText = true),
+            'content' => $faker->paragraphs(rand(1,10),true),
+            'abstract' => $faker->text(200),
+            'title' => $faker->words(3,true),
             'published' => $faker->dateTime,
             'slug' => $faker->slug,
             'author' => $user->id

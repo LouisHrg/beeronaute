@@ -22,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
         
         \Form::component('bsSubmit', 'form.submit', ['name', 'helper'=>null]);
 
+        \Form::component('bsFile', 'form.fileupload', ['name', 'placeholder','action']);
+
+
     }
 
     /**

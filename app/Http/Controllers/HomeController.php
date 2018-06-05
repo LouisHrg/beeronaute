@@ -25,7 +25,7 @@ class HomeController extends Controller
         public function news()
     {
 
-        $posts = Publication::all();
+        $posts = Publication::orderBy('published', 'desc')->paginate(10);
 
         return view('news',['posts'=>$posts]);
     }

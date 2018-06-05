@@ -30,6 +30,8 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 	Route::get('/publications', 'AdminController@publications')->name('admin-publications-browse');
 	Route::get('/publications/create', 'AdminController@newPublication')->name('admin-publications-create');
 	Route::post('publications','AdminController@savePublication');
+	Route::get('/publications/edit/{id}', 'AdminController@editPublication')->name('admin-publications-edit');
+	Route::post('publications','AdminController@updatePublication');
 
 });
 

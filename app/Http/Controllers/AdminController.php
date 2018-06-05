@@ -16,27 +16,41 @@ class AdminController extends Controller
         $search = $request->input('search');
 
         $items = Publication::where('title', 'like', '%'.$search.'%')
-                ->orWhere('content', 'like', '%' . $search . '%')->paginate(15);
+                ->orWhere('content', 'like', '%' . $search . '%')
+                ->orderBy('published', 'desc')
+                ->paginate(15);
 
     	return view('admin.publications.browse',['items'=>$items->appends($request->except('page'))]);
+
+
     }    
     function newPublication(){
 		
 		return view('admin.publications.create');
     }
 
+    function editPublication($id){
+
+        $post = Publication::find($id);
+        $action = route('admin-publications-edit',$post->id);
+        $method = "POST";
+
+        return view('admin.publications.edit',compact('post', 'action', 'method'));
+    }
+    function updatePublication(){
+        echo "lol";
+    }
     function savePublication(Request $request){
 
         $data = $request->validate([
             'title' => 'required|max:255',
             'customcontent' => 'required',
             'slug' => 'required|unique:publications|max:120',
-            'published' => 'date|required'
+            'published' => 'date|required',
+            'featured' => 'mimes:jpeg,png,jpg'
         ]);
 
-
-        $publication = new Publication;
-        
+        $publication = new Publication;  
         $publication->title = $data['title'];
         $publication->slug = $data['slug'];
         $publication->published = $data['published'];
@@ -44,6 +58,11 @@ class AdminController extends Controller
         $publication->author = \Auth::user()->id;
 
         $publication->save();
+
+        $publication
+        ->addMediaFromRequest('featured')
+        ->withResponsiveImages()
+        ->toMediaCollection('images');
 
         return redirect()->route('admin-publications-browse');
 
