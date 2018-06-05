@@ -27,11 +27,16 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 
 Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], function () {
 	Route::get('/', 'AdminController@home')->name('admin-home');
+	
+	//Affichage de publication
 	Route::get('/publications', 'AdminController@publications')->name('admin-publications-browse');
+	
+	//Ajout de publication
 	Route::get('/publications/create', 'AdminController@newPublication')->name('admin-publications-create');
-	Route::post('publications','AdminController@savePublication');
+	Route::post('savePublication','AdminController@savePublication');
+	//Edition de publication
 	Route::get('/publications/edit/{id}', 'AdminController@editPublication')->name('admin-publications-edit');
-	Route::post('publications','AdminController@updatePublication');
+	Route::post('updatePublication/{id}','AdminController@updatePublication')->name('admin-publication-update');
 
 });
 

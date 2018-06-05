@@ -29,7 +29,7 @@
         @endif
 
 
-        {!! Form::open(['action' => 'AdminController@updatePublication']) !!}
+        {!! Form::open(['action' => 'AdminController@savePublication', 'method' => 'post']) !!}
         {{ Form::token() }}
 
 
@@ -37,7 +37,7 @@
 
         {{ Form::trumbo('content','Contenu', old('content'),[],"Le contenu de l'article") }}           
 
-        {{ Form::date('published', \Carbon\Carbon::now()) }}
+        {{ Form::bsDate('published', \Carbon\Carbon::now(), "Date de publication" , "La date de publication de l'article")}}
 
         {{ Form::slug('slug','Slug','Slug', old('title'),[],"Chemin vers l'article sur le site") }}
 

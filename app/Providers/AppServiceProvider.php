@@ -24,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
 
         \Form::component('bsFile', 'form.fileupload', ['name', 'placeholder','action']);
 
+        \Form::component('bsDate', 'form.datetimepicker', ['name', 'value','displayname','placeholder' => null]);
+
 
     }
 

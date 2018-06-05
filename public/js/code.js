@@ -25,4 +25,17 @@ slugifyme.onkeyup = function(){
     document.getElementById('slugifyme').value = slugify(slugifyme.value);
 }
 
-// $('#datetimepicker1').datetimepicker();
+$('#datetimepicker1').datetimepicker({
+          icons: {
+                time: 'icon icon-clock',
+                date: 'icon icon-calendar',
+                up: 'icon icon-arrow-up',
+                down: 'icon icon-arrow-down',
+                previous: 'icon icon-arrow-left2',
+                next: 'icon icon-arrow-right2',
+                today: 'icon icon-historyo',
+                clear: 'icon icon-bin',
+                close: 'icon icon-clock2'
+            },
+          format: "DD/MM/YYYY HH:mm"
+});

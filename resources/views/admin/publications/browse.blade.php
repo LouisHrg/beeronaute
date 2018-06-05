@@ -52,7 +52,7 @@
 							<td scope="row">{{ $item->abstract }}</td>
 							<td scope="row">{{ $item->user->name }}</td>
 							<td scope="row">
-								<a href="{{ route('publication-single',$item->slug) }}/" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
+								<a href="{{ route('publication-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
 								<a href="{{ route('admin-publications-edit',$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
 								<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
 							</td>
