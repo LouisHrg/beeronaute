@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Publication;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -94,5 +95,24 @@ class AdminController extends Controller
         return redirect()->route('admin-publications-browse');
 
     }
+
+    function users(Request $request){
+      
+        $search = $request->input('search');
+
+        $items = User::where('email', 'like', '%'.$search.'%')
+        ->orWhere('name', 'like', '%' . $search . '%')
+        ->orderBy('name', 'desc')
+        ->paginate(15);
+
+        return view('admin.users.browse',['items'=>$items->appends($request->except('page'))]);
+
+    }   
+
+        function newUser(){
+      
+      return view('admin.users.create');
+  }
+
 
 }

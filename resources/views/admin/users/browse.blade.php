@@ -9,7 +9,7 @@
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="{{ route('admin-home') }}">Dashboard</a></li>
-					<li class="breadcrumb-item active">Publications</li>
+					<li class="breadcrumb-item active">Utilisateurs</li>
 				</ol>
 			</nav>
 		</div>
@@ -38,13 +38,14 @@
 				</div>
 				{!! Form::close() !!}
 				
-				<table class="table table-hover table-responsive">
+				<table class="table table-hover ">
 					<thead class="thead-dark">
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Titre</th>
-							<th scope="col">Extrait</th>
-							<th scope="col">Auteur</th>
+							<th scope="col">Nom Prénom</th>
+							<th scope="col">Username</th>
+							<th scope="col">Rôle</th>
+							<th scope="col">Email</th>
 							<th scope="col" class="w-15">Actions</th>
 						</tr>
 					</thead>
@@ -53,12 +54,13 @@
 
 						<tr>
 							<th scope="row">{{ $item->id }}</th>
-							<td scope="row">{{ $item->title }}</td>
-							<td scope="row">{{ $item->abstract }}</td>
-							<td scope="row">{{ $item->user->name }}</td>
+							<td scope="row">{{ strtoupper($item->lastname) }} {{ $item->firstname }}</td>
+							<td scope="row">{{ $item->name }}</td>
+							<td scope="row">{{ $item->roles->pluck('name') }}</td>
+							<td scope="row">{{ $item->email }}</td>
 							<td scope="row">
-								<a href="{{ route('publication-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
-								<a href="{{ route('admin-publications-edit',$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
+								<a href="{{ route('publication-single',$item->id) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
+								<a href="{{ route('admin-users-edit',$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
 								<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
 							</td>
 						</tr>

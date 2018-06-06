@@ -1,19 +1,25 @@
 @extends ('layouts.layout-admin')
 
-@section('content')
 @include('layouts.navbar-admin')
+
+@section('breadcrumb')
 <div class="container feed">
   <div class="row">
     <div class="col-md-12">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="#">Publications</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Nouvelle publication</li>
+          <li class="breadcrumb-item"><a href="{{ route('admin-home') }}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('admin-publications-browse') }}">Publications</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Editer une publication (#{{ $post->id }})</li>
         </ol>
       </nav>
     </div>
   </div>
+</div>
+@endsection
+
+@section('content')
+<div class="container">
   <div class="row">
     <div class="col-md-12">
       <div class="block">

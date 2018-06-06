@@ -38,6 +38,16 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 	Route::get('/publications/edit/{id}', 'AdminController@editPublication')->name('admin-publications-edit');
 	Route::post('updatePublication/{id}','AdminController@updatePublication')->name('admin-publication-update');
 
+
+	Route::get('/users', 'AdminController@users')->name('admin-users-browse');
+
+	Route::get('/users/edit/{id}', 'AdminController@editUser')->name('admin-users-edit');
+	Route::post('updateUser/{id}','AdminController@updateUser')->name('admin-users-update');
+
+	Route::get('/users/create', 'AdminController@newUser')->name('admin-users-create');
+	Route::post('saveUser','AdminController@saveUser');
+
+
 });
 
 /*Route::group(['prefix' => 'manage','middleware' => ['role:manager']], function () {

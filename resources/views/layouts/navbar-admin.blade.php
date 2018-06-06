@@ -23,7 +23,7 @@
         <a class="nav-link" href="{{ route('admin-publications-browse') }}">Evenements</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-publications-browse') }}">Utilisateurs</a>
+        <a class="nav-link" href="{{ route('admin-users-browse') }}">Utilisateurs</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin-publications-browse') }}">Paramètres</a>

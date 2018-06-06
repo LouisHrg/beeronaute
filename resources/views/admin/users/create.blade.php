@@ -9,8 +9,8 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ route('admin-home') }}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{ route('admin-publications-browse') }}">Publications</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Nouvelle publication</li>
+          <li class="breadcrumb-item"><a href="{{ route('admin-users-browse') }}">Utilisateurs</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Nouvel utilisateur</li>
         </ol>
       </nav>
     </div>
@@ -39,17 +39,21 @@
         {{ Form::token() }}
 
 
-        {{ Form::bsText('title','Titre','Le titre', old('title'),[],"Le titre de l'article") }}
+        {{ Form::bsText('username','Nom d\'utilisateur','Le titre', old('username'),[],"Ce nom servira de login à l'utilisatuer") }}
 
-        {{ Form::trumbo('content','Contenu', old('content'),[],"Le contenu de l'article") }}           
+        {{ Form::bsText('firstname','Prénom','Le prénom', old('firstname'),[]) }}
 
-        {{ Form::bsDate('published', \Carbon\Carbon::now(), "Date de publication" , "La date de publication de l'article")}}
-
-        {{ Form::slug('slug','Slug','Slug', old('title'),[],"Chemin vers l'article sur le site") }}
-
-        {{ Form::bsFile('featured','Image mise en avant','Uploader')}}
+        {{ Form::bsText('lastname','Nom','Le nom', old('lastname'),[]) }}     
         
-        {{ Form::bsSubmit('Publier') }}
+        {{ Form::bsEmail('email','E-mail','Adresse email', old('email'),[]) }}     
+        
+        {{ Form::bsSelect('size', \Spatie\Permission\Models\Role::all(),'user','Rôle','kk') }}
+
+        {{ Form::bsPasswordConf('password','Mot de passe',"Mot de passe","Confirmation du mot de passe")}}
+
+
+        {{ Form::bsSubmit('Ajouter l\'utilisateur') }}
+
 
 
         {!! Form::close() !!}
