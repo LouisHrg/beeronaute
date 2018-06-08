@@ -21,7 +21,7 @@ class ManageController extends Controller
     	return view('manage.home',['bars'=>$bars]);
     }
 
-	function publications(){
+    function publications(){
 
     	$bars = Bar::where('manager', Auth::id() )->get(); 
 
@@ -30,23 +30,36 @@ class ManageController extends Controller
 
     function newBar(){
 
-    	$openingHours = OpeningHours::create([
+    	$h = OpeningHours::create([
     		'monday' => ['09:00-12:00', '13:00-18:00'],
     		'tuesday' => ['09:00-12:00', '13:00-18:00'],
-    		'wednesday' => ['09:00-12:00'],
-    		'thursday' => ['09:00-12:00', '13:00-18:00'],
+    		'wednesday' => ['09:00-12:00','13:00-18:00'],
+    		'thursday' => ['09:00-12:00','13:00-06:00'],
     		'friday' => ['09:00-12:00', '13:00-20:00'],
     		'saturday' => ['09:00-12:00', '13:00-16:00']
-		]);
+      ]);
 
-    	$test = $openingHours->forDay('monday')[0]->format('H:i');
-    	$test2 = $openingHours->forDay('monday')[1]->format('H:i');
+        $schedule = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
 
-    	dump($test);
-    	dd($test2);
+        foreach ($schedule as $key) {
 
-    	return view('manage.bars.create');
-    
+            $schedule[$key] = [];
+            if(isset($h->forDay($key)[0])){
+                array_push($schedule[$key], $h->forDay($key)[0]->format('H:i'));
+                if(isset($h->forDay($key)[0])){
+                    array_push($schedule[$key], $h->forDay($key)[1]->format('H:i'));
+                }
+            }
+            if(empty($schedule[$key])){
+                unset($schedule[$key]);
+            }
+        }
+
+        $json = json_encode($schedule);
+
+
+        return view('manage.bars.create');
+
     }
 
 }

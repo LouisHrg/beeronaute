@@ -25,14 +25,19 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('news') }} ">Toutes les news</a>
       </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
       @role('admin')
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin-home') }}">Admin</a>
       </li>
       @endrole
-    </ul>
-
-    <ul class="navbar-nav ml-auto">
+      @role('manager')
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('manage-home') }}">Gérer</a>
+      </li>
+      @endrole
       @if (Route::has('login'))
       @auth
       <li class="nav-item dropdown">

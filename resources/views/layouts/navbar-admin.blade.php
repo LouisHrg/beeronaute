@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="{{ route('admin-home')}}">
     <img src="{{ asset('img/brand/admin.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
     Admin
 
@@ -31,21 +31,26 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
-        @if (Route::has('login'))
-        @auth
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ Auth::user()->name }}
-            <img src="/storage/{{ Auth::user()->avatar }}" class="avatar img-responsive">
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <h6 class="dropdown-header"></h6>
-            <a class="dropdown-item" href=""><span class="icon icon-user"></span> Profile</a>
-            <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-exit"></span> Logout</a>
-          </div>
-        </li>
-        @endauth
-        @endif
-      </ul>
-    </div>
-  </nav>
+      @role('manager')
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('manage-home') }}">Retour au site</a>
+      </li>
+      @endrole
+      @if (Route::has('login'))
+      @auth
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ Auth::user()->name }}
+          <img src="/storage/{{ Auth::user()->avatar }}" class="avatar img-responsive">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <h6 class="dropdown-header"></h6>
+          <a class="dropdown-item" href=""><span class="icon icon-user"></span> Profile</a>
+          <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-exit"></span> Logout</a>
+        </div>
+      </li>
+      @endauth
+      @endif
+    </ul>
+  </div>
+</nav>
