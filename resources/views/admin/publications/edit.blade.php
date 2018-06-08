@@ -2,6 +2,8 @@
 
 @include('layouts.navbar-admin')
 
+@section('title','Admin | Beeronaute')
+
 @section('breadcrumb')
 <div class="container feed">
   <div class="row">

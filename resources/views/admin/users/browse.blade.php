@@ -56,7 +56,7 @@
 							<th scope="row">{{ $item->id }}</th>
 							<td scope="row">{{ strtoupper($item->lastname) }} {{ $item->firstname }}</td>
 							<td scope="row">{{ $item->name }}</td>
-							<td scope="row">{{ $item->roles->pluck('name') }}</td>
+							<td scope="row">{{ $item->roles->first()->name }}</td>
 							<td scope="row">{{ $item->email }}</td>
 							<td scope="row">
 								<a href="{{ route('publication-single',$item->id) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>

@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
   <a class="navbar-brand" href="#">
-    <img src="{{ asset('img/brand/admin.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-    Admin
+    <img src="{{ asset('img/brand/manage.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+    Manager
 
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,22 +11,19 @@
   <div class="collapse navbar-collapse" id="navbarColor03">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-publications-browse') }}">Publications<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ route('manage-publications') }}">Mes publications<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-publications-browse') }}">Bars</a>
+        <a class="nav-link" href="{{ route('manage-bars') }}">Mes bars</a>
       </li>      
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-publications-browse') }}">Recommandations</a>
+        <a class="nav-link" href="{{ route('manage-stats') }}">Statistiques</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-publications-browse') }}">Evenements</a>
+        <a class="nav-link" href="{{ route('manage-events') }}">Mes évenements</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-users-browse') }}">Utilisateurs</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-publications-browse') }}">Paramètres</a>
+        <a class="nav-link" href="{{ route('manage-settings') }}">Paramètres</a>
       </li>
     </ul>
 

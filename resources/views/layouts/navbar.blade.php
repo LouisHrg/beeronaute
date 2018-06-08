@@ -25,6 +25,11 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('news') }} ">Toutes les news</a>
       </li>
+      @role('admin')
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin-home') }}">Admin</a>
+      </li>
+      @endrole
     </ul>
 
     <ul class="navbar-nav ml-auto">

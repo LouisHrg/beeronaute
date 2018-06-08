@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfe848d330c8898a6fa84ef7481e6014",
+    "content-hash": "51a678179dfc7c1cb57d2cb49aae27e2",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2337,6 +2337,55 @@
                 "spatie"
             ],
             "time": "2018-04-23T19:06:39+00:00"
+        },
+        {
+            "name": "spatie/opening-hours",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/opening-hours.git",
+                "reference": "afc7b03993b6fe5e81df68cdda2754a1b977d22e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/opening-hours/zipball/afc7b03993b6fe5e81df68cdda2754a1b977d22e",
+                "reference": "afc7b03993b6fe5e81df68cdda2754a1b977d22e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\OpeningHours\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A helper to query and format a set of opening hours",
+            "homepage": "https://github.com/spatie/opening-hours",
+            "keywords": [
+                "hours",
+                "opening",
+                "opening-hours",
+                "schedule",
+                "spatie"
+            ],
+            "time": "2018-03-26T08:51:44+00:00"
         },
         {
             "name": "spatie/pdf-to-image",

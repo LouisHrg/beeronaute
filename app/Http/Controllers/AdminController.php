@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Publication;
 use App\User;
+use Illuminate\Support\Facades\Hash;
+
 
 class AdminController extends Controller
 {
@@ -102,17 +104,55 @@ class AdminController extends Controller
 
         $items = User::where('email', 'like', '%'.$search.'%')
         ->orWhere('name', 'like', '%' . $search . '%')
-        ->orderBy('name', 'desc')
+        ->orWhere('firstname', 'like', '%' . $search . '%')
+        ->orWhere('lastname', 'like', '%' . $search . '%')
+        ->orWhere('email', 'like', '%' . $search . '%')
         ->paginate(15);
 
         return view('admin.users.browse',['items'=>$items->appends($request->except('page'))]);
 
     }   
 
-        function newUser(){
+    function newUser(){
       
       return view('admin.users.create');
-  }
+    }
 
+
+    function saveUser(Request $request){
+            
+        $rolesId = implode(',',\Spatie\Permission\Models\Role::where('id' ,'>' ,0)->pluck('id')->toArray());
+
+        $data = $request->validate([
+            'name' => 'required|string|max:50|unique:users',
+            'firstname' => 'required|string|max:100',
+            'lastname' => 'required|string|max:100',
+            'email' => 'required|string|email|max:255|unique:users',
+            'role' => 'required|in:'.$rolesId,
+            'password' => 'required|string|min:2|confirmed'
+
+        ]);
+
+        $user = new User;
+
+        $user->name = $data['name'];
+        $user->firstname = $data['firstname'];
+        $user->lastname = $data['lastname'];
+        $user->email =$data['email'];
+        $user->password = Hash::make($data['password']);
+
+        $user->save();
+
+        $user->assignRole(\Spatie\Permission\Models\Role::find($data['role']));
+
+        return redirect()->route('admin-users-browse');
+    }
+
+  function editUser($id){
+
+    $user = User::find($id);
+
+    return view('admin.users.edit',['user'=>$user]);
+}
 
 }

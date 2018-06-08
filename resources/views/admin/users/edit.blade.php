@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ route('admin-home') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{ route('admin-users-browse') }}">Utilisateurs</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Nouvel utilisateur</li>
+          <li class="breadcrumb-item active" aria-current="page">Editer un utilisateur (#{{ $user->id }})</li>
         </ol>
       </nav>
     </div>
@@ -35,26 +35,24 @@
         @endif
 
 
-        {!! Form::open(['action' => 'AdminController@saveUser', 'method' => 'post']) !!}
+        {!!Form::open(['action' => ['AdminController@updateUser',Request::route('id')],'method'=>"POST"]) !!}
         {{ Form::token() }}
 
+        {{ Form::bsText('name','Nom d\'utilisateur','Le titre', $user->name,[],"Ce nom servira de login à l'utilisatuer") }}
 
-        {{ Form::bsText('name','Nom d\'utilisateur','Le titre', old('name'),[],"Ce nom servira de login à l'utilisatuer") }}
+        {{ Form::bsText('firstname','Prénom','Le prénom', $user->firstname,[]) }}
 
-        {{ Form::bsText('firstname','Prénom','Le prénom', old('firstname'),[]) }}
-
-        {{ Form::bsText('lastname','Nom','Le nom', old('lastname'),[]) }}     
+        {{ Form::bsText('lastname','Nom','Le nom', $user->lastname,[]) }}     
         
-        {{ Form::bsEmail('email','E-mail','Adresse email', old('email'),[]) }}     
+        {{ Form::bsEmail('email','E-mail','Adresse email', $user->email,[]) }}     
         
-        {{ Form::bsSelect('role', \Spatie\Permission\Models\Role::all(),'user','Rôle','kk') }}
+
+        {{ Form::bsSelect('role', \Spatie\Permission\Models\Role::all(),$user->roles->first()->name,'Rôle','kk') }}
 
         {{ Form::bsPasswordConf('password','Mot de passe',"Mot de passe","Confirmation du mot de passe")}}
 
 
-        {{ Form::bsSubmit('Ajouter l\'utilisateur') }}
-
-
+        {{ Form::bsSubmit('Modifier l\'utilisateur') }}
 
         {!! Form::close() !!}
       </div>

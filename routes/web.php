@@ -26,6 +26,7 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], function () {
+
 	Route::get('/', 'AdminController@home')->name('admin-home');
 	
 	//Affichage de publication
@@ -50,11 +51,23 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 
 });
 
-/*Route::group(['prefix' => 'manage','middleware' => ['role:manager']], function () {
+Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], function () {
 	
-	Route::get('/', 'AdminController@home')->name('manage-home');
+	Route::get('/', 'ManageController@home')->name('manage-home');
 
-});*/
+	Route::get('/publications', 'ManageController@home')->name('manage-publications');
+
+	Route::get('/stats', 'ManageController@home')->name('manage-stats');
+
+	Route::get('/bars', 'ManageController@home')->name('manage-bars');
+	
+	Route::get('/bars/create', 'ManageController@newBar')->name('manage-bars-create');
+
+	Route::get('/events', 'ManageController@home')->name('manage-events');
+
+	Route::get('/settings', 'ManageController@home')->name('manage-settings');
+
+});
 
 
 Route::get('/test', 'TestController@test')->name('test');

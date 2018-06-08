@@ -1,6 +1,6 @@
 @extends ('layouts.layout-admin')
 
-@include('layouts.navbar-admin')
+@include('layouts.navbar-manage')
 
 @section('title','Admin | Beeronaute')
 
@@ -11,9 +11,9 @@
     <div class="col-md-12">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ route('admin-home') }}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="{{ route('admin-publications-browse') }}">Publications</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Nouvelle publication</li>
+          <li class="breadcrumb-item"><a href="{{ route('manage-home') }}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('manage-bars') }}">Bar</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Ajouter bar</li>
         </ol>
       </nav>
     </div>
@@ -44,13 +44,13 @@
 
         {{ Form::bsText('title','Titre','Le titre', old('title'),[],"Le titre de l'article") }}
 
-        {{ Form::trumbo('content','Contenu', old('content'),[],"Le contenu de l'article") }}           
+        {{-- {{ Form::trumbo('content','Contenu', old('content'),[],"Le contenu de l'article") }}            --}}
 
         {{ Form::bsDate('published', \Carbon\Carbon::now(), "Date de publication" , "La date de publication de l'article")}}
 
         {{ Form::slug('slug','Slug','Slug', old('title'),[],"Chemin vers l'article sur le site") }}
 
-        {{ Form::bsFile('featured','Image mise en avant','Uploader')}}
+        {{-- {{ Form::bsFile('featured','Image mise en avant','Uploader')}} --}}
         
         {{ Form::bsSubmit('Publier') }}
 
