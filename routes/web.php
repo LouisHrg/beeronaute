@@ -33,11 +33,11 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 	Route::get('/publications', 'AdminController@publications')->name('admin-publications-browse');
 	
 	//Ajout de publication
-	Route::get('/publications/create', 'AdminController@newPublication')->name('admin-publications-create');
-	Route::post('savePublication','AdminController@savePublication');
+	Route::get('/publications/create', 'AdminController@newPublication')->name('publications-create');
+	Route::post('savePublication','PublicationsController@savePublication');
 	//Edition de publication
 	Route::get('/publications/edit/{id}', 'AdminController@editPublication')->name('admin-publications-edit');
-	Route::post('updatePublication/{id}','AdminController@updatePublication')->name('admin-publication-update');
+	Route::post('updatePublication/{id}','PublicationsController@updatePublication')->name('publication-update');
 
 
 	Route::get('/users', 'AdminController@users')->name('admin-users-browse');
@@ -46,7 +46,7 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 	Route::post('updateUser/{id}','AdminController@updateUser')->name('admin-users-update');
 
 	Route::get('/users/create', 'AdminController@newUser')->name('admin-users-create');
-	Route::post('saveUser','AdminController@saveUser');
+	Route::post('saveUser','UsersController@saveUser');
 
 
 });
@@ -59,7 +59,7 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 
 	Route::get('/stats', 'ManageController@home')->name('manage-stats');
 
-	Route::get('/bars', 'ManageController@home')->name('manage-bars');
+	Route::get('/bars', 'ManageController@bars')->name('manage-bars');
 	
 	Route::get('/bars/create', 'ManageController@newBar')->name('manage-bars-create');
 
@@ -67,7 +67,20 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 
 	Route::get('/settings', 'ManageController@home')->name('manage-settings');
 
+	// Route::post('saveBar','ManageController@saveBar');
+	
+	// Route::post('updateBar/{id}','ManageController@updateBar');
+	
+
 });
 
+
+Route::group(['prefix' => '','middleware' => ['role:manager,admin','auth']], function () {
+	
+	Route::post('saveBar','BarsController@saveBar');
+	
+	Route::post('updateBar/{id}','BarsController@updateBar');
+
+});
 
 Route::get('/test', 'TestController@test')->name('test');

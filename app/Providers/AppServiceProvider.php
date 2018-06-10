@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
 
         \Form::component('bsText', 'form.text', ['name', 'displayname', 'placeholder'=>null,'value'=> null, 'attributes' =>[], 'helper'=> null ]);
 
+        \Form::component('bsTextLong', 'form.textlong', ['name', 'displayname', 'placeholder'=>null,'value'=> null, 'attributes' =>[], 'helper'=> null ]);
+
         \Form::component('bsEmail', 'form.email', ['name', 'displayname', 'placeholder'=>null,'value'=> null, 'attributes' =>[], 'helper'=> null ]);
 
         \Form::component('slug', 'form.slug', ['name', 'displayname', 'placeholder'=>null,'value'=> null, 'attributes' =>[], 'helper'=> null ]);
@@ -26,11 +28,13 @@ class AppServiceProvider extends ServiceProvider
 
         \Form::component('bsFile', 'form.fileupload', ['name', 'placeholder','action']);
 
-        \Form::component('bsDate', 'form.datetimepicker', ['name', 'value','displayname','placeholder' => null]);
+        \Form::component('bsDate', 'form.datetimepicker', ['name', 'value','displayname' => null,'placeholder' => null]);
 
         \Form::component('bsSelect', 'form.select', ['name', 'data','value','displayname','placeholder' => null]);
 
         \Form::component('bsPasswordConf', 'form.passwordconf', ['name', 'displayname','placeholder' => null,'placeholder2' => null]);
+
+        \Form::component('schedule','form.schedule',['name','value','displayname','helper'=>null]);
 
 
     }

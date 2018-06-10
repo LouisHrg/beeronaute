@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid bg-login">
     <div class="row justify-content-center">
-        <div class="col-md-3 login-modal">
+        <div class="col-md-5 login-modal">
             <div class="card login-modal-container">
                 <h1 class="text-center"><img src="{{ asset('img/brand/beer.png') }}" width="30" height="30" alt="">  Se connecter </h1>
                 <form method="POST" action="{{ route('login') }}">
@@ -34,27 +34,22 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <div class="col-md-6 offset-md-4">
+
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Se souvenir de moi
                                 </label>
-                            </div>
-                        </div>
                     </div>
 
-                    <div class="form-group row mb-0">
-                        <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-block btn-primary">
                                 Connexion
                             </button>
-
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                            <br>
+                            <div class="col-md-12 text-center">
+                            <a href="{{ route('password.request') }}">
                                 Mot de passe oublié ?
                             </a>
-                        </div>
-                    </div>
+                            </div>
                 </form>
             </div>
         </div>

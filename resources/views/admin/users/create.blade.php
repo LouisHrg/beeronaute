@@ -35,7 +35,7 @@
         @endif
 
 
-        {!! Form::open(['action' => 'AdminController@saveUser', 'method' => 'post']) !!}
+        {!! Form::open(['action' => 'UsersController@saveUser', 'method' => 'post']) !!}
         {{ Form::token() }}
 
 

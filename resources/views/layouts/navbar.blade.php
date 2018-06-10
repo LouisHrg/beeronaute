@@ -35,7 +35,7 @@
       @endrole
       @role('manager')
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('manage-home') }}">Gérer</a>
+        <a class="nav-link" href="{{ route('manage-home') }}">Espace gérant</a>
       </li>
       @endrole
       @if (Route::has('login'))

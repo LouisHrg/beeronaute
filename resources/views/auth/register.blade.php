@@ -1,9 +1,9 @@
-s@extends('layouts.layout')
+@extends('layouts.layout')
 
 @section('content')
 <div class="container-fluid bg-login">
     <div class="row justify-content-center">
-        <div class="col-md-4 login-modal">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header">S'inscrire</div>
 

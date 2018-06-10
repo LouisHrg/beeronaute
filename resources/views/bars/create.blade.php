@@ -1,6 +1,11 @@
 @extends ('layouts.layout-admin')
 
+@role('manager')
 @include('layouts.navbar-manage')
+@endrole
+@role('admin')
+@include('layouts.navbar-admin')
+@endrole
 
 @section('title','Admin | Beeronaute')
 
@@ -27,6 +32,8 @@
     <div class="col-md-12">
       <div class="block">
 
+
+
         @if ($errors->any())
         <div class="alert alert-dismissible alert-danger">
           <ul>
@@ -37,22 +44,31 @@
         </div>
         @endif
 
-
-        {!! Form::open(['action' => 'AdminController@savePublication', 'method' => 'post']) !!}
+        {!! Form::open(['action' => $action, 'method' => $method,'files'=>true ]) !!}
         {{ Form::token() }}
 
 
-        {{ Form::bsText('title','Titre','Le titre', old('title'),[],"Le titre de l'article") }}
+        {{ Form::bsText('name','Nom du bar','Le nom du bar', old('title'),[]) }}
 
-        {{-- {{ Form::trumbo('content','Contenu', old('content'),[],"Le contenu de l'article") }}            --}}
+        {{ Form::bsTextLong('description','Description',"Quelque mots pour décrire votre établissement", old('description'),[],"Saisissez une description pour votre bar") }}           
 
-        {{ Form::bsDate('published', \Carbon\Carbon::now(), "Date de publication" , "La date de publication de l'article")}}
 
-        {{ Form::slug('slug','Slug','Slug', old('title'),[],"Chemin vers l'article sur le site") }}
+        {{ Form::slug('slug','Lien du bar','Lien', old('slug'),[],"Chemin vers le bar sur le site") }}
 
-        {{-- {{ Form::bsFile('featured','Image mise en avant','Uploader')}} --}}
+        {{ Form::bsText('number','Numéro de téléphone','Numéro', old('number'),[]) }}
+
+        {{ Form::bsText('address','Adresse du bar','Adresse', old('address'),[]) }}
+
+        {{ Form::bsSelect('city', \App\Place::all(),'city','Ville') }}
+
         
-        {{ Form::bsSubmit('Publier') }}
+        {{ Form::bsEmail('email','E-mail','Adresse email du bar', old('email'),[]) }}     
+
+        {{ Form::bsFile('image','Photo du bar','Uploader')}}
+
+        {{ Form::schedule('schedule',old('schedule'),'Horraires d\'ouverture') }}
+
+        {{ Form::bsSubmit('Ajouter') }}
 
 
         {!! Form::close() !!}
@@ -60,4 +76,5 @@
     </div>
   </div>
 </div>
+
 @endsection
