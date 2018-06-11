@@ -43,7 +43,7 @@ class User extends Authenticatable
 
     public function bars()
     {
-        return $this->hasMany(\App\Bar::class, 'manager');
+        return $this->hasOne(\App\Bar::class, 'manager');
     }
 
     public function comments()

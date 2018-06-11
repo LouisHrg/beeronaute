@@ -1,6 +1,10 @@
+
+
 body, html {
-    height: 100%;
     margin: 0;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 50px;
+
 }
 
 .bg {
@@ -38,13 +42,12 @@ body, html {
 .login-modal{
     top:25vh;
 }
-/*.home-bg{
-    background-image: url('../img/onepage/bg-pattern.jpg');
-        background-position: center;
+.home-bg{
+    background: #fff;
+    background-position: center;
     background-repeat: repeat;
-    min-height: 100%;
 }
-*/
+
 .feed{
     margin-top:100px;
 }
@@ -70,25 +73,25 @@ body, html {
     width: 100%;
 }
 .bg-text p{
-      top: 30vh;
-    background: #000000eb;
-    color: #FFF;
-    position: absolute;
-    font-size: 20px;
-    padding: 30px;
+  top: 30vh;
+  background: #000000eb;
+  color: #FFF;
+  position: absolute;
+  font-size: 20px;
+  padding: 30px;
 }
 
 
 .concept-block{
-background: #294929;
+    background: #294929;
 }
 
 .us-block{
-background: #194A13
+    background: #194A13
 }
 
 .news-block{
-background: #19FF13
+    background: #19FF13
 
 }
 
@@ -97,7 +100,7 @@ background: #19FF13
     border: 1px solid #f0f0f0;
     -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.05);
     box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.05);
-        background-color: #fafafa;
+    background-color: #fafafa;
     border-radius: 0.3rem;
     margin-bottom: 50px;
 
@@ -121,8 +124,45 @@ background: #19FF13
 }
 .img-bar-home img{
     width: 100%;
-    height: 300px;
+    height: 150px;
     object-fit: cover;
     object-position: 20% 30%; /* default value: image is centered*/
 
+}
+.schedule{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.block-home{
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+  border-radius:5px;
+  overflow:hidden;
+  background: #FFF;
+}
+
+.block-body{
+    padding: 20px;
+    position: relative;
+    top:-50px;
+
+}
+
+.block-body h1 {
+    position: relative;
+    background: #000;
+    color:#FFF;
+    padding:10px;
+    font-size: 30px;
+}
+
+.block-feed{
+    margin-top:30px;
+    padding: 20px;
+}
+
+
+.fixed-element{
+    position: fixed;
 }

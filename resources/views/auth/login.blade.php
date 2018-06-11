@@ -34,25 +34,27 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                    <div class="checkbox">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} class="custom-control-input" id="customCheck2" >
+                          <label class="custom-control-label" for="customCheck2">Se souvenir de moi</label>
+                      </div>
+                  </div>
+                </div>
 
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Se souvenir de moi
-                                </label>
-                    </div>
-
-                            <button type="submit" class="btn btn-block btn-primary">
-                                Connexion
-                            </button>
-                            <br>
-                            <div class="col-md-12 text-center">
-                            <a href="{{ route('password.request') }}">
-                                Mot de passe oublié ?
-                            </a>
-                            </div>
-                </form>
-            </div>
+                <button type="submit" class="btn btn-block btn-primary">
+                    Connexion
+                </button>
+                <br>
+                <div class="col-md-12 text-center">
+                    <a href="{{ route('password.request') }}">
+                        Mot de passe oublié ?
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 @endsection

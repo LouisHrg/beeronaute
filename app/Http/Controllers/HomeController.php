@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Publication;
 use App\Bar;
+use App\Post;
 
 class HomeController extends Controller
 {
@@ -41,8 +42,9 @@ class HomeController extends Controller
     public function singleBar(Request $request, $slug){
         
         $bar = Bar::where('slug',$slug)->where('status','=','2')->firstOrFail();
+        $posts = Post::where('bar',$bar->id)->get();
 
-        return view('single.bar', ['bar'=>$bar]);
+        return view('single.bar', ['bar'=>$bar,'posts'=>$posts]);
 
     }
 }

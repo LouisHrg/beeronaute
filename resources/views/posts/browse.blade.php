@@ -34,13 +34,14 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="block">
-				<div class="col-md-7">
-
+				<div class="col-md-12">
 				@if (null !== app('request')->input('search'))
 				<a href="{{ Request::url() }}" class="btn btn-info"><- Voir tous les éléments </a>
+				@else
+					<a class="btn btn-success" href="{{ route('manage-post-create')}}"> Ajouter un nouveau post </a>
 				@endif
-
 				</div>
+				
 				{!! Form::open(['method'=>'GET','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
 				<div class="col-md-5 ml-auto">
 					<div class="form-group row ">
@@ -54,21 +55,24 @@
 					<thead class="thead-dark">
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Titre</th>
 							<th scope="col">Extrait</th>
 							<th scope="col">Type</th>
+							<th scope="col">Element</th>
+							@role('admin')
 							<th scope="col">Auteur</th>
+							@endrole
 							<th scope="col" class="w-15">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($items as $item)
-
 						<tr>
 							<th scope="row">{{ $item->id }}</th>
-							<td scope="row">{{ $item->title }}</td>
-							<td scope="row">{{ $item->abstract }}</td>
+							<td scope="row">{{ $item->body }}</td>
+							<td scope="row">{{ $item->type }}</td>
+							@role('admin')
 							<td scope="row">{{ $item->user->name }}</td>
+							@endrole
 							<td scope="row">
 								<a href="{{ route('publication-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
 								<a href="{{ route('admin-publications-edit',$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>

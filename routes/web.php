@@ -23,9 +23,15 @@ Route::get('/', 'IndexController@index')->name('index')->middleware('guest');
 Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
-	Route::get('/news', 'HomeController@news')->name('news');
+	
 	Route::get('/news/{slug}', 'HomeController@singlePublication')->name('publication-single');
 	Route::get('/bar/{slug}', 'HomeController@singleBar')->name('bar-single');
+	
+	Route::get('/news', 'HomeController@news')->name('news');
+	Route::get('/search', 'HomeController@search')->name('search');
+	Route::get('/events', 'HomeController@events')->name('events');
+	Route::get('/recommandations', 'HomeController@recommandations')->name('recommandations');
+
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], function () {
@@ -55,17 +61,19 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 	Route::get('/stats', 'ManageController@home')->name('manage-stats');
 
 	Route::get('/bars', 'ManageController@bars')->name('manage-bars');
-	
 	Route::get('/bars/create', 'ManageController@newBar')->name('manage-bars-create');
-	Route::get('/bars/edit/{id}','ManageController@editBar')->name('manage-publications-edit');
+	Route::get('/bars/edit/{id}','ManageController@editBar')->name('manage-bars-edit');
+
+
+	Route::get('/posts', 'ManageController@posts')->name('manage-posts');
+	Route::get('/posts/create', 'ManageController@newPost')->name('manage-post-create');
+	Route::get('/posts/edit/{id}', 'ManageController@editPost')->name('manage-post-edit');
+
 
 	Route::get('/events', 'ManageController@home')->name('manage-events');
 
 	Route::get('/settings', 'ManageController@home')->name('manage-settings');
 	
-	Route::get('/posts', 'ManageController@posts')->name('manage-posts');
-	Route::get('/publications/create', 'ManageController@newPublication')->name('manage-publications-create');
-	Route::get('/publications/edit/{id}', 'ManageController@editPublication')->name('manage-publications-edit');
 
 });
 
@@ -80,6 +88,10 @@ Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], fun
 	Route::post('savePublication','PublicationsController@savePublication');
 
 	Route::post('updatePublication/{id}','PublicationsController@updatePublication')->name('publication-update');
+
+	Route::post('savePost','PostsController@savePost')->name('post-save');
+
+	Route::post('updatePost/{id}','PostsController@updatePost')->name('post-update');
 
 
 });

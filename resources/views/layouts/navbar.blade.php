@@ -30,12 +30,12 @@
     <ul class="navbar-nav ml-auto">
       @role('admin')
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-home') }}">Admin</a>
+        <a class="nav-link" href="{{ route('admin-home') }}">Espace Admin</a>
       </li>
       @endrole
       @role('manager')
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('manage-home') }}">Espace gérant</a>
+        <a class="nav-link" href="{{ route('manage-home') }}">Espace Manager</a>
       </li>
       @endrole
       @if (Route::has('login'))

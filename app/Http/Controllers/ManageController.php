@@ -26,7 +26,7 @@ class ManageController extends Controller
 
         $bars = Bar::where('manager','=', Auth::id() )->get(); 
 
-        $editAction = 'manage-publications-edit';
+        $editAction = 'manage-bars-edit';
         $deleteAction = 'publications-edit';
 
         return view('bars.browse',['items'=>$bars,'editAction'=>$editAction,'deleteAction'=>$deleteAction]);
@@ -34,13 +34,18 @@ class ManageController extends Controller
 
     function newBar(){
 
+        $count = Bar::where('manager', '=', Auth::id())->count();
+
+        if($count > 4){
+            abort(403, 'Lol');
+        }
+
         $action = 'BarsController@saveBar';
         $method = 'POST';
 
         return view('bars.create',['action'=>$action,'method'=>$method]);
 
     }
-
 
     function editBar($id){
 
@@ -71,6 +76,15 @@ class ManageController extends Controller
         ->paginate(15);
 
         return view('posts.browse',['items'=>$items->appends($request->except('page'))]);
+    }
+
+    function newPost(){
+
+        $action = 'PostsController@savePost';
+        $method = 'POST';
+
+        return view('posts.create',['action'=>$action,'method'=>$method]);
+
     }
 
 }

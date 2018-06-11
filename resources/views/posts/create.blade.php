@@ -48,26 +48,10 @@
         {{ Form::token() }}
 
 
-        {{ Form::bsText('name','Nom du bar','Le nom du bar', old('title'),[]) }}
+        {{ Form::bsTextLong('body','Post',"", old('description'),[],"Saisissez une description pour votre bar") }}           
 
-        {{ Form::bsTextLong('description','Description',"Quelque mots pour décrire votre établissement", old('description'),[],"Saisissez une description pour votre bar") }}           
-
-
-        {{ Form::slug('slug','Lien du bar','Lien', old('slug'),[],"Chemin vers le bar sur le site") }}
-
-        {{ Form::bsText('number','Numéro de téléphone','Numéro', old('number'),[]) }}
-
-        {{ Form::bsText('address','Adresse du bar','Adresse', old('address'),[]) }}
-
-        {{ Form::bsSelect('city', \App\Place::all(),'city','Ville') }}
+        {{ Form::bsSelect('city', \App\Place::all(),'city','Contenu') }}
           
-        
-        {{ Form::bsEmail('email','E-mail','Adresse email du bar', old('email'),[]) }}     
-
-        {{ Form::bsFile('image','Photo du bar','Uploader')}}
-
-        {{ Form::schedule('schedule',old('schedule'),'Horraires d\'ouverture') }}
-
         {{ Form::bsSubmit('Ajouter') }}
 
 
