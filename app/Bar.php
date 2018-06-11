@@ -25,7 +25,7 @@ class Bar extends Model implements HasMedia
 
 		public function user()
 	{
-		return $this->hasOne('App\User','id');
+		return $this->belongsTo('App\User','manager');
 	}
 
 	public function generateSchedule(){
@@ -85,4 +85,5 @@ class Bar extends Model implements HasMedia
 		return json_encode($schedule);
 	
 	}
+
 }

@@ -41,10 +41,34 @@ class ManageController extends Controller
 
     function Bars(){
 
-        $bars = Bar::where('manager', Auth::id() )->get(); 
+        $bars = Bar::where('manager','=', Auth::id() )->get(); 
 
-        return view('bars.browse',['items'=>$bars]);
+        $editAction = 'manage-publications-edit';
+        $deleteAction = 'publications-edit';
+
+        return view('bars.browse',['items'=>$bars,'editAction'=>$editAction,'deleteAction'=>$deleteAction]);
     }
+
+    function editBar($id){
+
+        $bar = Bar::find($id);
+
+        if(Auth::id()!==$bar->user->id){
+            abort(403, 'Access denied');
+        }
+
+        $action = ['BarsController@updateBar',$bar->id];
+        $method = "POST";
+
+        $schedule = array_values(json_decode($bar->schedule,true));
+        array_unshift($schedule, null);
+        unset($schedule[0]);
+
+        return view('bars.edit',compact('bar','schedule', 'action', 'method'));
+
+    }
+
+
 
 
 }

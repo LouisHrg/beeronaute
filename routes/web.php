@@ -14,6 +14,8 @@
 
 Auth::routes();
 
+
+
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', 'IndexController@index')->name('index')->middleware('guest');
@@ -62,6 +64,7 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 	Route::get('/bars', 'ManageController@bars')->name('manage-bars');
 	
 	Route::get('/bars/create', 'ManageController@newBar')->name('manage-bars-create');
+	Route::get('/bars/edit/{id}','ManageController@editBar')->name('manage-publications-edit');
 
 	Route::get('/events', 'ManageController@home')->name('manage-events');
 
@@ -77,6 +80,7 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 
 Route::group(['prefix' => '','middleware' => ['role:manager,admin','auth']], function () {
 	
+
 	Route::post('saveBar','BarsController@saveBar');
 	
 	Route::post('updateBar/{id}','BarsController@updateBar');

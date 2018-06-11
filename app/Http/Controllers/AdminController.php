@@ -15,7 +15,7 @@ class AdminController extends Controller
     }
 
     function publications(Request $request){
-      
+
         $search = $request->input('search');
 
         $items = Publication::where('title', 'like', '%'.$search.'%')
@@ -25,11 +25,10 @@ class AdminController extends Controller
 
         return view('publications.browse',['items'=>$items->appends($request->except('page'))]);
 
-
     }
     
     function newPublication(){
-      
+
       return view('publications.create');
   }
 
@@ -44,7 +43,7 @@ class AdminController extends Controller
 
 
 function users(Request $request){
-  
+
     $search = $request->input('search');
 
     $items = User::where('email', 'like', '%'.$search.'%')
@@ -59,11 +58,9 @@ function users(Request $request){
 }   
 
 function newUser(){
-  
+
   return view('admin.users.create');
 }
-
-
 
 function editUser($id){
 

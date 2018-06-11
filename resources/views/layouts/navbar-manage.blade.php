@@ -30,7 +30,7 @@
     <ul class="navbar-nav ml-auto">
       @role('manager')
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('manage-home') }}">Retour au site</a>
+        <a class="nav-link" href="{{ route('index') }}">Retour au site</a>
       </li>
       @endrole
       @if (Route::has('login'))
