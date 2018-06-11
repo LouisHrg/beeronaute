@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use \Auth;
 
-use App\Publication;
+use App\Post;
 use App\User;
 use App\Bar;
 
@@ -22,13 +22,15 @@ class ManageController extends Controller
     	return view('manage.home',['bars'=>$bars]);
     }
 
-    function publications(){
+    function Bars(){
 
-    	$bars = Bar::where('manager', Auth::id() )->get(); 
+        $bars = Bar::where('manager','=', Auth::id() )->get(); 
 
-    	return view('manage.home',['bars'=>$bars]);
+        $editAction = 'manage-publications-edit';
+        $deleteAction = 'publications-edit';
+
+        return view('bars.browse',['items'=>$bars,'editAction'=>$editAction,'deleteAction'=>$deleteAction]);
     }
-
 
     function newBar(){
 
@@ -39,15 +41,6 @@ class ManageController extends Controller
 
     }
 
-    function Bars(){
-
-        $bars = Bar::where('manager','=', Auth::id() )->get(); 
-
-        $editAction = 'manage-publications-edit';
-        $deleteAction = 'publications-edit';
-
-        return view('bars.browse',['items'=>$bars,'editAction'=>$editAction,'deleteAction'=>$deleteAction]);
-    }
 
     function editBar($id){
 
@@ -60,15 +53,24 @@ class ManageController extends Controller
         $action = ['BarsController@updateBar',$bar->id];
         $method = "POST";
 
-        $schedule = array_values(json_decode($bar->schedule,true));
-        array_unshift($schedule, null);
-        unset($schedule[0]);
+
+        $schedule = Bar::jsonToFormSchedule($bar->schedule);
+        
 
         return view('bars.edit',compact('bar','schedule', 'action', 'method'));
 
     }
 
 
+    function posts(Request $request){
 
+        $search = $request->input('search');
+
+        $items = Post::where([['author','=',\Auth::id()],['body', 'like', '%'.$search.'%']])
+        ->orderBy('published', 'desc')
+        ->paginate(15);
+
+        return view('posts.browse',['items'=>$items->appends($request->except('page'))]);
+    }
 
 }

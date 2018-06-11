@@ -9,6 +9,8 @@
     <link rel="icon" type="img/png" href="{{ asset('img/brand/beer.png') }}">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('icomoon/style.css') }}" rel="stylesheet">
+    
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
 </head>

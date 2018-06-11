@@ -1,8 +1,3 @@
-var rangeSliderValueElement = document.getElementById('slider-range-value');
-
-slider.noUiSlider.on('update', function( values, handle ) {
-  rangeSliderValueElement.innerHTML = values[handle];
-});
 
 
 tinymce.init({

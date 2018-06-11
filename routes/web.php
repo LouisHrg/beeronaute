@@ -24,23 +24,18 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/news', 'HomeController@news')->name('news');
-	Route::get('/news/{slug}', ['uses' =>'HomeController@singlePublication', 'as'=>'publication-single']);
+	Route::get('/news/{slug}', 'HomeController@singlePublication')->name('publication-single');
+	Route::get('/bar/{slug}', 'HomeController@singleBar')->name('bar-single');
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], function () {
 
 	Route::get('/', 'AdminController@home')->name('admin-home');
 	
-	//Affichage de publication
 	Route::get('/publications', 'AdminController@publications')->name('admin-publications-browse');
 	
-	//Ajout de publication
 	Route::get('/publications/create', 'AdminController@newPublication')->name('publications-create');
-	Route::post('savePublication','PublicationsController@savePublication');
-	//Edition de publication
 	Route::get('/publications/edit/{id}', 'AdminController@editPublication')->name('admin-publications-edit');
-	Route::post('updatePublication/{id}','PublicationsController@updatePublication')->name('publication-update');
-
 
 	Route::get('/users', 'AdminController@users')->name('admin-users-browse');
 
@@ -57,8 +52,6 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 	
 	Route::get('/', 'ManageController@home')->name('manage-home');
 
-	Route::get('/publications', 'ManageController@home')->name('manage-publications');
-
 	Route::get('/stats', 'ManageController@home')->name('manage-stats');
 
 	Route::get('/bars', 'ManageController@bars')->name('manage-bars');
@@ -69,21 +62,25 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 	Route::get('/events', 'ManageController@home')->name('manage-events');
 
 	Route::get('/settings', 'ManageController@home')->name('manage-settings');
-
-	// Route::post('saveBar','ManageController@saveBar');
 	
-	// Route::post('updateBar/{id}','ManageController@updateBar');
-	
+	Route::get('/posts', 'ManageController@posts')->name('manage-posts');
+	Route::get('/publications/create', 'ManageController@newPublication')->name('manage-publications-create');
+	Route::get('/publications/edit/{id}', 'ManageController@editPublication')->name('manage-publications-edit');
 
 });
 
 
-Route::group(['prefix' => '','middleware' => ['role:manager,admin','auth']], function () {
+Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], function () {
 	
 
 	Route::post('saveBar','BarsController@saveBar');
 	
 	Route::post('updateBar/{id}','BarsController@updateBar');
+
+	Route::post('savePublication','PublicationsController@savePublication');
+
+	Route::post('updatePublication/{id}','PublicationsController@updatePublication')->name('publication-update');
+
 
 });
 

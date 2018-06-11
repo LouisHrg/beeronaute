@@ -34,4 +34,15 @@ class Medium extends Eloquent
 		'responsive_images',
 		'order_column'
 	];
+
+	public function registerMediaCollections()
+{
+      $this->addMediaCollection('avatar')->singleFile();
+      
+      $this->addMediaCollection('featured-bar')->singleFile();
+
+      $this->addMediaCollection('featured-publication')->singleFile();
+
+}
+
 }

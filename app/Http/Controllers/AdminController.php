@@ -35,8 +35,9 @@ class AdminController extends Controller
   function editPublication($id){
 
     $post = Publication::find($id);
-    $action = route('admin-publications-edit',$post->id);
+    $action = ['PublicationsController@updatePublication',$post->id];
     $method = "POST";
+
 
     return view('publications.edit',compact('post', 'action', 'method'));
 }

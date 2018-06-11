@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
   <a class="navbar-brand" href="{{ route('manage-home')}}">
     <img src="{{ asset('img/brand/manage.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-    Manager
+    Hello {{ Auth::user()->name }} !
 
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,7 +11,7 @@
   <div class="collapse navbar-collapse" id="navbarColor03">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('manage-publications') }}">Mes publications<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ route('manage-posts') }}">Mes publications<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('manage-bars') }}">Mes bars</a>
@@ -29,7 +29,7 @@
 
     <ul class="navbar-nav ml-auto">
       @role('manager')
-      <li class="nav-item">
+      <li class="nav-item" style="margin-top: 3px;">
         <a class="nav-link" href="{{ route('index') }}">Retour au site</a>
       </li>
       @endrole

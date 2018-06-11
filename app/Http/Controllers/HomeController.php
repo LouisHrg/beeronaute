@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Publication;
+use App\Bar;
 
 class HomeController extends Controller
 {
@@ -32,9 +33,16 @@ class HomeController extends Controller
 
     public function singlePublication(Request $request, $slug){
         
-        $post = Publication::where('slug',$slug)->first();
+        $post = Publication::where('slug',$slug)->firstOrFail();
 
         return view('single.publication', ['post'=>$post]);
+
+    }
+    public function singleBar(Request $request, $slug){
+        
+        $bar = Bar::where('slug',$slug)->where('status','=','2')->firstOrFail();
+
+        return view('single.bar', ['bar'=>$bar]);
 
     }
 }

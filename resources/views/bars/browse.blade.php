@@ -32,7 +32,7 @@
 							<th scope="col">#</th>
 							<th scope="col">Nom de l'établissement</th>
 							<th scope="col">Description</th>
-							<th scope="col">Auteur</th>
+							<th scope="col">Status</th>
 							<th scope="col" class="w-15">Actions</th>
 						</tr>
 					</thead>
@@ -43,9 +43,13 @@
 							<th scope="row">{{ $item->id }}</th>
 							<td scope="row">{{ $item->name }}</td>
 							<td scope="row">{{ $item->description }}</td>
-							<td scope="row">{{ $item->user->name }}</td>
+							@if($item->status == 1)
+							<td scope="row"><span class="badge badge-warning">En attente de validation</span></td>
+							@else
+							<td scope="row"><span class="badge badge-success">En ligne</span></td>
+							@endif
 							<td scope="row">
-								<a href="{{ route('publication-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
+								<a href="{{ route('bar-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
 								<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
 								<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
 							</td>

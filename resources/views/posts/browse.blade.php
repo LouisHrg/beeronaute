@@ -1,8 +1,11 @@
 @extends ('layouts.layout-admin')
 
+@role('manager')
+@include('layouts.navbar-manage')
+@endrole
+@role('admin')
 @include('layouts.navbar-admin')
-
-@section('title','Admin | Beeronaute')
+@endrole
 
 
 @section('breadcrumb')
@@ -11,8 +14,14 @@
 		<div class="col-md-12">
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
+					@role('admin')
 					<li class="breadcrumb-item"><a href="{{ route('admin-home') }}">Dashboard</a></li>
-					<li class="breadcrumb-item active">Publications</li>
+					<li class="breadcrumb-item active">Tout les posts</li>
+					@endrole
+					@role('manager')
+					<li class="breadcrumb-item"><a href="{{ route('manage-home') }}">Dashboard</a></li>
+					<li class="breadcrumb-item active">Tout les posts</li>
+					@endrole
 				</ol>
 			</nav>
 		</div>
@@ -47,7 +56,8 @@
 							<th scope="col">#</th>
 							<th scope="col">Titre</th>
 							<th scope="col">Extrait</th>
-							<th scope="col">Bar</th>
+							<th scope="col">Type</th>
+							<th scope="col">Auteur</th>
 							<th scope="col" class="w-15">Actions</th>
 						</tr>
 					</thead>

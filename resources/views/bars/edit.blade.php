@@ -18,7 +18,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ route('manage-home') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{ route('manage-bars') }}">Bar</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Ajouter bar</li>
+          <li class="breadcrumb-item active" aria-current="page">Modifier un bar</li>
         </ol>
       </nav>
     </div>
@@ -50,7 +50,7 @@
 
         {{ Form::bsText('name','Nom du bar','Le nom du bar', $bar->name,[]) }}
 
-        {{ Form::bsTextLong('description','Description',"Quelque mots pour décrire votre établissement", old('description'),[],"Saisissez une description pour votre bar") }}           
+        {{ Form::bsTextLong('description','Description',"Quelque mots pour décrire votre établissement", $bar->description, [],"Saisissez une description pour votre bar") }}           
 
 
         {{ Form::slug('slug','Lien du bar','Lien', $bar->slug,[],"Chemin vers le bar sur le site") }}
@@ -64,7 +64,12 @@
         
         {{ Form::bsEmail('email','E-mail','Adresse email du bar', $bar->email,[]) }}     
 
+        <div class="img-prog-form">
+          {{ $bar->getFirstMedia('featured-bar') }}
+        </div>
+
         {{ Form::bsFile('image','Photo du bar','Uploader')}}
+
 
         {{ Form::schedule('schedule',$schedule,'Horraires d\'ouverture') }}
 

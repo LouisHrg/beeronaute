@@ -37,7 +37,7 @@
         @endif
 
 
-        {!!Form::open(['action' => ['AdminController@updatePublication',Request::route('id')],'method'=>"POST"]) !!}
+        {!!Form::open(['action' => $action,'method'=>"POST",'files'=>true]) !!}
         {{ Form::token() }}
 
 
@@ -50,6 +50,10 @@
 
         {{ Form::slug('slug','Slug','Slug', $post->slug,[],"Chemin vers l'article sur le site") }}
 
+
+        <div class="img-prog-form">
+          {{ $post->getFirstMedia('featured-publication') }}
+        </div>
         {{ Form::bsFile('featured','Image mise en avant','Uploader')}}
         
         {{ Form::bsSubmit('Publier') }}

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
   <a class="navbar-brand" href="{{ route('admin-home')}}">
     <img src="{{ asset('img/brand/admin.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-    Admin
+    Hello {{ Auth::user()->name }} !
 
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
