@@ -38,10 +38,19 @@
 							@endisset
 						</div>
 					</div>
+					@role('manager')
+					<div class="row">
+						<div class="text-center mx-auto col-md-12 actions-bar">
+							<button type="button" class="btn btn-primary  btn-sm" data-toggle="modal" data-target="#newPostModal">Ajouter un post</button>
+							<a href="{{route('manage-event-create')}}" class="btn btn-primary btn-sm" >Créer un évenement</a>
+						</div>
+					</div>
+					@endrole
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
+
 					@foreach($posts as $post)
 
 					<div class="card feed-element block-feed block-home">
@@ -61,4 +70,31 @@
 
 	</div>
 </div>
+
+@role('manager')
+<div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Nouveau post</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				{!! Form::open(['action' => 'PostsController@savePost', 'method' => 'POST','files'=>false ]) !!}
+				{{ Form::token() }}
+				{{ Form::bsTextLong('body','Message',"", old('description'),[],"Saisissez votre message") }}           
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				<button type="submit" class="btn btn-primary">Ajouter !</button>
+			</div>
+			{!! Form::close() !!}
+		</div>
+	</div>
+</div>
+@endrole
+
 @endsection

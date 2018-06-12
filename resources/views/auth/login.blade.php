@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout-home')
 
 @section('content')
 <div class="container-fluid bg-login">

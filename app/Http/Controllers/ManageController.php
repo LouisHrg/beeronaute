@@ -75,7 +75,7 @@ class ManageController extends Controller
         ->orderBy('published', 'desc')
         ->paginate(15);
 
-        return view('posts.browse',['items'=>$items->appends($request->except('page'))]);
+        return view('posts.browse',['page'=>'posts','items'=>$items->appends($request->except('page'))]);
     }
 
     function newPost(){
@@ -83,7 +83,27 @@ class ManageController extends Controller
         $action = 'PostsController@savePost';
         $method = 'POST';
 
-        return view('posts.create',['action'=>$action,'method'=>$method]);
+        return view('posts.create',['action'=>$action,'method'=>$method,'page'=>'posts']);
+
+    }
+
+    function events(Request $request){
+
+        $search = $request->input('search');
+
+        $items = Post::where([['author','=',\Auth::id()],['body', 'like', '%'.$search.'%']])
+        ->orderBy('published', 'desc')
+        ->paginate(15);
+
+        return view('posts.browse',['page'=>'posts','items'=>$items->appends($request->except('page'))]);
+    }
+
+    function newEvent(){
+
+        $action = 'EventsController@saveEventSingle';
+        $method = 'POST';
+
+        return view('events.create',['action'=>$action,'method'=>$method,'page'=>'events']);
 
     }
 

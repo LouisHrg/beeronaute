@@ -36,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
 
         \Form::component('schedule','form.schedule',['name','value','displayname','helper'=>null]);
 
+        \Form::component('bsNumber','form.number',['name','value','displayname','helper'=>null]);
+
 
     }
 

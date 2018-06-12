@@ -21,13 +21,15 @@ function slugify(text)
     .replace(/\-\-+/g, '-');        // Replace multiple - with single -
   }
 
+  if(slugifyme){
   var slugifyme = document.getElementById('slugifyme');
 
   slugifyme.onkeyup = function(){
     document.getElementById('slugifyme').value = slugify(slugifyme.value);
   }
+  }
 
-  $('#datetimepicker1').datetimepicker({
+  $('#published').datetimepicker({
     icons: {
       time: 'icon icon-clock',
       date: 'icon icon-calendar',
@@ -42,3 +44,44 @@ function slugify(text)
     format: "DD/MM/YYYY HH:mm"
   });
 
+  $('#startat').datetimepicker({
+    icons: {
+      time: 'icon icon-clock',
+      date: 'icon icon-calendar',
+      up: 'icon icon-arrow-up',
+      down: 'icon icon-arrow-down',
+      previous: 'icon icon-arrow-left2',
+      next: 'icon icon-arrow-right2',
+      today: 'icon icon-historyo',
+      clear: 'icon icon-bin',
+      close: 'icon icon-clock2'
+    },
+    format: "DD/MM/YYYY HH:mm"
+  });
+
+  $('#endat').datetimepicker({
+    widgetPositioning: {
+      horizontal: 'auto',
+      vertical: 'top'
+    },
+    icons: {
+      time: 'icon icon-clock',
+      date: 'icon icon-calendar',
+      up: 'icon icon-arrow-up',
+      down: 'icon icon-arrow-down',
+      previous: 'icon icon-arrow-left2',
+      next: 'icon icon-arrow-right2',
+      today: 'icon icon-historyo',
+      clear: 'icon icon-bin',
+      close: 'icon icon-clock2'
+    },
+    format: "DD/MM/YYYY HH:mm"
+
+  });
+
+
+    $(function () {
+        $("#startat").on("change.datetimepicker", function (e) {
+            $('#endat').datetimepicker('minDate', e.date);
+        });
+    });

@@ -71,6 +71,7 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 
 
 	Route::get('/events', 'ManageController@home')->name('manage-events');
+	Route::get('/events/create', 'ManageController@newEvent')->name('manage-event-create');
 
 	Route::get('/settings', 'ManageController@home')->name('manage-settings');
 	
@@ -91,8 +92,13 @@ Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], fun
 
 	Route::post('savePost','PostsController@savePost')->name('post-save');
 
-	Route::post('updatePost/{id}','PostsController@updatePost')->name('post-update');
+	Route::post('updatePost/{id}','PostsController@updatePost')->name('post-update');	
 
+
+	Route::post('saveEventSingle','EventsController@saveEventSingle')->name('event-save-single');
+	Route::post('saveEvent','EventsController@saveEvent')->name('event-save');
+
+	Route::post('updateEvent/{id}','EventsController@updateEvent')->name('event-update');
 
 });
 
