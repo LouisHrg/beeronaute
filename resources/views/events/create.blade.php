@@ -59,7 +59,7 @@
 				
 				{{ Form::bsNumber('number',old('number'),"Nombre de place","Nombre d'utilisateur pouvant s'inscrire à l'évenement")}}
 
-        		{{ Form::bsSelect('bar', \App\Bar::where('manager',\Auth::id())->get(),'bar',"Lieu de l'évenement") }}
+        		{{ Form::bsSelect('bar', \App\Bar::where('manager',\Auth::id())->get(),'bar',"Lieu de l'évenement",true) }}
 
 
 				<div class="row">

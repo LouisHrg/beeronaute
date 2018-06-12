@@ -70,8 +70,9 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 	Route::get('/posts/edit/{id}', 'ManageController@editPost')->name('manage-post-edit');
 
 
-	Route::get('/events', 'ManageController@home')->name('manage-events');
+	Route::get('/events', 'ManageController@events')->name('manage-events');
 	Route::get('/events/create', 'ManageController@newEvent')->name('manage-event-create');
+	Route::get('/events/edit/{id}', 'ManageController@editEvent')->name('manage-event-edit');
 
 	Route::get('/settings', 'ManageController@home')->name('manage-settings');
 	

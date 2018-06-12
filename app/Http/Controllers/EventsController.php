@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Event;
+use App\Bar;
+
 class EventsController extends Controller
 {
 	public function saveEventSingle(Request $request){
@@ -15,19 +18,36 @@ class EventsController extends Controller
 
 			'title' => 'required|max:255',
 			'customcontent' => 'required',
-			'published' => 'date|required',
 			'featured' => 'mimes:jpeg,png,jpg',
 			'number' => 'required|integer',
 			'bar' =>'required|in:'.$bars,
-			'startat' => 'date|required',
-			'endat' => 'date|required',
+			'published' => 'date_format:d/m/Y H:i|required',
+			'startat' => 'date_format:d/m/Y H:i|required',
+			'endat' => 'date_format:d/m/Y H:i|required',
 
 		]);
-			if (strtotime($data['startat']) > strtotime($data['endat'])) {
-				$validator->errors()->add('startat', 'Wrong dates !');
-			}
 
-		dd($data);
+		$event = new Event;
+		$event->name =$data['title'];
+		$event->description = $data['customcontent'];
+		$event->startDate = date_create_from_format('d/m/Y H:i', $data['startat']);
+		$event->endDate = date_create_from_format('d/m/Y H:i', $data['endat']);
+		$event->published = date_create_from_format('d/m/Y H:i', $data['published']);
+		$event->author = \Auth::id();
+		$event->slot = $data['number'];
+		
+		$event->save();
+
+		Bar::find($data['bar'])->events()->save($event);
+
+		if(\Auth::user()->hasRole('admin')){
+			return redirect()->route('admin-publications-browse');
+		}else if(\Auth::user()->hasRole('manager')){
+			return redirect()->route('manage-events');
+		}else{
+			return redirect()->route('home');
+
+		}
 
 	}
 }

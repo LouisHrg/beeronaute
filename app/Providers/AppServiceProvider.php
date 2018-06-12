@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
 
         \Form::component('bsDate', 'form.datetimepicker', ['name', 'value','displayname' => null,'placeholder' => null]);
 
-        \Form::component('bsSelect', 'form.select', ['name', 'data','value','displayname','placeholder' => null]);
+        \Form::component('bsSelect', 'form.select', ['name', 'data','value','displayname','placeholder' => null,'multiple'=>false]);
 
         \Form::component('bsPasswordConf', 'form.passwordconf', ['name', 'displayname','placeholder' => null,'placeholder2' => null]);
 

@@ -45,6 +45,10 @@ function slugify(text)
   });
 
   $('#startat').datetimepicker({
+        widgetPositioning: {
+      horizontal: 'auto',
+      vertical: 'top'
+    },
     icons: {
       time: 'icon icon-clock',
       date: 'icon icon-calendar',
@@ -81,6 +85,9 @@ function slugify(text)
 
 
     $(function () {
+        $("#startat").on("change.datetimepicker", function (e) {
+            $('#published').datetimepicker('maxDate', e.date);
+        });
         $("#startat").on("change.datetimepicker", function (e) {
             $('#endat').datetimepicker('minDate', e.date);
         });

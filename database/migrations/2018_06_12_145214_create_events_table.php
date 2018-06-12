@@ -19,7 +19,10 @@ class CreateEventsTable extends Migration {
 			$table->integer('author')->unsigned()->index('events_author_foreign');
 			$table->text('description', 65535);
 			$table->string('name');
-			$table->dateTime('date');
+			$table->dateTime('startDate');
+			$table->dateTime('endDate');
+			$table->dateTime('published');
+			$table->integer('slot');
 		});
 	}
 

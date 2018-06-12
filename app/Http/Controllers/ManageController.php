@@ -9,6 +9,7 @@ use \Auth;
 use App\Post;
 use App\User;
 use App\Bar;
+use App\Event;
 
 use Spatie\OpeningHours\OpeningHours;
 
@@ -60,9 +61,10 @@ class ManageController extends Controller
 
 
         $schedule = Bar::jsonToFormSchedule($bar->schedule);
-        
+            
+        $page = 'bars';
 
-        return view('bars.edit',compact('bar','schedule', 'action', 'method'));
+        return view('bars.edit',compact('bar','schedule', 'action', 'method','page'));
 
     }
 
@@ -75,7 +77,9 @@ class ManageController extends Controller
         ->orderBy('published', 'desc')
         ->paginate(15);
 
-        return view('posts.browse',['page'=>'posts','items'=>$items->appends($request->except('page'))]);
+        return view('posts.browse',
+            ['page'=>'posts','items'=>$items->appends($request->except('page'))
+        ]);
     }
 
     function newPost(){
@@ -91,11 +95,17 @@ class ManageController extends Controller
 
         $search = $request->input('search');
 
-        $items = Post::where([['author','=',\Auth::id()],['body', 'like', '%'.$search.'%']])
+        $items = Event::where([['author','=',\Auth::id()],['description', 'like', '%'.$search.'%']])
         ->orderBy('published', 'desc')
         ->paginate(15);
 
-        return view('posts.browse',['page'=>'posts','items'=>$items->appends($request->except('page'))]);
+        $editAction = 'manage-event-edit';
+
+        return view('events.browse',
+            ['page'=>'events',
+            'items'=>$items->appends($request->except('page')),
+            'editAction'=>$editAction
+        ]);
     }
 
     function newEvent(){
