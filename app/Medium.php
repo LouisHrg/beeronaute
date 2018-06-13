@@ -42,6 +42,8 @@ class Medium extends Eloquent
       $this->addMediaCollection('featured-bar')->singleFile();
 
       $this->addMediaCollection('featured-publication')->singleFile();
+      
+      $this->addMediaCollection('featured-event')->singleFile();
 
 }
 

@@ -35,10 +35,14 @@ class EventsController extends Controller
 		$event->published = date_create_from_format('d/m/Y H:i', $data['published']);
 		$event->author = \Auth::id();
 		$event->slot = $data['number'];
+		$event->bar = $data['bar'];
 		
 		$event->save();
 
-		Bar::find($data['bar'])->events()->save($event);
+		$event
+		->addMediaFromRequest('featured')
+		->withResponsiveImages()
+		->toMediaCollection('featured-event');
 
 		if(\Auth::user()->hasRole('admin')){
 			return redirect()->route('admin-publications-browse');

@@ -63,6 +63,27 @@
 					</div>
 
 					@endforeach
+					<div class="card feed-element block-feed">
+						<div class="card-header">Evenements</div>
+						<div class="card-body">
+							@foreach($events as $event)
+							<div class="row">
+							<div class="col-md-4">
+								<div class="img-bar-home-event">
+									{{ $event->getFirstMedia('featured-event') }}
+								</div>
+							</div>
+							<div class="col-md-8">
+								<h5 class="card-title">{{ $event->name }}</h5>
+								<h6 class="card-subtitle mb-2 text-muted">{{ $event->published->diffForHumans() }}</h6>
+								<p class="text-muted">Du {{ date('d/m/Y H:i',strtotime($event->startDate)).' au '.date('d/m/Y H:i',strtotime($event->endDate)) }}</p>
+								<a href="{{ route('event-single',$event->id) }}" class="btn btn-primary btn-sm"> Voir plus </a>
+
+							</div>
+							</div>
+							@endforeach
+						</div>
+					</div>
 
 				</div>
 			</div>
@@ -82,7 +103,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				{!! Form::open(['action' => 'PostsController@savePost', 'method' => 'POST','files'=>false ]) !!}
+				{!! Form::open(['action' => ['PostsController@savePost',$bar->id], 'method' => 'POST','files'=>false ]) !!}
 				{{ Form::token() }}
 				{{ Form::bsTextLong('body','Message',"", old('description'),[],"Saisissez votre message") }}           
 

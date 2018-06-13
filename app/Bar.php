@@ -47,9 +47,7 @@ class Bar extends Model implements HasMedia
 
 	public function events()
 	{
-		return $this->belongsToMany(\App\Event::class, 'events_bars')
-					->withPivot('id')
-					->withTimestamps();
+		return $this->hasMany(\App\Event::class, 'bar');
 	}
 
 	public function posts()

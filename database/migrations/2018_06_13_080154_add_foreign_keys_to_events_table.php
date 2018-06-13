@@ -15,6 +15,7 @@ class AddForeignKeysToEventsTable extends Migration {
 		Schema::table('events', function(Blueprint $table)
 		{
 			$table->foreign('author')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+			$table->foreign('bar')->references('id')->on('bars')->onUpdate('RESTRICT')->onDelete('CASCADE');
 		});
 	}
 
@@ -29,6 +30,7 @@ class AddForeignKeysToEventsTable extends Migration {
 		Schema::table('events', function(Blueprint $table)
 		{
 			$table->dropForeign('events_author_foreign');
+			$table->dropForeign('events_bar_foreign');
 		});
 	}
 

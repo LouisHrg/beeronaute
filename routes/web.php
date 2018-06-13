@@ -27,6 +27,8 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 	Route::get('/news/{slug}', 'HomeController@singlePublication')->name('publication-single');
 	Route::get('/bar/{slug}', 'HomeController@singleBar')->name('bar-single');
 	
+	Route::get('/event/{id}', 'HomeController@singleEvent')->name('event-single');
+	
 	Route::get('/news', 'HomeController@news')->name('news');
 	Route::get('/search', 'HomeController@search')->name('search');
 	Route::get('/events', 'HomeController@events')->name('events');
@@ -91,10 +93,9 @@ Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], fun
 
 	Route::post('updatePublication/{id}','PublicationsController@updatePublication')->name('publication-update');
 
-	Route::post('savePost','PostsController@savePost')->name('post-save');
+	Route::post('savePost/{id}','PostsController@savePost')->name('post-save');
 
 	Route::post('updatePost/{id}','PostsController@updatePost')->name('post-update');	
-
 
 	Route::post('saveEventSingle','EventsController@saveEventSingle')->name('event-save-single');
 	Route::post('saveEvent','EventsController@saveEvent')->name('event-save');

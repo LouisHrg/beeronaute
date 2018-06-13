@@ -108,7 +108,13 @@ class ManageController extends Controller
         ]);
     }
 
-    function newEvent(){
+    function newEvent(Request $request){
+        $bars = implode(',',\App\Bar::where('manager' ,'=' ,\Auth::id())->pluck('id')->toArray());
+
+        if(empty($bars)){
+
+            return redirect()->route('manage-events');
+        }
 
         $action = 'EventsController@saveEventSingle';
         $method = 'POST';

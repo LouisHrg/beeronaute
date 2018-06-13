@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Publication;
 use App\Bar;
 use App\Post;
+use App\Event;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,7 @@ class HomeController extends Controller
         return view('home');
     }
 
-        public function news()
+    public function news()
     {
 
         $posts = Publication::orderBy('published', 'desc')->paginate(10);
@@ -33,18 +34,27 @@ class HomeController extends Controller
     }
 
     public function singlePublication(Request $request, $slug){
-        
+
         $post = Publication::where('slug',$slug)->firstOrFail();
 
         return view('single.publication', ['post'=>$post]);
 
     }
     public function singleBar(Request $request, $slug){
-        
+
         $bar = Bar::where('slug',$slug)->where('status','=','2')->firstOrFail();
         $posts = Post::where('bar',$bar->id)->get();
+        $events = Event::where('bar',$bar->id)->get();
 
-        return view('single.bar', ['bar'=>$bar,'posts'=>$posts]);
+        return view('single.bar', ['bar'=>$bar,'posts'=>$posts,'events'=>$events]);
+
+    }
+
+    public function singleEvent(Request $request, $id){
+
+        $event = Event::find($id);
+
+        return view('single.event', ['event'=>$event]);
 
     }
 }

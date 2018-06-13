@@ -23,6 +23,7 @@ class CreateEventsTable extends Migration {
 			$table->dateTime('endDate');
 			$table->dateTime('published');
 			$table->integer('slot');
+			$table->integer('bar')->unsigned()->index('events_bar_foreign');
 		});
 	}
 

@@ -16,8 +16,8 @@ class CreateSubscriptionsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->index('subscriptions_user_id_foreign');
-			$table->integer('list_id')->unsigned()->nullable();
-			$table->integer('bar_id')->unsigned()->nullable();
+			$table->integer('bar')->unsigned()->nullable()->index('bar');
+			$table->integer('event')->unsigned()->nullable()->index('event');
 			$table->timestamps();
 		});
 	}

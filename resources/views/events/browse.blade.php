@@ -41,13 +41,13 @@
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">Nom de l'évenement</th>
-							<th scope="col">Description</th>
+							<th scope="col">Nombre d'inscrit</th>
 							<th scope="col">Début</th>
 							<th scope="col">Date de publication</th>
 							@role('admin')
 							<th scope="col">Auteur</th>
 							@endrole
-							<th scope="col">Lieu(x)</th>
+							<th scope="col">Lieu</th>
 							<th scope="col" class="w-15">Actions</th>
 						</tr>
 					</thead>
@@ -57,16 +57,14 @@
 						<tr>
 							<th scope="row">{{ $item->id }}</th>
 							<td scope="row">{{ $item->name }}</td>
-							<td scope="row">{!! $item->description !!}</td>
+							<td scope="row">{{ $item->slot }}</td>
 							<td scope="row">{{ date('l m (H:i)', strtotime($item->startDate)) }}</td>
 							<td scope="row">{{ date('d/m/Y H:i',strtotime($item->endDate)) }}</td>
 							@role('admin')
 							<td scope="row">{{ $item->user->name }}</th>
 							@endrole
 							<td scope="row">
-								@foreach($item->bars as $bar)
-								<a target="_blank" href="/bar/{{ $bar->slug }}">{{ $bar->name }}</a>
-								@endforeach
+								<a target="_blank" href="/bar/{{ $item->place->slug }}">{{ $item->place->name }}</a>
 							</td>
 							<td scope="row">
 								<a href="" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
