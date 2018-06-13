@@ -56,6 +56,11 @@ class User extends Authenticatable
         return $this->hasMany(\App\Event::class, 'author');
     }
 
+    public function posts()
+    {
+        return $this->hasMany(\App\Post::class, 'author');
+    }
+
     public function publications()
     {
         return $this->hasMany(\App\Publication::class, 'author');

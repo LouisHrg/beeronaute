@@ -34,6 +34,8 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 	Route::get('/events', 'HomeController@events')->name('events');
 	Route::get('/recommandations', 'HomeController@recommandations')->name('recommandations');
 
+	Route::post('/subscribe-to-event/{id}', 'SubscriptionsController@attachEvent')->name('subscribe-to-event');
+	Route::post('/unsubscribe-to-event/{id}', 'SubscriptionsController@dettachEvent')->name('unsubscribe-to-event');
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], function () {

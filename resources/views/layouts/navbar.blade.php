@@ -29,12 +29,12 @@
 
     <ul class="navbar-nav ml-auto">
       @role('admin')
-      <li class="nav-item">
+      <li class="nav-item" style="margin-top: 3px;">
         <a class="nav-link" href="{{ route('admin-home') }}">Espace Admin</a>
       </li>
       @endrole
       @role('manager')
-      <li class="nav-item">
+      <li class="nav-item" style="margin-top: 3px;">
         <a class="nav-link" href="{{ route('manage-home') }}">Espace Manager</a>
       </li>
       @endrole

@@ -32,7 +32,7 @@
 
     <ul class="navbar-nav ml-auto">
       @role('manager')
-      <li class="nav-item">
+      <li class="nav-item" style="margin-top: 3px;">
         <a class="nav-link" href="{{ route('manage-home') }}">Retour au site</a>
       </li>
       @endrole

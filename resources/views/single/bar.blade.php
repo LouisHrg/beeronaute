@@ -51,40 +51,50 @@
 			<div class="row">
 				<div class="col-md-12">
 
+					@if($events->isNotEmpty())
+					<div class="card feed-element block-feed block-home">
+						<div class="card-header">Evenements</div>
+						<div class="card-body">
+							@foreach($events as $event)
+							<div class="row">
+								<div class="col-md-4">
+									<div class="img-bar-home-event">
+										{{ $event->getFirstMedia('featured-event') }}
+									</div>
+								</div>
+								<div class="col-md-8">
+									<h5 class="card-title">{{ $event->name }}</h5>
+									<h6 class="card-subtitle mb-2 text-muted">{{ $event->published->diffForHumans() }}</h6>
+									<p class="text-muted">Du {{ date('d/m/Y H:i',strtotime($event->startDate)).' au '.date('d/m/Y H:i',strtotime($event->endDate)) }}</p>
+									<div class="row">
+										<div class="col-md-8">
+											<div class="progress">
+												<div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ $event->subscriptions()->count() }}" aria-valuemin="0" aria-valuemax="{{ $event->slot }}" style="width: {{ $event->subscriptions()->count()/ $event->slot*100 }}%"></div>
+											</div>
+											<p class="text-muted">Il reste {{$event->slot-$event->subscriptions()->count()}} places </p> 
+											<br>			
+										</div>
+										<div class="col-md-4">
+											<a href="{{ route('event-single',$event->id) }}" class="btn btn-primary btn-sm btn-block"> Voir plus </a>
+										</div>
+									</div>
+								</div>
+							</div>
+							@endforeach
+						</div>
+					</div>
+					@endif
+					<h3> Messages : </h3>
 					@foreach($posts as $post)
 
 					<div class="card feed-element block-feed block-home">
 						<div class="card-body">
 							<h4 class="card-title">{{ $post->title }}</h4>
-							<h6 class="card-subtitle mb-2 text-muted">{{ $post->published->diffForHumans() }}</h6>
-							<p class="card-text">{!! $post->content !!}</p>
-							<a href="{{ route('publication-single',$post->slug)  }}" class="card-link">Lire la suite...</a>
+							<p class="card-text">{{ $post->body }}</p>
+							<h6 class="card-subtitle mb-2 text-muted">{{ $post->created_at->diffForHumans() }}</h6>
 						</div>
 					</div>
-
 					@endforeach
-					<div class="card feed-element block-feed">
-						<div class="card-header">Evenements</div>
-						<div class="card-body">
-							@foreach($events as $event)
-							<div class="row">
-							<div class="col-md-4">
-								<div class="img-bar-home-event">
-									{{ $event->getFirstMedia('featured-event') }}
-								</div>
-							</div>
-							<div class="col-md-8">
-								<h5 class="card-title">{{ $event->name }}</h5>
-								<h6 class="card-subtitle mb-2 text-muted">{{ $event->published->diffForHumans() }}</h6>
-								<p class="text-muted">Du {{ date('d/m/Y H:i',strtotime($event->startDate)).' au '.date('d/m/Y H:i',strtotime($event->endDate)) }}</p>
-								<a href="{{ route('event-single',$event->id) }}" class="btn btn-primary btn-sm"> Voir plus </a>
-
-							</div>
-							</div>
-							@endforeach
-						</div>
-					</div>
-
 				</div>
 			</div>
 		</div>
@@ -105,6 +115,8 @@
 			<div class="modal-body">
 				{!! Form::open(['action' => ['PostsController@savePost',$bar->id], 'method' => 'POST','files'=>false ]) !!}
 				{{ Form::token() }}
+				
+
 				{{ Form::bsTextLong('body','Message',"", old('description'),[],"Saisissez votre message") }}           
 
 			</div>

@@ -15,12 +15,13 @@ class PostsController extends Controller
     	]);
 
     	$post = new Post;
+
     	$post->body = $data['body'];
     	$post->type = 1;
     	$post->bar = $id;
     	$post->author = \Auth::id();
     	
-    	$post->save;
+    	$post->save();
 
     	return redirect()->route('home');
 

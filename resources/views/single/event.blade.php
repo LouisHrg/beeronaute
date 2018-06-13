@@ -12,7 +12,79 @@
 			{{ $event->place->city->name }}
 			{{ $event->place->name }}
 			{{ $event->place->location }}
+			<div class="row">
+				<div class="col-md-10">
+					<div class="progress">
+						<div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ $event->subscriptions()->count() }}" aria-valuemin="0" aria-valuemax="{{ $event->slot }}" style="width: {{ $event->subscriptions()->count()/ $event->slot*100 }}%"></div>
+					</div>
+					<p class="text-muted">Il reste {{$event->slot-$event->subscriptions()->count()}} places </p> 
+				</div>
+				@if($exist == false)
+				<div class="col-md-2">
+					<button data-toggle="modal" data-target="#signupModal" class="btn btn-info btn-sm btn-block"> S'incrire </button>
+				</div>
+				@else
+				<div class="col-md-2">
+					<button data-toggle="modal" data-target="#signdownModal" class="btn btn-danger btn-sm btn-block"> Annuler l'inscription </button>
+				</div>
+				@endif
+			</div>	
+
 		</div>
 	</div>
 </div>
+
+@role('user')
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered " role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Confirmation d'inscription</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				{!! Form::open(['action' => ['SubscriptionsController@attachEvent',$event->id], 'method' => 'POST','files'=>false ]) !!}
+				{{ Form::token() }}
+
+				<p>Evenement : {{ $event->name }}</p>
+				<p>Lieu : {{ $event->place->location }}, {{ $event->place->name }}</p>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				<button type="submit" class="btn btn-primary">Confirmer</button>
+			</div>
+			{!! Form::close() !!}
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="signdownModal" tabindex="-1" role="dialog" aria-labelledby="signdownModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered " role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Annuler votre participation</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				{!! Form::open(['action' => ['SubscriptionsController@dettachEvent',$event->id], 'method' => 'POST','files'=>false ]) !!}
+				{{ Form::token() }}
+
+				<p>Evenement : {{ $event->name }}</p>
+				<p>Lieu : {{ $event->place->location }}, {{ $event->place->name }}</p>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				<button type="submit" class="btn btn-danger">Confirmer</button>
+			</div>
+			{!! Form::close() !!}
+		</div>
+	</div>
+</div>
+@endrole
+
 @endsection

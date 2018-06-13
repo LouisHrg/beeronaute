@@ -35,4 +35,6 @@ class UsersController extends Controller
 
 		return redirect()->route('admin-users-browse');
 	}
+
+	
 }

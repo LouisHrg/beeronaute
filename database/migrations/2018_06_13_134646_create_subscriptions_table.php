@@ -15,10 +15,11 @@ class CreateSubscriptionsTable extends Migration {
 		Schema::create('subscriptions', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id')->unsigned()->index('subscriptions_user_id_foreign');
-			$table->integer('bar')->unsigned()->nullable()->index('bar');
-			$table->integer('event')->unsigned()->nullable()->index('event');
+			$table->integer('event')->unsigned()->nullable()->index('subscriptions_event_foreign');
+			$table->integer('bar')->unsigned()->nullable()->index('subscriptions_bar_foreign');
+			$table->smallInteger('type')->unsigned();
 			$table->timestamps();
+			$table->integer('user_id')->unsigned()->index('subscriptions_user_id_foreign');
 		});
 	}
 

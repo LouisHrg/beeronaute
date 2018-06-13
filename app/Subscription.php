@@ -2,16 +2,36 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Reliese\Database\Eloquent\Model as Eloquent;
 
-class Subscription extends Model 
+class Subscription extends Eloquent
 {
-    protected $table = 'subscriptions';
-    public $timestamps = true;
+	protected $casts = [
+		'event' => 'int',
+		'bar' => 'int',
+		'type' => 'int',
+		'user_id' => 'int'
+	];
 
+	protected $fillable = [
+		'event',
+		'bar',
+		'type',
+		'user_id'
+	];
 
-        public function users()
-    {
-        return $this->belongsToMany('App\User');
-    }
+	public function bar()
+	{
+		return $this->belongsTo(\App\Bar::class, 'bar');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo(\App\Event::class, 'event');
+	}
+
+	public function user()
+	{
+		return $this->belongsTo(\App\User::class);
+	}
 }

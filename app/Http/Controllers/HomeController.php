@@ -8,6 +8,7 @@ use App\Publication;
 use App\Bar;
 use App\Post;
 use App\Event;
+use App\Subscription;
 
 class HomeController extends Controller
 {
@@ -42,19 +43,20 @@ class HomeController extends Controller
     }
     public function singleBar(Request $request, $slug){
 
-        $bar = Bar::where('slug',$slug)->where('status','=','2')->firstOrFail();
+        $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
         $posts = Post::where('bar',$bar->id)->get();
         $events = Event::where('bar',$bar->id)->get();
 
-        return view('single.bar', ['bar'=>$bar,'posts'=>$posts,'events'=>$events]);
+
+        return view('single.bar', compact('bar','posts','events'));
 
     }
 
     public function singleEvent(Request $request, $id){
 
         $event = Event::find($id);
-
-        return view('single.event', ['event'=>$event]);
+        $exist = Subscription::where('user_id','=',\Auth::id())->where('event',"=",$id)->get()->isNotEmpty();
+        return view('single.event', compact('event','exist')  );
 
     }
 }

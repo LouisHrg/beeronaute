@@ -14,6 +14,8 @@ class AddForeignKeysToSubscriptionsTable extends Migration {
 	{
 		Schema::table('subscriptions', function(Blueprint $table)
 		{
+			$table->foreign('bar')->references('id')->on('bars')->onUpdate('RESTRICT')->onDelete('CASCADE');
+			$table->foreign('event')->references('id')->on('events')->onUpdate('RESTRICT')->onDelete('CASCADE');
 			$table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
 		});
 	}
@@ -28,6 +30,8 @@ class AddForeignKeysToSubscriptionsTable extends Migration {
 	{
 		Schema::table('subscriptions', function(Blueprint $table)
 		{
+			$table->dropForeign('subscriptions_bar_foreign');
+			$table->dropForeign('subscriptions_event_foreign');
 			$table->dropForeign('subscriptions_user_id_foreign');
 		});
 	}

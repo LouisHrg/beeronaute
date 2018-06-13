@@ -50,7 +50,7 @@ class BarsController extends Controller
 		$bar->phone =$data['number'];
 		$bar->email =$data['email'];
 		$bar->place =$data['city'];
-		$bar->status = 1;
+		$bar->status = 0;
 		$bar->schedule =Bar::formToJsonSchedule($data);
 
 		$bar->manager = \Auth::user()->id;

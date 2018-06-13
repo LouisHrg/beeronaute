@@ -11,6 +11,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 class Post extends Eloquent
 {
+
+	protected $table = 'posts';
+
 	protected $casts = [
 		'author' => 'int',
 		'type' => 'int',

@@ -59,9 +59,10 @@
 							@role('admin')
 							<td scope="row">{{ $item->user->name }}</th>
 							@endrole
-							@if($item->status != 2)
+							@if( $item->status == false )
 							<td scope="row"><span class="badge badge-warning">En attente de validation</span></td>
-							@else
+							@endif
+							@if( $item->status == true )
 							<td scope="row"><span class="badge badge-success">En ligne</span></td>
 							@endif
 							<td scope="row">

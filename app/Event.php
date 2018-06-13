@@ -40,6 +40,8 @@ use HasMediaTrait;
 		'bar'
 	];
 
+
+
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'author');
@@ -53,5 +55,9 @@ use HasMediaTrait;
 	public function posts()
 	{
 		return $this->hasMany(\App\Post::class, 'event');
+	}
+		public function subscriptions()
+	{
+		return $this->hasMany(\App\Subscription::class, 'event');
 	}
 }
