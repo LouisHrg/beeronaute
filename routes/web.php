@@ -23,11 +23,15 @@ Route::get('/', 'IndexController@index')->name('index')->middleware('guest');
 Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
+
+	Route::get('/profil/{username}', 'HomeController@profile')->name('profile');
 	
 	Route::get('/news/{slug}', 'HomeController@singlePublication')->name('publication-single');
 	Route::get('/bar/{slug}', 'HomeController@singleBar')->name('bar-single');
 	
+	Route::get('/events', 'HomeController@events')->name('events');
 	Route::get('/event/{id}', 'HomeController@singleEvent')->name('event-single');
+	
 	
 	Route::get('/news', 'HomeController@news')->name('news');
 	Route::get('/search', 'HomeController@search')->name('search');

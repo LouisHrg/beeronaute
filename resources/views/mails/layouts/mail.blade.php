@@ -254,14 +254,14 @@
         <td>&nbsp;</td>
         <td class="container">
           <div class="content">
-
               <tr>
                 <td class="wrapper">
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
+                       <h1> @yield('title') </h1>
                         <p>@yield('greetings')</p>
-                        <p>@yield('toptext')</p>
+                        @yield('toptext')
                         @hasSection('actiontext')
                         <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
@@ -279,7 +279,7 @@
                           </tbody>
                         </table>
                         @endif
-                        <p>@yield('bottomtext')</p>
+                        @yield('bottomtext')
                       </td>
                     </tr>
                   </table>

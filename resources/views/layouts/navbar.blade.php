@@ -25,6 +25,18 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('news') }} ">Toutes les news</a>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="icon icon-bell"> </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Evenement bientot</a>
+          <a class="dropdown-item" href="#">Evenement bientot</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Tout voir</a>
+        </div>
+      </li>
+
     </ul>
 
     <ul class="navbar-nav ml-auto">
@@ -47,7 +59,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <h6 class="dropdown-header"></h6>
-          <a class="dropdown-item" href=""><span class="icon icon-user"></span> Profile</a>
+          <a class="dropdown-item" href="{{ route('profile', \Auth::user()->name) }}"><span class="icon icon-user"></span> Profile</a>
           <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-exit"></span> Logout</a>
         </div>
       </li>

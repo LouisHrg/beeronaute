@@ -87,7 +87,7 @@
 					<h3> Messages : </h3>
 					@foreach($posts as $post)
 
-					<div class="card feed-element block-feed block-home">
+					<div id="post{{$post->id}}" class="card feed-element block-feed block-home">
 						<div class="card-body">
 							<h4 class="card-title">{{ $post->title }}</h4>
 							<p class="card-text">{{ $post->body }}</p>

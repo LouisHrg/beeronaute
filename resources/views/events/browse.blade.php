@@ -57,7 +57,7 @@
 						<tr>
 							<th scope="row">{{ $item->id }}</th>
 							<td scope="row">{{ $item->name }}</td>
-							<td scope="row">{{ $item->slot }}</td>
+							<td scope="row">{{ $item->subscriptions()->count() }}/{{$item->slot}}</td>
 							<td scope="row">{{ date('l m (H:i)', strtotime($item->startDate)) }}</td>
 							<td scope="row">{{ date('d/m/Y H:i',strtotime($item->endDate)) }}</td>
 							@role('admin')
@@ -67,7 +67,7 @@
 								<a target="_blank" href="/bar/{{ $item->place->slug }}">{{ $item->place->name }}</a>
 							</td>
 							<td scope="row">
-								<a href="" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
+								<a href="{{ route('event-single',$item->id) }}" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
 									<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
 										<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
 										</td>

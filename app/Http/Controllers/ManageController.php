@@ -74,7 +74,7 @@ class ManageController extends Controller
         $search = $request->input('search');
 
         $items = Post::where([['author','=',\Auth::id()],['body', 'like', '%'.$search.'%']])
-        ->orderBy('published', 'desc')
+        ->orderBy('created_at', 'desc')
         ->paginate(15);
 
         return view('posts.browse',
