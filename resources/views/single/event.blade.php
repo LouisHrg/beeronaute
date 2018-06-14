@@ -8,7 +8,6 @@
 			<a href="{{ route('bar-single',$event->place->slug) }}" > Retour au bar</a>
 			<div class="img-event-single">{{ $event->getFirstMedia('featured-event') }}</div>
 			<h1> {{ $event->name }} </h1>
-			<p>{!! $event->description !!}</p>
 			{{ $event->place->city->name }}
 			{{ $event->place->name }}
 			{{ $event->place->location }}
@@ -19,6 +18,7 @@
 					</div>
 					<p class="text-muted">Il reste {{$event->slot-$event->subscriptions()->count()}} places </p> 
 				</div>
+				@if(\Auth::user()->hasRole('user'))
 				@if($exist == false)
 				<div class="col-md-2">
 					<button data-toggle="modal" data-target="#signupModal" class="btn btn-info btn-sm btn-block"> S'incrire </button>
@@ -28,7 +28,9 @@
 					<button data-toggle="modal" data-target="#signdownModal" class="btn btn-danger btn-sm btn-block"> Annuler l'inscription </button>
 				</div>
 				@endif
+				@endif
 			</div>	
+			{!! $event->description !!}
 
 		</div>
 	</div>

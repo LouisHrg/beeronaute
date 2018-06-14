@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMenusTable extends Migration {
+class CreateMoodsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,10 @@ class CreateMenusTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('menus', function(Blueprint $table)
+		Schema::create('moods', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name')->unique();
+			$table->string('name');
 			$table->timestamps();
 		});
 	}
@@ -28,7 +28,7 @@ class CreateMenusTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('menus');
+		Schema::drop('moods');
 	}
 
 }

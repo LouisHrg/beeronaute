@@ -15,6 +15,7 @@ class AddForeignKeysToBarsTable extends Migration {
 		Schema::table('bars', function(Blueprint $table)
 		{
 			$table->foreign('manager')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+			$table->foreign('mood')->references('id')->on('moods')->onUpdate('RESTRICT')->onDelete('CASCADE');
 			$table->foreign('place')->references('id')->on('places')->onUpdate('RESTRICT')->onDelete('CASCADE');
 		});
 	}
@@ -30,6 +31,7 @@ class AddForeignKeysToBarsTable extends Migration {
 		Schema::table('bars', function(Blueprint $table)
 		{
 			$table->dropForeign('bars_manager_foreign');
+			$table->dropForeign('bars_mood_foreign');
 			$table->dropForeign('bars_place_foreign');
 		});
 	}

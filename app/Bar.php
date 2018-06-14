@@ -16,7 +16,7 @@ class Bar extends Model implements HasMedia
 	protected $table = 'bars';
 	public $timestamps = true;
 
-		protected $casts = [
+	protected $casts = [
 		'manager' => 'int',
 		'place' => 'int',
 		'status' => 'bool'
@@ -43,6 +43,11 @@ class Bar extends Model implements HasMedia
 	public function city()
 	{
 		return $this->belongsTo(\App\Place::class, 'place');
+	}	
+
+	public function type()
+	{
+		return $this->belongsTo(\App\Mood::class, 'mood');
 	}
 
 	public function events()
@@ -58,9 +63,23 @@ class Bar extends Model implements HasMedia
 	public function recommendations()
 	{
 		return $this->belongsToMany(\App\Recommendation::class, 'recommendations_bars')
-					->withPivot('id')
-					->withTimestamps();
+		->withPivot('id')
+		->withTimestamps();
 	}
+
+
+	public function priceStars(){
+
+		$output = "<span class='score'>";
+
+		for($i=0;$i<$this->price;$i++){
+			$output .= "<span class='icon icon-star-full'></span>";
+		}
+
+		return '</span>'.$output;		
+
+	}
+
 
 	public function instantScheduleInfo(){
 

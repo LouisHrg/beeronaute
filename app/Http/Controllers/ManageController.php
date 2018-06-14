@@ -29,8 +29,12 @@ class ManageController extends Controller
 
         $editAction = 'manage-bars-edit';
         $deleteAction = 'publications-edit';
+        $editGalleryAction = 'manage-bars-edit-gallery';
 
-        return view('bars.browse',['items'=>$bars,'editAction'=>$editAction,'deleteAction'=>$deleteAction]);
+        return view('bars.browse',['items'=>$bars,
+            'editAction'=>$editAction,
+            'deleteAction'=>$deleteAction,
+            'editGalleryAction'=>$editGalleryAction]);
     }
 
     function newBar(){
@@ -61,10 +65,22 @@ class ManageController extends Controller
 
 
         $schedule = Bar::jsonToFormSchedule($bar->schedule);
-            
+
         $page = 'bars';
 
         return view('bars.edit',compact('bar','schedule', 'action', 'method','page'));
+
+    }
+
+    function editBarGallery($id){
+
+        $bar = Bar::find($id);
+
+        if(Auth::id()!==$bar->user->id){
+            abort(403, 'Access denied');
+        }
+
+        return view('bars.gallery',compact('bar'));
 
     }
 

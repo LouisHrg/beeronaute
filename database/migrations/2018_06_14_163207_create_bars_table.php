@@ -26,6 +26,8 @@ class CreateBarsTable extends Migration {
 			$table->integer('place')->unsigned()->index('bars_place_foreign');
 			$table->string('schedule');
 			$table->boolean('status');
+			$table->integer('mood')->unsigned()->index('bars_mood_foreign');
+			$table->integer('price');
 		});
 	}
 

@@ -1,8 +1,24 @@
 @extends('layouts.layout')
 
+@section('breadcrumb')
+<div class="container feed">
+	<div class="row">
+		<div class="col-md-12">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
+					<li class="breadcrumb-item"><a href="{{ route('home') }}">Bars</a></li>
+					<li class="breadcrumb-item active">{{ $bar->name }}</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+@endsection
+
 @section('content')
 @include('layouts.navbar')
-<div class="container feed">
+<div class="container">
 	<div class="row ">
 		<div class="mx-auto col-md-10">
 			<div class="card text-white bg-dark">
@@ -13,6 +29,10 @@
 					<div class="row text-center">
 						<div class="mx-auto col-md-4">
 							<h1 class="text-center">{{ $bar->name }}</h1>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8 mx-auto">
 							<p class="text-center sub">{!! $bar->description !!}</p>
 						</div>
 					</div>
@@ -20,6 +40,8 @@
 						<div class="col-md-4">
 							<p> {{ $bar->location }}</p>
 							<p><span class="icon icon-pushpin"></span> {{ $bar->city->name }}</p>
+							<p >Ambiance : {{ $bar->type->name }}</p>
+							<p >Prix : {!! $bar->priceStars() !!}</p>
 						</div>
 						<div class="col-md-4">
 							{!! $bar->printSchedule() !!}
@@ -42,7 +64,8 @@
 					<div class="row">
 						<div class="text-center mx-auto col-md-12 actions-bar">
 							<button type="button" class="btn btn-primary  btn-sm" data-toggle="modal" data-target="#newPostModal">Ajouter un post</button>
-							<a href="{{route('manage-event-create')}}" class="btn btn-primary btn-sm" >Créer un évenement</a>
+							<a target="_blank" href="{{route('manage-event-create')}}" class="btn btn-info btn-sm" >Créer un évenement</a>
+							<a target="_blank" href="{{route('manage-bars-edit',$bar->id)}}" class="btn btn-warning btn-sm" >Modifier les informations</a>
 						</div>
 					</div>
 					@endrole
@@ -50,7 +73,26 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-
+					@if($bar->getMedia('gallery-bar')->isNotEmpty())
+					<div class="card feed-element block-feed block-home">
+						<div class="card-header">Images</div>
+						<div class="card-body">
+							<div class="row">
+								@foreach($bar->getMedia('gallery-bar')->take(4) as $img)
+								<div class="col-md-3">
+									<div class="bar-single-gallery">
+										{{ $img }}
+									</div>
+								</div>
+								@endforeach
+								<div class="col-md-12 text-right">
+									<br>
+									<a href="{{ route('bar-gallery',$bar->slug)}}" class="btn btn-sm btn-secondary"> Voir plus d'image</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					@endif
 					@if($events->isNotEmpty())
 					<div class="card feed-element block-feed block-home">
 						<div class="card-header">Evenements</div>
@@ -64,7 +106,7 @@
 								</div>
 								<div class="col-md-8">
 									<h5 class="card-title">{{ $event->name }}</h5>
-									<h6 class="card-subtitle mb-2 text-muted">{{ $event->published->diffForHumans() }}</h6>
+									<h6 class="card-subtitle mb-2 text-muted">Publié {{ $event->published->diffForHumans() }}</h6>
 									<p class="text-muted">Du {{ date('d/m/Y H:i',strtotime($event->startDate)).' au '.date('d/m/Y H:i',strtotime($event->endDate)) }}</p>
 									<div class="row">
 										<div class="col-md-8">
@@ -84,50 +126,61 @@
 						</div>
 					</div>
 					@endif
-					<h3> Messages : </h3>
-					@foreach($posts as $post)
+					@if($posts->isNotEmpty())
+					<br>
+					<br>
+					<h4> Messages : </h5>
+						@endif
+						@foreach($posts as $post)
 
-					<div id="post{{$post->id}}" class="card feed-element block-feed block-home">
-						<div class="card-body">
-							<h4 class="card-title">{{ $post->title }}</h4>
-							<p class="card-text">{{ $post->body }}</p>
-							<h6 class="card-subtitle mb-2 text-muted">{{ $post->created_at->diffForHumans() }}</h6>
+						<div id="post{{$post->id}}" class="card feed-element block-feed block-home">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-1">
+										<img class="avatar" src="/storage/{{ $post->user->avatar }}">
+									</div>
+									<div class="col-md-11">
+										<p class="text-muted">{{ ucfirst($post->user->name) }} dit : </p>
+										<p class="card-text">{{ $post->body }}</p>
+										<h6 class="card-subtitle mb-2 text-muted">{{ $post->created_at->diffForHumans() }}</h6>
+									</div>
+								</div>
+							</div>
 						</div>
+						@endforeach
 					</div>
-					@endforeach
 				</div>
 			</div>
-		</div>
 
-	</div>
-</div>
-
-@role('manager')
-<div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Nouveau post</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				{!! Form::open(['action' => ['PostsController@savePost',$bar->id], 'method' => 'POST','files'=>false ]) !!}
-				{{ Form::token() }}
-				
-
-				{{ Form::bsTextLong('body','Message',"", old('description'),[],"Saisissez votre message") }}           
-
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="submit" class="btn btn-primary">Ajouter !</button>
-			</div>
-			{!! Form::close() !!}
 		</div>
 	</div>
-</div>
-@endrole
 
-@endsection
+	@role('manager')
+	<div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Nouveau post</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					{!! Form::open(['action' => ['PostsController@savePost',$bar->id], 'method' => 'POST','files'=>false ]) !!}
+					{{ Form::token() }}
+
+
+					{{ Form::bsTextLong('body','Message',"", old('description'),[],"Saisissez votre message") }}           
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+					<button type="submit" class="btn btn-primary">Ajouter !</button>
+				</div>
+				{!! Form::close() !!}
+			</div>
+		</div>
+	</div>
+	@endrole
+
+	@endsection

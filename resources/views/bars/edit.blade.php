@@ -59,7 +59,9 @@
 
         {{ Form::bsText('address','Adresse du bar','Adresse', $bar->location,[]) }}
 
-        {{ Form::bsSelect('city', \App\Place::all(),$bar->name,'Ville') }}
+        {{ Form::bsSelect('city', \App\Place::all(),$bar->city->id,'Ville') }}
+
+        {{ Form::bsSelect('mood', \App\Mood::all(),$bar->mood,'Ambiance') }}
 
         
         {{ Form::bsEmail('email','E-mail','Adresse email du bar', $bar->email,[]) }}     

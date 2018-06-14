@@ -16,11 +16,11 @@
 				<ol class="breadcrumb">
 					@role('admin')
 					<li class="breadcrumb-item"><a href="{{ route('admin-home') }}">Dashboard</a></li>
-					<li class="breadcrumb-item active">Tout les posts</li>
+					<li class="breadcrumb-item active">Tous les posts</li>
 					@endrole
 					@role('manager')
 					<li class="breadcrumb-item"><a href="{{ route('manage-home') }}">Dashboard</a></li>
-					<li class="breadcrumb-item active">Tout les posts</li>
+					<li class="breadcrumb-item active">Tous les posts</li>
 					@endrole
 				</ol>
 			</nav>

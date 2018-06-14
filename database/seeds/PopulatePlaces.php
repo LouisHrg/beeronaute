@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 use App\Place;
 
-class feed_places extends Seeder
+class PopulatePlaces extends Seeder
 {
     /**
      * Run the database seeds.

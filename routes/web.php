@@ -27,7 +27,10 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 	Route::get('/profil/{username}', 'HomeController@profile')->name('profile');
 	
 	Route::get('/news/{slug}', 'HomeController@singlePublication')->name('publication-single');
+
 	Route::get('/bar/{slug}', 'HomeController@singleBar')->name('bar-single');
+	Route::get('/bar/{slug}/gallery', 'HomeController@barGallery')->name('bar-gallery');
+	Route::get('/bars', 'HomeController@bars')->name('bars');
 	
 	Route::get('/events', 'HomeController@events')->name('events');
 	Route::get('/event/{id}', 'HomeController@singleEvent')->name('event-single');
@@ -71,6 +74,8 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 	Route::get('/bars', 'ManageController@bars')->name('manage-bars');
 	Route::get('/bars/create', 'ManageController@newBar')->name('manage-bars-create');
 	Route::get('/bars/edit/{id}','ManageController@editBar')->name('manage-bars-edit');
+	Route::get('/bars/edit/gallery/{id}','ManageController@editBarGallery')->name('manage-bars-edit-gallery');
+
 
 
 	Route::get('/posts', 'ManageController@posts')->name('manage-posts');
@@ -94,6 +99,12 @@ Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], fun
 	Route::post('saveBar','BarsController@saveBar');
 	
 	Route::post('updateBar/{id}','BarsController@updateBar');
+	
+	Route::post('/saveFeatured/{id}','BarsController@saveFeatured');
+
+	Route::post('/addToGallery/{id}','BarsController@addToGallery');
+
+	Route::get('/deleteFromGallery/{bar}/{img}','BarsController@deleteFromGallery')->name('deleteFromGallery');
 
 	Route::post('savePublication','PublicationsController@savePublication');
 

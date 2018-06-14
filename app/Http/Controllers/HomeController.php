@@ -23,7 +23,6 @@ class HomeController extends Controller
     public function index()
     {
 
-    	
         return view('home');
     }
 
@@ -33,7 +32,7 @@ class HomeController extends Controller
         $posts = Publication::orderBy('published', 'desc')->paginate(10);
 
         return view('news',['posts'=>$posts]);
-    }
+    }    
 
     public function singlePublication(Request $request, $slug){
 
@@ -42,37 +41,54 @@ class HomeController extends Controller
         return view('single.publication', ['post'=>$post]);
 
     }
+    public function bars()
+    {
+
+        $bars = Bar::where('status','=','1')->paginate(12);
+
+        return view('bars',compact('bars'));
+    
+    }
+
     public function singleBar(Request $request, $slug){
 
         $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
         $posts = Post::where('bar',$bar->id)->get();
-        $events = Event::where('bar',$bar->id)->get();
+        $events = Event::where('bar',$bar->id)->latest()->get();
 
         return view('single.bar', compact('bar','posts','events'));
 
     }
 
-    public function events(){
+    public function barGallery(Request $request, $slug){
 
-        $events = Event::orderBy('published', 'desc')->paginate(10);
+       $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
 
-        return view('events',compact('events'));
+       return view('single.bargallery', compact('bar'));
 
-    }
+   }
 
-    public function singleEvent(Request $request, $id){
+   public function events(){
 
-        $event = Event::find($id);
-        $exist = Subscription::where('user_id','=',\Auth::id())->where('event',"=",$id)->get()->isNotEmpty();
-        return view('single.event', compact('event','exist')  );
+    $events = Event::orderBy('published', 'desc')->paginate(10);
 
-    }    
-    public function profile($username){
+    return view('events',compact('events'));
 
-        $user = User::where('name','=',$username)->firstOrFail();
+}
 
-        return view('single.profile', compact('user')  );
+public function singleEvent(Request $request, $id){
+
+    $event = Event::find($id);
+    $exist = Subscription::where('user_id','=',\Auth::id())->where('event',"=",$id)->get()->isNotEmpty();
+    return view('single.event', compact('event','exist')  );
+
+}    
+public function profile($username){
+
+    $user = User::where('name','=',$username)->firstOrFail();
+
+    return view('single.profile', compact('user')  );
 
 
-    }
+}
 }

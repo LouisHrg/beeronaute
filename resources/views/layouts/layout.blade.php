@@ -29,7 +29,13 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha18/js/tempusdominus-bootstrap-4.min.js"></script>
     
+
+    <script src="{{ asset('js/zoom.js') }}"></script>
+    
     <script src="{{ asset('js/code.js') }}"></script>
+
+
+
     
 </body>
 </html>

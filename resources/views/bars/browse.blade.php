@@ -46,7 +46,7 @@
 							<th scope="col">Auteur</th>
 							@endrole
 							<th scope="col">Status</th>
-							<th scope="col" class="w-15">Actions</th>
+							<th scope="col" class="w-20">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -66,6 +66,7 @@
 							<td scope="row"><span class="badge badge-success">En ligne</span></td>
 							@endif
 							<td scope="row">
+								<a href="{{ route($editGalleryAction,$item->id)}}" class="btn btn-secondary btn-sm"><span class="icon icon-image"></a>
 								<a href="{{ route('bar-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
 									<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
 										<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
@@ -74,6 +75,9 @@
 									@endforeach
 								</tbody>
 							</table>
+							@role('manager')
+							{{ $items->count()}}/5 bars
+							@endrole
 						</div>
 					</div>
 				</div>

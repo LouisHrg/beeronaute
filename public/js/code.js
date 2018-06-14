@@ -92,3 +92,4 @@ function slugify(text)
             $('#endat').datetimepicker('minDate', e.date);
         });
     });
+

@@ -45,6 +45,9 @@ class Medium extends Eloquent
       
       $this->addMediaCollection('featured-event')->singleFile();
 
+      $this->addMediaCollection('gallery-bar');
+
+
 }
 
 }

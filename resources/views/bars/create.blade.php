@@ -60,7 +60,11 @@
         {{ Form::bsText('address','Adresse du bar','Adresse', old('address'),[]) }}
 
         {{ Form::bsSelect('city', \App\Place::all(),'city','Ville') }}
-          
+
+
+        {{ Form::bsSelect('mood', \App\Mood::all(),'mood','Ambiance') }}
+        
+        
         
         {{ Form::bsEmail('email','E-mail','Adresse email du bar', old('email'),[]) }}     
 

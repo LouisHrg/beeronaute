@@ -3,8 +3,9 @@
 use Illuminate\Database\Seeder; 
 use Faker\Factory as Faker;
 use App\User;
+use App\Publication;
 
-class FakePublications extends Seeder
+class FakeNews extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,17 +17,20 @@ class FakePublications extends Seeder
     	$faker = Faker::create();
         
     	$user = User::where('name','admin')->first();
-    	foreach (range(1,50) as $index) {
-
+    	foreach (range(1,60) as $index) {
+    	$slug = $faker->slug;
         DB::table('publications')->insert([
             'content' => $faker->paragraphs(rand(1,10),true),
             'abstract' => $faker->text(200),
             'title' => $faker->words(3,true),
             'published' => $faker->dateTime,
-            'slug' => $faker->slug,
+            'slug' => $slug,
             'author' => $user->id
 
         ]);
+
+        $news = Publication::where('slug', $slug)->first();
+        $news->addMediaFromUrl('https://source.unsplash.com/random')->toMediaCollection('featured-publication');
 
     	}
 

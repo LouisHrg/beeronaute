@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use \Auth;
 use App\Place;
 use App\Bar;
+use App\Medium;
+
 
 use Spatie\OpeningHours\OpeningHours;
 use App\Rules\Hourrange;
@@ -20,6 +22,7 @@ class BarsController extends Controller
 
 		
 		$places = implode(',',\App\Place::where('id' ,'>' ,0)->pluck('id')->toArray());
+		$moods = implode(',',\App\Place::where('id' ,'>' ,0)->pluck('id')->toArray());
 
 		$data = $request->validate([
 
@@ -31,6 +34,7 @@ class BarsController extends Controller
 			'email' => 'nullable|email',
 			'image' => 'mimes:jpeg,png,jpg',
 			'city' => 'required|in:'.$places,
+			'mood' => 'required|in:'.$moods,
 			'schedule1' => [new Hourrange],
 			'schedule2' => [new Hourrange], 
 			'schedule3' => [new Hourrange],
@@ -127,10 +131,59 @@ class BarsController extends Controller
 			return redirect()->route('manage-bars');
 		}else{
 			return redirect()->route('home');
-
 		}
 
 
+
+	}
+
+	function saveFeatured(Request $request, $id){
+		dd($id);
+	}	
+
+	function addToGallery(Request $request, $id){
+		
+		$bar = Bar::find($id);
+
+
+		$data = $request->validate([
+			'image' => 'mimes:jpeg,png,jpg',
+		]);
+
+		$bar->addMediaFromRequest('image')
+		->withResponsiveImages()
+		->toMediaCollection('gallery-bar');
+
+
+		if(Auth::user()->hasRole('admin')){
+			return redirect()->route('admin-publications-browse');
+		}else if(Auth::user()->hasRole('manager')){
+			return redirect()->route('manage-bars-edit-gallery',$id);
+		}else{
+			return redirect()->route('home');
+		}
+
+
+	}
+
+	function deleteFromGallery(Request $request,$bar,$img){
+
+		$barObj = Bar::find($bar);
+		$imgObj = Medium::find($img);
+
+		if($barObj->manager = \Auth::id()){
+
+			$imgObj->delete();
+		}
+
+
+		if(Auth::user()->hasRole('admin')){
+			return redirect()->route('admin-publications-browse');
+		}else if(Auth::user()->hasRole('manager')){
+			return redirect()->route('manage-bars-edit-gallery',$bar);
+		}else{
+			return redirect()->route('home');
+		}
 
 	}
 
