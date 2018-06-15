@@ -28,6 +28,7 @@ class CreateBarsTable extends Migration {
 			$table->boolean('status');
 			$table->integer('mood')->unsigned()->index('bars_mood_foreign');
 			$table->integer('price');
+			$table->softDeletes();
 		});
 	}
 

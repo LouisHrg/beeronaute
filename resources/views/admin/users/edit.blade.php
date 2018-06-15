@@ -35,7 +35,7 @@
         @endif
 
 
-        {!!Form::open(['action' => ['AdminController@updateUser',Request::route('id')],'method'=>"POST"]) !!}
+        {!!Form::open(['action' => ['UsersController@updateUser',Request::route('id')],'method'=>"POST"]) !!}
         {{ Form::token() }}
 
         {{ Form::bsText('name','Nom d\'utilisateur','Le titre', $user->name,[],"Ce nom servira de login à l'utilisatuer") }}
@@ -49,7 +49,7 @@
 
         {{ Form::bsSelect('role', \Spatie\Permission\Models\Role::all(),$user->roles->first()->name,'Rôle','kk') }}
 
-        {{ Form::bsPasswordConf('password','Mot de passe',"Mot de passe","Confirmation du mot de passe")}}
+        {{ Form::bsPasswordConf('password','Mot de passe',"Mot de passe","Confirmation du mot de passe",false)}}
 
 
         {{ Form::bsSubmit('Modifier l\'utilisateur') }}

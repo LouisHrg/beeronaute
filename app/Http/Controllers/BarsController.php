@@ -137,6 +137,16 @@ class BarsController extends Controller
 
 	}
 
+	function deleteBar(Request $request,$id){	
+
+		$bar = Bar::find($id);
+
+		if($bar->manager == \Auth::id()){
+			$bar->delete();
+		}
+
+	}
+
 	function saveFeatured(Request $request, $id){
 		dd($id);
 	}	

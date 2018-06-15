@@ -25,6 +25,7 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 	Route::get('/home', 'HomeController@index')->name('home');
 
 	Route::get('/profil/{username}', 'HomeController@profile')->name('profile');
+	Route::get('/profil', 'HomeController@myself')->name('profile-me');
 	
 	Route::get('/news/{slug}', 'HomeController@singlePublication')->name('publication-single');
 
@@ -57,7 +58,7 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 	Route::get('/users', 'AdminController@users')->name('admin-users-browse');
 
 	Route::get('/users/edit/{id}', 'AdminController@editUser')->name('admin-users-edit');
-	Route::post('updateUser/{id}','AdminController@updateUser')->name('admin-users-update');
+	Route::post('updateUser/{id}','UsersController@updateUser')->name('admin-users-update');
 
 	Route::get('/users/create', 'AdminController@newUser')->name('admin-users-create');
 	Route::post('saveUser','UsersController@saveUser');
@@ -103,6 +104,8 @@ Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], fun
 	Route::post('/saveFeatured/{id}','BarsController@saveFeatured');
 
 	Route::post('/addToGallery/{id}','BarsController@addToGallery');
+
+	Route::post('/bar-delete/{id}','BarsController@deleteBar')->name('bar-delete')->middleware('redir:manage-bars,manage-bars');
 
 	Route::get('/deleteFromGallery/{bar}/{img}','BarsController@deleteFromGallery')->name('deleteFromGallery');
 

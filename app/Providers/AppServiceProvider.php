@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
         \Form::component('bsSelect', 'form.select', ['name', 'data','value','displayname','placeholder' => null,'multiple'=>false]);
 
-        \Form::component('bsPasswordConf', 'form.passwordconf', ['name', 'displayname','placeholder' => null,'placeholder2' => null]);
+        \Form::component('bsPasswordConf', 'form.passwordconf', ['name', 'displayname','placeholder' => null,'placeholder2' => null,'required'=>true]);
 
         \Form::component('schedule','form.schedule',['name','value','displayname','helper'=>null]);
 

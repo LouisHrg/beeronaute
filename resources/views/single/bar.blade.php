@@ -61,6 +61,7 @@
 						</div>
 					</div>
 					@role('manager')
+					@if($bar->manager == \Auth::id())
 					<div class="row">
 						<div class="text-center mx-auto col-md-12 actions-bar">
 							<button type="button" class="btn btn-primary  btn-sm" data-toggle="modal" data-target="#newPostModal">Ajouter un post</button>
@@ -68,6 +69,7 @@
 							<a target="_blank" href="{{route('manage-bars-edit',$bar->id)}}" class="btn btn-warning btn-sm" >Modifier les informations</a>
 						</div>
 					</div>
+					@endif
 					@endrole
 				</div>
 			</div>
@@ -108,12 +110,15 @@
 									<h5 class="card-title">{{ $event->name }}</h5>
 									<h6 class="card-subtitle mb-2 text-muted">Publié {{ $event->published->diffForHumans() }}</h6>
 									<p class="text-muted">Du {{ date('d/m/Y H:i',strtotime($event->startDate)).' au '.date('d/m/Y H:i',strtotime($event->endDate)) }}</p>
+									@if(\App\Subscription::where('user_id','=',\Auth::id())->where('event',"=",$event->id)->get()->isNotEmpty())
+									Vous êtes inscrit
+									@endif
 									<div class="row">
 										<div class="col-md-8">
 											<div class="progress">
 												<div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ $event->subscriptions()->count() }}" aria-valuemin="0" aria-valuemax="{{ $event->slot }}" style="width: {{ $event->subscriptions()->count()/ $event->slot*100 }}%"></div>
 											</div>
-											<p class="text-muted">Il reste {{$event->slot-$event->subscriptions()->count()}} places </p> 
+											<p class="text-muted">Il reste {{$event->slot-$event->subscriptions()->count()}} places </p>
 											<br>			
 										</div>
 										<div class="col-md-4">
@@ -166,11 +171,11 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					{!! Form::open(['action' => ['PostsController@savePost',$bar->id], 'method' => 'POST','files'=>false ]) !!}
+
+					<form id="form-delete" method="POST" action="" accept-charset="UTF-8">
 					{{ Form::token() }}
-
-
-					{{ Form::bsTextLong('body','Message',"", old('description'),[],"Saisissez votre message") }}           
+					Voulez vous vraiment supprimer ce bar ? Tout les évenements et les photos associées à ce bar seront perdues. 
+					</form>         
 
 				</div>
 				<div class="modal-footer">

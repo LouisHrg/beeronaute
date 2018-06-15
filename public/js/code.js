@@ -1,5 +1,3 @@
-
-
 tinymce.init({
   selector: '#customcontent',
   height: 500,
@@ -93,3 +91,13 @@ function slugify(text)
         });
     });
 
+
+
+$('#deleteBarModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget)
+  var actionelement = button.data('url')
+  var nameelement = button.data('name')
+  var modal = $(this)
+  modal.find('.modal-title').text('Supprimer le bar ' + nameelement)
+  modal.find('#form-delete').attr('action',actionelement)
+})

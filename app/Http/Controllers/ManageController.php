@@ -28,7 +28,7 @@ class ManageController extends Controller
         $bars = Bar::where('manager','=', Auth::id() )->get(); 
 
         $editAction = 'manage-bars-edit';
-        $deleteAction = 'publications-edit';
+        $deleteAction = 'bar-delete';
         $editGalleryAction = 'manage-bars-edit-gallery';
 
         return view('bars.browse',['items'=>$bars,

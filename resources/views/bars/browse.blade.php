@@ -58,28 +58,61 @@
 							<td scope="row">{{ $item->description }}</td>
 							@role('admin')
 							<td scope="row">{{ $item->user->name }}</th>
-							@endrole
-							@if( $item->status == false )
-							<td scope="row"><span class="badge badge-warning">En attente de validation</span></td>
-							@endif
-							@if( $item->status == true )
-							<td scope="row"><span class="badge badge-success">En ligne</span></td>
-							@endif
-							<td scope="row">
-								<a href="{{ route($editGalleryAction,$item->id)}}" class="btn btn-secondary btn-sm"><span class="icon icon-image"></a>
-								<a href="{{ route('bar-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
-									<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
-										<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
-										</td>
-									</tr>
-									@endforeach
-								</tbody>
-							</table>
-							@role('manager')
-							{{ $items->count()}}/5 bars
-							@endrole
+								@endrole
+								@if( $item->status == false )
+								<td scope="row"><span class="badge badge-warning">En attente de validation</span></td>
+								@endif
+								@if( $item->status == true )
+								<td scope="row"><span class="badge badge-success">En ligne</span></td>
+								@endif
+								<td scope="row">
+									<a href="{{ route($editGalleryAction,$item->id)}}" class="btn btn-secondary btn-sm"><span class="icon icon-image"></a>
+										<a href="{{ route('bar-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
+											<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
+												<button class="btn btn-danger btn-sm" 
+												data-toggle="modal" 
+												data-target="#deleteBarModal" 
+												data-url="{{ route('bar-delete',$item->id) }}" 
+												data-name="{{ $item->name }}" 
+												data-toggle="modal" data-target="#exampleModal"><span class="icon icon-bin"></button>
+												</td>
+											</tr>
+											@endforeach
+										</tbody>
+									</table>
+									@role('manager')
+									{{ $items->count()}}/5 bars
+									@endrole
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			@endsection
+					
+					<div class="modal fade" id="deleteBarModal" tabindex="-1" role="dialog" aria-labelledby="deleteBarModal" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="deleteBarModal">Supprimer le bar</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form id="form-delete" method="POST" action="" accept-charset="UTF-8">
+										{{ Form::token() }}
+										Voulez vous vraiment supprimer ce bar ? Tout les évenements et les photos associées à ce bar seront perdues. 
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+										<button type="submit" class="btn btn-danger">Confirmer</button>
+									</div>
+								</form>  
+								
+							</div>
+						</div>
+					</div>
+
+					@endsection
+					
+
+

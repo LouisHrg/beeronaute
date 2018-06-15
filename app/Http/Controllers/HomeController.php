@@ -55,6 +55,7 @@ class HomeController extends Controller
         $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
         $posts = Post::where('bar',$bar->id)->get();
         $events = Event::where('bar',$bar->id)->latest()->get();
+        
 
         return view('single.bar', compact('bar','posts','events'));
 
@@ -87,8 +88,15 @@ public function profile($username){
 
     $user = User::where('name','=',$username)->firstOrFail();
 
-    return view('single.profile', compact('user')  );
+    return view('single.profile', compact('user'));
 
+}
 
+public function myself(){
+
+    $user = \Auth::user();
+    
+    return view('single.profile', compact('user'));
+        
 }
 }
