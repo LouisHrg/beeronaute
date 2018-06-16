@@ -14038,11 +14038,8 @@ var app = new Vue({
         },
         addMessage: function addMessage(message) {
             this.messages.push(message);
-            console.log(message);
 
-            axios.post('/chat/messages', message).then(function (response) {
-                console.log(response.data);
-            });
+            axios.post('/chat/messages', message).then(function (response) {});
         }
     }
 });

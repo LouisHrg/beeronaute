@@ -50,10 +50,8 @@ let app = new Vue({
 
         addMessage(message) {
             this.messages.push(message);
-            console.log(message)
 
             axios.post('/chat/messages', message).then(response => {
-                console.log(response.data);
             });
         }
     }
