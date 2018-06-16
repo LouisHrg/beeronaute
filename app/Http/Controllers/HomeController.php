@@ -10,15 +10,10 @@ use App\Post;
 use App\Event;
 use App\Subscription;
 use App\User;
+use DB;
 
 class HomeController extends Controller
 {
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
     public function index()
     {
@@ -47,7 +42,7 @@ class HomeController extends Controller
         $bars = Bar::where('status','=','1')->paginate(12);
 
         return view('bars',compact('bars'));
-    
+        
     }
 
     public function singleBar(Request $request, $slug){
@@ -63,6 +58,8 @@ class HomeController extends Controller
 
     public function barGallery(Request $request, $slug){
 
+
+
        $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
 
        return view('single.bargallery', compact('bar'));
@@ -71,9 +68,18 @@ class HomeController extends Controller
 
    public function events(){
 
+    $subs = Subscription::where('user_id','=',\Auth::id())->where('type','=','1')->paginate(10);
+
     $events = Event::orderBy('published', 'desc')->paginate(10);
 
-    return view('events',compact('events'));
+    return view('events',compact('events','subs'));
+
+}   
+public function eventsMe(){
+
+    $subs = Subscription::where('user_id','=',\Auth::id())->where('type','=','1')->paginate(10);
+
+    return view('myevents',compact('subs'));
 
 }
 
@@ -97,6 +103,6 @@ public function myself(){
     $user = \Auth::user();
     
     return view('single.profile', compact('user'));
-        
+    
 }
 }

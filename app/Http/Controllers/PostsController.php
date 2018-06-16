@@ -31,9 +31,7 @@ class PostsController extends Controller
 
         }
 
-
-
-    	return redirect()->route('bar-single',$bar->slug);
+        return redirect()->route('bar-single',$bar->slug);
 
     }
     

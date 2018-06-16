@@ -29,7 +29,7 @@
 						<p class="text-muted">Il reste {{$event->slot-$event->subscriptions()->count()}} places </p> 
 					</div>
 					@if(\Auth::user()->hasRole('user'))
-					@if(Subscription::where('user_id','=',\Auth::id())->where('event',"=",$id)->get()->isNotEmpty())
+					@if(!App\Subscription::where('user_id','=',\Auth::id())->where('event',"=",$event->id)->get()->isNotEmpty())
 					<div class="col-md-2">
 						<button data-toggle="modal" data-target="#signupModal" class="btn btn-info btn-sm btn-block"> S'incrire </button>
 					</div>

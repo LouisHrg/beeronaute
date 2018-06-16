@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('author')->unsigned()->index('comments_author_foreign');
-			$table->text('body', 65535);
+			$table->text('body', 65535)->nullable();
 			$table->integer('type')->unsigned();
 			$table->timestamps();
 			$table->integer('bar')->unsigned()->nullable()->index('comments_bar_foreign');

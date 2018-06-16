@@ -9,17 +9,31 @@ use \Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
+use App\Event;
+use App\Subscription;
+use App\User;
+
+use Carbon\Carbon;
 
 class TestController extends Controller
 {
 	function test(){
 
-/*		$role = Role::create(['name' => 'admin']);
+		// Event::where('id','>',0)->delete();
 
-		$user = Auth::user();
+		
+		// 	$trigger = date('Y-m-d H:i:s',strtotime("-2 hours", time()));
+		
+		// // $events = Event::where('startDate','>',$trigger)->where('startDate','<',date('Y-m-d H:i:s'))->get();
 
-		$user->assignRole('admin');
-*/
-		echo "lol";
+		// $events = Event::all();
+
+
+		// foreach ($events as $event) {
+		// 	foreach($event->subscriptions as $sub){
+		// 		dump($sub->user->email);
+		// 	}
+		// }
+		
 	}
 }

@@ -84,6 +84,7 @@ class BarsController extends Controller
 		$bar = Bar::find($id);
 
 		$places = implode(',',\App\Place::where('id' ,'>' ,0)->pluck('id')->toArray());
+		$moods = implode(',',\App\Place::where('id' ,'>' ,0)->pluck('id')->toArray());
 
 
 		$data = $request->validate([
@@ -95,6 +96,7 @@ class BarsController extends Controller
 			'email' => 'nullable|email',
 			'image' => 'mimes:jpeg,png,jpg',
 			'city' => 'required|in:'.$places,
+			'mood' => 'required|in:'.$moods,
 			'schedule1' => [new Hourrange],
 			'schedule2' => [new Hourrange], 
 			'schedule3' => [new Hourrange],
@@ -109,6 +111,7 @@ class BarsController extends Controller
 		$bar->slug = $data['slug'];
 		$bar->location = $data['address'];
 		$bar->phone = $data['number'];
+		$bar->mood = $data['mood'];
 		$bar->email = $data['email'];
 		$bar->place = $data['city'];
 		$bar->schedule =Bar::formToJsonSchedule($data);

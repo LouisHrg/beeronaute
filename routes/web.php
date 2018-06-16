@@ -40,10 +40,15 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 	Route::get('/news', 'HomeController@news')->name('news');
 	Route::get('/search', 'HomeController@search')->name('search');
 	Route::get('/events', 'HomeController@events')->name('events');
+
+	Route::get('/events/me', 'HomeController@eventsMe')->name('events-me');
 	Route::get('/recommandations', 'HomeController@recommandations')->name('recommandations');
 
 	Route::post('/subscribe-to-event/{id}', 'SubscriptionsController@attachEvent')->name('subscribe-to-event');
 	Route::post('/unsubscribe-to-event/{id}', 'SubscriptionsController@dettachEvent')->name('unsubscribe-to-event');
+
+	Route::post('/subscribe-to-bar/{id}', 'SubscriptionsController@attachBar')->name('subscribe-to-bar');
+	Route::post('/unsubscribe-to-bar/{id}', 'SubscriptionsController@dettachBar')->name('unsubscribe-to-bar');
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], function () {
@@ -62,7 +67,6 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 
 	Route::get('/users/create', 'AdminController@newUser')->name('admin-users-create');
 	Route::post('saveUser','UsersController@saveUser');
-
 
 });
 

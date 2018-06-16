@@ -16,7 +16,9 @@ class DatabaseSeeder extends Seeder
     		PopulateMoods::class,
     		RolesAndPermissionsSeeder::class,
     		UsersTableSeeder::class,
-    		FakeNews::class
+            FakeNews::class,
+            FakeEvents::class,
+    		fakeSubscriptions::class,
     	]);
     }
 }

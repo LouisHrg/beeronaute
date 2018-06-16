@@ -65,7 +65,7 @@
 								@if( $item->status == true )
 								<td scope="row"><span class="badge badge-success">En ligne</span></td>
 								@endif
-								<td scope="row">
+								<td scope="row" class="w-20">
 									<a href="{{ route($editGalleryAction,$item->id)}}" class="btn btn-secondary btn-sm"><span class="icon icon-image"></a>
 										<a href="{{ route('bar-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
 											<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>

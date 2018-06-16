@@ -25,7 +25,7 @@ class Subscription extends Eloquent
 		return $this->belongsTo(\App\Bar::class, 'bar');
 	}
 
-	public function event()
+	public function party()
 	{
 		return $this->belongsTo(\App\Event::class, 'event');
 	}

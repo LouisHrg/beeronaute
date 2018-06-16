@@ -36,7 +36,7 @@ class FakeBars extends Seeder
         ]);
 
         $bar = Bar::where('slug', $slug)->first();
-        $bar->addMediaFromUrl('https://source.unsplash.com/random')->toMediaCollection('featured-bar');
+        $bar->addMediaFromUrl('https://source.unsplash.com/random/500*300')->toMediaCollection('featured-bar');
 
 
     	}

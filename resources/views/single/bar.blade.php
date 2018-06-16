@@ -7,7 +7,7 @@
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
-					<li class="breadcrumb-item"><a href="{{ route('home') }}">Bars</a></li>
+					<li class="breadcrumb-item"><a href="{{ route('bars') }}">Bars</a></li>
 					<li class="breadcrumb-item active">{{ $bar->name }}</li>
 				</ol>
 			</nav>
@@ -70,6 +70,17 @@
 						</div>
 					</div>
 					@endif
+					@endrole
+					@role('user')
+					<div class="row">
+						<div class="text-center mx-auto col-md-12 actions-bar">
+							@if(!App\Subscription::where('user_id','=',\Auth::id())->where('bar',"=",$bar->id)->get()->isNotEmpty())
+							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#subTobar">Suivre ce bar</button>
+							@else
+							<a class="btn btn-danger btn-sm" href="{{ route('') }}">Ne plus suivre ce bar</a>
+							@endif
+						</div>
+					</div>
 					@endrole
 				</div>
 			</div>
@@ -160,27 +171,54 @@
 		</div>
 	</div>
 
-	@role('manager')
-	<div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@role('manager')
+<div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Nouveau post</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				{!! Form::open(['action' => ['PostsController@savePost',$bar->id], 'method' => 'POST','files'=>false ]) !!}
+				{{ Form::token() }}
+				{{ Form::bsTextLong('body','Message',"", old('description'),[],"Saisissez votre message") }}           
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				<button type="submit" class="btn btn-primary">Ajouter !</button>
+			</div>
+			{!! Form::close() !!}
+		</div>
+	</div>
+</div>
+@endrole
+
+	@role('user')
+	<div class="modal fade" id="subTobar" tabindex="-1" role="dialog" aria-labelledby="subTobar" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Nouveau post</h5>
+					<h5 class="modal-title" id="subTobar">Suivre ce bar ?</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
 
-					<form id="form-delete" method="POST" action="" accept-charset="UTF-8">
+				{!! Form::open(['action' => ['SubscriptionsController@attachBar',$bar->id], 'method' => 'POST','files'=>false ]) !!}
+
 					{{ Form::token() }}
-					Voulez vous vraiment supprimer ce bar ? Tout les évenements et les photos associées à ce bar seront perdues. 
-					</form>         
+					Voulez vous vraiment suivre ce bar ? Tous les évenements et les messages apparaitront dans votre fil d'actualité. 
+
 
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-					<button type="submit" class="btn btn-primary">Ajouter !</button>
+					<button type="submit" class="btn btn-primary">Let's go !</button>
 				</div>
 				{!! Form::close() !!}
 			</div>

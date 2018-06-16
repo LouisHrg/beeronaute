@@ -14,13 +14,19 @@
         <a class="nav-link" href="">Fil d'actualité<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">Rechercher un bar</a>
+        <a class="nav-link" href="{{ route('bars') }}">Rechercher un bar</a>
       </li>      
       <li class="nav-item">
         <a class="nav-link" href="">Recommandations</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">Evenements</a>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Evenements
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ route('events') }}">Tous les évenements</a>
+          <a class="dropdown-item" href="{{ route('events-me') }}">Mes évenements</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('news') }} ">News </a>

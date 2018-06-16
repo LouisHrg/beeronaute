@@ -9,6 +9,7 @@ use App\Mail\EventSubscription;
 use Illuminate\Support\Facades\Mail;
 
 use App\Event;
+use App\Bar;
 
 class SubscriptionsController extends Controller
 {	
@@ -43,6 +44,42 @@ class SubscriptionsController extends Controller
 
 
         return redirect()->route('event-single',$id);
+
+    }
+
+
+        function attachBar($id){
+
+        $exist = Subscription::where('user_id','=',\Auth::id())
+        ->where('bar',"=",$id)->get();
+        
+        if($exist->isEmpty()){
+            $sub = new Subscription;
+            $sub->bar = $id;
+            $sub->user_id = \Auth::id();
+            $sub->type = 2;
+
+            $sub->save();
+        }
+
+        $bar = Bar::find($id);
+
+        return redirect()->route('bar-single',$bar->slug);
+
+    }    
+    function dettachBar($id){
+
+        $exist = Subscription::where('user_id','=',\Auth::id())->where('bar',"=",$id)->get();
+
+        if($exist->isNotEmpty()){
+
+            $exist->each->delete();
+        }
+
+
+        $bar = Bar::find($id);
+
+        return redirect()->route('bar-single',$bar->slug);
 
     }
 }

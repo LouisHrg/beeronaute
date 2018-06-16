@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Event;
+use App\Post;
 use App\Bar;
 
 class EventsController extends Controller
@@ -44,6 +45,25 @@ class EventsController extends Controller
 		->withResponsiveImages()
 		->toMediaCollection('featured-event');
 
+
+
+		$bar = Bar::find($id);
+
+
+		if($bar->manager == \Auth::id()){
+
+			$post = new Post;
+
+			$post->type = 1;
+			$post->bar = $data['bar'];
+			$post->event = $event->id;
+			$post->author = \Auth::id();
+			
+			$post->save();
+
+		}
+
+		
 		if(\Auth::user()->hasRole('admin')){
 			return redirect()->route('admin-publications-browse');
 		}else if(\Auth::user()->hasRole('manager')){
