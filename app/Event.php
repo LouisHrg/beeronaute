@@ -56,8 +56,14 @@ use HasMediaTrait;
 	{
 		return $this->hasMany(\App\Post::class, 'event');
 	}
-		public function subscriptions()
+
+	public function subscriptions()
 	{
 		return $this->hasMany(\App\Subscription::class, 'event');
 	}
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

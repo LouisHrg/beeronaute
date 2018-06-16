@@ -17,6 +17,7 @@
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
+        "pusher/pusher-php-server": "^3.0",
         "reliese/laravel": "^0.0.13",
         "spatie/laravel-cookie-consent": "^2.3",
         "spatie/laravel-medialibrary": "^7.3",

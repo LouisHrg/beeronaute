@@ -71,4 +71,9 @@ class User extends Authenticatable
         return $this->hasMany(\App\Subscription::class);
     }
 
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
 }

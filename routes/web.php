@@ -128,4 +128,10 @@ Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], fun
 
 });
 
+Route::group(['prefix' => 'chat', 'middleware' => 'auth'], function () {
+    Route::get('/', 'ChatsController@index');
+    Route::get('messages', 'ChatsController@fetchMessages');
+    Route::post('messages', 'ChatsController@sendMessage');
+});
+
 Route::get('/test', 'TestController@test')->name('test');
