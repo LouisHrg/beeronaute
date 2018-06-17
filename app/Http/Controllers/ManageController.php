@@ -28,12 +28,14 @@ class ManageController extends Controller
         $bars = Bar::where('manager','=', Auth::id() )->get(); 
 
         $editAction = 'manage-bars-edit';
+        $newAction = 'manage-bars-create';
         $deleteAction = 'bar-delete';
         $editGalleryAction = 'manage-bars-edit-gallery';
 
         return view('bars.browse',['items'=>$bars,
             'editAction'=>$editAction,
             'deleteAction'=>$deleteAction,
+            'newAction'=>$newAction,
             'editGalleryAction'=>$editGalleryAction]);
     }
 
@@ -116,15 +118,18 @@ class ManageController extends Controller
         ->paginate(15);
 
         $editAction = 'manage-event-edit';
+        $newAction = 'manage-event-create';
 
         return view('events.browse',
             ['page'=>'events',
             'items'=>$items->appends($request->except('page')),
-            'editAction'=>$editAction
+            'editAction'=>$editAction,
+            'newAction'=>$newAction,
         ]);
     }
 
     function newEvent(Request $request){
+        
         $bars = implode(',',\App\Bar::where('manager' ,'=' ,\Auth::id())->pluck('id')->toArray());
 
         if(empty($bars)){
@@ -136,6 +141,21 @@ class ManageController extends Controller
         $method = 'POST';
 
         return view('events.create',['action'=>$action,'method'=>$method,'page'=>'events']);
+
+    }
+
+        function editEvent(Request $request,$id){
+        
+        $event = Event::find($id);
+
+        if(Auth::id()!==$event->user->id){
+            abort(403, 'Access denied');
+        }
+
+        $action = ['EventsController@editEvent',$id];
+        $method = 'POST';
+
+        return view('events.edit',['action'=>$action,'method'=>$method,'page'=>'events','event'=>$event]);
 
     }
 

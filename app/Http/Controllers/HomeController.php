@@ -16,9 +16,10 @@ class HomeController extends Controller
 {
 
     public function index()
-    {
+    {   
+        $posts = Post::paginate(15);
 
-        return view('home');
+        return view('home',compact('posts'));
     }
 
     public function news()
@@ -41,7 +42,7 @@ class HomeController extends Controller
 
         $bars = Bar::where('status','=','1')->paginate(12);
 
-        return view('bars',compact('bars'));
+        return view('searchbars',compact('bars'));
         
     }
 
@@ -49,10 +50,19 @@ class HomeController extends Controller
 
         $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
         $posts = Post::where('bar',$bar->id)->get();
-        $events = Event::where('bar',$bar->id)->latest()->get();
+        $events = Event::where('bar',$bar->id)->latest()->limit(2)->get();
         
 
         return view('single.bar', compact('bar','posts','events'));
+
+    }    
+
+    public function allEvents(Request $request, $slug){
+
+        $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
+        $events = Event::where('bar',$bar->id)->latest()->paginate(5);
+
+        return view('single.barevents', compact('events','bar'));
 
     }
 
@@ -60,13 +70,13 @@ class HomeController extends Controller
 
 
 
-       $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
+     $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
 
-       return view('single.bargallery', compact('bar'));
+     return view('single.bargallery', compact('bar'));
 
-   }
+ }
 
-   public function events(){
+ public function events(){
 
     $subs = Subscription::where('user_id','=',\Auth::id())->where('type','=','1')->paginate(10);
 
@@ -86,8 +96,9 @@ public function eventsMe(){
 public function singleEvent(Request $request, $id){
 
     $event = Event::find($id);
+    $posts = Post::where('event','=',$id)->get();
     $exist = Subscription::where('user_id','=',\Auth::id())->where('event',"=",$id)->get()->isNotEmpty();
-    return view('single.event', compact('event','exist')  );
+    return view('single.event', compact('event','exist','posts')  );
 
 }    
 public function profile($username){

@@ -19,14 +19,15 @@ class BarsController extends Controller
 {
 
 	function saveBar(Request $request){
-
 		
 		$places = implode(',',\App\Place::where('id' ,'>' ,0)->pluck('id')->toArray());
 		$moods = implode(',',\App\Place::where('id' ,'>' ,0)->pluck('id')->toArray());
+		$users = implode(',',\App\User::role('manager')->get()->pluck('id')->toArray());
 
 		$data = $request->validate([
 
 			'name' => 'required|max:255',
+			'user'=> 'present|in:'.$users,
 			'description' => 'string|required',
 			'slug' => 'required|max:150|unique:bars|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
 			'address' => 'string|required',
@@ -44,7 +45,6 @@ class BarsController extends Controller
 			'schedule7' => [new Hourrange],
 		]);
 
-
 		$bar = new Bar;
 
 		$bar->name = $data['name'];
@@ -57,7 +57,12 @@ class BarsController extends Controller
 		$bar->status = 0;
 		$bar->schedule =Bar::formToJsonSchedule($data);
 
-		$bar->manager = \Auth::user()->id;
+
+		if(\Auth::user()->hasRole('admin') && isset($data['user']) ){
+			$bar->manager = $data['user'];
+		}else{
+			$bar->manager = \Auth::user()->id;
+		}
 
 		$bar->save();
 
@@ -85,10 +90,13 @@ class BarsController extends Controller
 
 		$places = implode(',',\App\Place::where('id' ,'>' ,0)->pluck('id')->toArray());
 		$moods = implode(',',\App\Place::where('id' ,'>' ,0)->pluck('id')->toArray());
+		$users = implode(',',\App\User::role('manager')->get()->pluck('id')->toArray());
+
 
 
 		$data = $request->validate([
 			'name' => 'required|max:255',
+			'user'=> 'present|in:'.$users,
 			'description' => 'string|required',
 			'slug' => ['required','regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/','max:150',Rule::unique('bars')->ignore($bar->slug,'slug')],
 			'address' => 'string|required',
@@ -116,7 +124,11 @@ class BarsController extends Controller
 		$bar->place = $data['city'];
 		$bar->schedule =Bar::formToJsonSchedule($data);
 
-		$bar->manager = \Auth::user()->id;
+		if(\Auth::user()->hasRole('admin') && isset($data['user']) ){
+			$bar->manager = $data['user'];
+		}else{
+			$bar->manager = \Auth::user()->id;
+		}
 
 		$bar->save();
 
@@ -125,15 +137,6 @@ class BarsController extends Controller
 			->addMediaFromRequest('image')
 			->withResponsiveImages()
 			->toMediaCollection('featured-bar');
-		}
-
-
-		if(Auth::user()->hasRole('admin')){
-			return redirect()->route('admin-publications-browse');
-		}else if(Auth::user()->hasRole('manager')){
-			return redirect()->route('manage-bars');
-		}else{
-			return redirect()->route('home');
 		}
 
 

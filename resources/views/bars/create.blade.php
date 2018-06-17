@@ -16,8 +16,14 @@
     <div class="col-md-12">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
+          @role('manager')
           <li class="breadcrumb-item"><a href="{{ route('manage-home') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{ route('manage-bars') }}">Bar</a></li>
+          @endrole
+          @role('admin')
+          <li class="breadcrumb-item"><a href="{{ route('admin-home') }}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('admin-bars') }}">Bar</a></li>
+          @endrole
           <li class="breadcrumb-item active" aria-current="page">Ajouter bar</li>
         </ol>
       </nav>
@@ -46,7 +52,10 @@
 
         {!! Form::open(['action' => $action, 'method' => $method,'files'=>true ]) !!}
         {{ Form::token() }}
-
+        
+        @role('admin')
+        {{ Form::bsSelect('user', \App\User::role('manager')->get(),old('user'),'Manager') }}
+        @endrole
 
         {{ Form::bsText('name','Nom du bar','Le nom du bar', old('title'),[]) }}
 
@@ -61,11 +70,8 @@
 
         {{ Form::bsSelect('city', \App\Place::all(),'city','Ville') }}
 
+        {{ Form::bsSelect('mood', \App\Mood::all(),old('mood'),'Ambiance') }}
 
-        {{ Form::bsSelect('mood', \App\Mood::all(),'mood','Ambiance') }}
-        
-        
-        
         {{ Form::bsEmail('email','E-mail','Adresse email du bar', old('email'),[]) }}     
 
         {{ Form::bsFile('image','Photo du bar','Uploader')}}

@@ -16,8 +16,14 @@
     <div class="col-md-12">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
+          @role('manager')
           <li class="breadcrumb-item"><a href="{{ route('manage-home') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{ route('manage-bars') }}">Bar</a></li>
+          @endrole
+          @role('admin')
+          <li class="breadcrumb-item"><a href="{{ route('admin-home') }}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('admin-bars') }}">Bar</a></li>
+          @endrole
           <li class="breadcrumb-item active" aria-current="page">Modifier un bar</li>
         </ol>
       </nav>
@@ -47,6 +53,9 @@
         {!! Form::open(['action' => $action, 'method' => $method,'files'=>true ]) !!}
         {{ Form::token() }}
 
+        @role('admin')
+        {{ Form::bsSelect('user', \App\User::role('manager')->get(),$bar->user->id,'Manager') }}
+        @endrole
 
         {{ Form::bsText('name','Nom du bar','Le nom du bar', $bar->name,[]) }}
 

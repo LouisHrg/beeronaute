@@ -14,13 +14,13 @@
         <a class="nav-link" href="{{ route('admin-publications-browse') }}">Publications<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-publications-browse') }}">Bars</a>
+        <a class="nav-link" href="{{ route('admin-bars') }}">Bars</a>
       </li>      
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin-publications-browse') }}">Recommandations</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-publications-browse') }}">Evenements</a>
+        <a class="nav-link" href="{{ route('admin-events') }}">Evenements</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin-users-browse') }}">Utilisateurs</a>

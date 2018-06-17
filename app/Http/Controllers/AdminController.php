@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Publication;
-use App\User;
 use Illuminate\Support\Facades\Hash;
 
+use App\Publication;
+use App\User;
+use App\Event;
+use App\Bar;
+
+use DB;
+use \Auth;
 
 class AdminController extends Controller
 {
@@ -69,5 +74,69 @@ function editUser($id){
 
     return view('admin.users.edit',['user'=>$user]);
 }
+
+
+function events(Request $request){
+
+    $search = $request->input('search');
+
+    $items = Event::where([['events.name', 'like', '%'.$search.'%']])
+    ->orderBy('published', 'desc')
+    ->paginate(15);
+
+    $editAction = 'admin-event-edit';
+    $newAction = 'admin-event-create';
+
+    return view('events.browse',
+        ['page'=>'events',
+        'items'=>$items->appends($request->except('page')),
+        'editAction'=>$editAction,
+        'newAction'=>$newAction
+    ]);
+}
+
+
+function Bars(){
+
+    $bars = Bar::paginate(15); 
+    $editAction = 'admin-bars-edit';
+    $newAction = 'admin-bars-create';
+    $deleteAction = 'bar-delete';
+    $editGalleryAction = 'admin-bars-edit-gallery';
+
+    return view('bars.browse',['items'=>$bars,
+        'newAction'=>$newAction,
+        'editAction'=>$editAction,
+        'deleteAction'=>$deleteAction,
+        'editGalleryAction'=>$editGalleryAction]);
+}
+
+    function newBar(){
+
+        $count = Bar::where('manager', '=', Auth::id())->count();
+
+
+        $action = 'BarsController@saveBar';
+        $method = 'POST';
+
+        return view('bars.create',['action'=>$action,'method'=>$method]);
+
+    }
+
+    function editBar($id){
+
+        $bar = Bar::find($id);
+
+        $action = ['BarsController@updateBar',$bar->id];
+        $method = "POST";
+
+
+        $schedule = Bar::jsonToFormSchedule($bar->schedule);
+
+        $page = 'bars';
+
+        return view('bars.edit',compact('bar','schedule', 'action', 'method','page'));
+
+    }
 
 }

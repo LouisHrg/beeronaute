@@ -33,7 +33,7 @@
 		<div class="col-md-12">
 			<div class="block">
 				<div class="col-md-12">
-					<a class="btn btn-success" href="{{ route('manage-bars-create')}}"> Ajouter un bar </a>
+					<a class="btn btn-success" href="{{ route($newAction)}}"> Ajouter un bar </a>
 				</div>
 				<br>
 				<table class="table table-hover">
@@ -43,7 +43,7 @@
 							<th scope="col">Nom de l'établissement</th>
 							<th scope="col">Description</th>
 							@role('admin')
-							<th scope="col">Auteur</th>
+							<th scope="col">Manager</th>
 							@endrole
 							<th scope="col">Status</th>
 							<th scope="col" class="w-20">Actions</th>
@@ -66,10 +66,10 @@
 								<td scope="row"><span class="badge badge-success">En ligne</span></td>
 								@endif
 								<td scope="row" class="w-20">
-									<a href="{{ route($editGalleryAction,$item->id)}}" class="btn btn-secondary btn-sm"><span class="icon icon-image"></a>
+										<a href="{{ route($editGalleryAction,$item->id)}}" class="btn btn-secondary btn-sm"><span class="icon icon-image"></a>
 										<a href="{{ route('bar-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
-											<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
-												<button class="btn btn-danger btn-sm" 
+										<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
+										<button class="btn btn-danger btn-sm" 
 												data-toggle="modal" 
 												data-target="#deleteBarModal" 
 												data-url="{{ route('bar-delete',$item->id) }}" 
@@ -82,6 +82,10 @@
 									</table>
 									@role('manager')
 									{{ $items->count()}}/5 bars
+									@endrole
+									@role('admin')
+									{{ $items->links() }}
+									{{ $items->count()}}/{{$items->total()}}
 									@endrole
 								</div>
 							</div>

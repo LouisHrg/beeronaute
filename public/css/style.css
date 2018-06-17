@@ -134,6 +134,8 @@ ul.inline{
     object-fit: cover;
     object-position: 20% 30%; /* default value: image is centered*/
 }
+
+
 .img-publication-home img{
     width: 100%;
     height: 200px;

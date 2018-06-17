@@ -30,11 +30,14 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 	Route::get('/news/{slug}', 'HomeController@singlePublication')->name('publication-single');
 
 	Route::get('/bar/{slug}', 'HomeController@singleBar')->name('bar-single');
+	Route::get('/bars/{slug}/events', 'HomeController@allEvents')->name('bar-events');
 	Route::get('/bar/{slug}/gallery', 'HomeController@barGallery')->name('bar-gallery');
+	
 	Route::get('/bars', 'HomeController@bars')->name('bars');
 	
 	Route::get('/events', 'HomeController@events')->name('events');
 	Route::get('/event/{id}', 'HomeController@singleEvent')->name('event-single');
+
 	
 	
 	Route::get('/news', 'HomeController@news')->name('news');
@@ -61,9 +64,18 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 	Route::get('/publications/edit/{id}', 'AdminController@editPublication')->name('admin-publications-edit');
 
 	Route::get('/users', 'AdminController@users')->name('admin-users-browse');
-
 	Route::get('/users/edit/{id}', 'AdminController@editUser')->name('admin-users-edit');
 	Route::post('updateUser/{id}','UsersController@updateUser')->name('admin-users-update');
+
+
+	Route::get('/events', 'AdminController@events')->name('admin-events');
+	Route::get('/events/create', 'AdminController@newEvent')->name('admin-event-create');
+	Route::get('/events/edit/{id}', 'AdminController@editEvent')->name('admin-event-edit');
+
+	Route::get('/bars', 'AdminController@bars')->name('admin-bars');
+	Route::get('/bars/create', 'AdminController@newBar')->name('admin-bars-create');
+	Route::get('/bars/edit/{id}','AdminController@editBar')->name('admin-bars-edit');
+	Route::get('/bars/edit/gallery/{id}','AdminController@editBarGallery')->name('admin-bars-edit-gallery');
 
 	Route::get('/users/create', 'AdminController@newUser')->name('admin-users-create');
 	Route::post('saveUser','UsersController@saveUser');
@@ -101,9 +113,9 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], function () {
 	
 
-	Route::post('saveBar','BarsController@saveBar');
+	Route::post('saveBar','BarsController@saveBar')->middleware('redir:manage-bars,admin-bars');
 	
-	Route::post('updateBar/{id}','BarsController@updateBar');
+	Route::post('updateBar/{id}','BarsController@updateBar')->middleware('redir:manage-bars,admin-bars');
 	
 	Route::post('/saveFeatured/{id}','BarsController@saveFeatured');
 
@@ -118,11 +130,13 @@ Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], fun
 	Route::post('updatePublication/{id}','PublicationsController@updatePublication')->name('publication-update');
 
 	Route::post('savePost/{id}','PostsController@savePost')->name('post-save');
+	Route::post('savePostEvent/{id}','PostsController@savePostEvent')->name('post-save-event');
 
 	Route::post('updatePost/{id}','PostsController@updatePost')->name('post-update');	
 
 	Route::post('saveEventSingle','EventsController@saveEventSingle')->name('event-save-single');
-	Route::post('saveEvent','EventsController@saveEvent')->name('event-save');
+	Route::post('saveEvent','EventsController@saveEvent')->name('event-save')->middleware('redir:manage-events,admin-events');
+	Route::post('editEvent/{id}','EventsController@editEvent')->name('event-edit')->middleware('redir:manage-events,admin-events');
 
 	Route::post('updateEvent/{id}','EventsController@updateEvent')->name('event-update');
 

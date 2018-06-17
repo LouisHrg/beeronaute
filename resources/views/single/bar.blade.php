@@ -8,7 +8,7 @@
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
 					<li class="breadcrumb-item"><a href="{{ route('bars') }}">Bars</a></li>
-					<li class="breadcrumb-item active">{{ $bar->name }}</li>
+					<li class="breadcrumb-item active">{{ ucfirst($bar->name) }}</li>
 				</ol>
 			</nav>
 		</div>
@@ -77,7 +77,7 @@
 							@if(!App\Subscription::where('user_id','=',\Auth::id())->where('bar',"=",$bar->id)->get()->isNotEmpty())
 							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#subTobar">Suivre ce bar</button>
 							@else
-							<a class="btn btn-danger btn-sm" href="{{ route('') }}">Ne plus suivre ce bar</a>
+							<a class="btn btn-danger btn-sm" href="">Ne plus suivre ce bar</a>
 							@endif
 						</div>
 					</div>
@@ -139,6 +139,7 @@
 								</div>
 							</div>
 							@endforeach
+							<a href="{{ route('bar-events',$bar->slug) }}" class="btn btn-block btn-sm btn-info"> Tout voir </a>
 						</div>
 					</div>
 					@endif

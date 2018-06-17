@@ -33,8 +33,20 @@
 		<div class="col-md-12">
 			<div class="block">
 				<div class="col-md-12">
-					<a class="btn btn-success" href="{{ route('manage-event-create')}}"> Ajouter un évenement </a>
+					<a class="btn btn-success" href="{{ route($newAction)}}"> Ajouter un évenement </a>
 				</div>
+				@if (null !== app('request')->input('search'))
+				<a href="{{ Request::url() }}" class="btn btn-info"><- Voir tous les éléments </a>
+				@endif
+
+				{!! Form::open(['method'=>'GET','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
+				<div class="col-md-5 ml-auto">
+					<div class="form-group row ">
+						<input type="text" class="form-control col-md-9" name="search" id="search" aria-describedby="search" placeholder="Rechercher parmis les publications" >
+						<button type="submit" class="btn btn-secondary col-md-3">Rehercher</button>
+					</div>
+				</div>
+				{!! Form::close() !!}
 				<br>
 				<table class="table table-hover">
 					<thead class="thead-dark">
@@ -62,21 +74,23 @@
 							<td scope="row">{{ date('d/m/Y H:i',strtotime($item->endDate)) }}</td>
 							@role('admin')
 							<td scope="row">{{ $item->user->name }}</th>
-							@endrole
-							<td scope="row">
-								<a target="_blank" href="/bar/{{ $item->place->slug }}">{{ $item->place->name }}</a>
-							</td>
-							<td scope="row">
-								<a href="{{ route('event-single',$item->id) }}" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
-									<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
-										<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
-										</td>
-									</tr>
-									@endforeach
-								</tbody>
-							</table>
+								@endrole
+								<td scope="row">
+									{{-- <a target="_blank" href="/bar/{{ $item->place->slug }}">{{ $item->place->name }}</a> --}}
+								</td>
+								<td scope="row">
+									<a href="{{ route('event-single',$item->id) }}" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
+										<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
+											<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
+											</td>
+										</tr>
+										@endforeach
+									</tbody>
+								</table>
+
+								{{ $items->links() }}
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			@endsection
+				@endsection
