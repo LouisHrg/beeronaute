@@ -38,6 +38,8 @@ class AppServiceProvider extends ServiceProvider
 
         \Form::component('bsNumber','form.number',['name','value','displayname','helper'=>null]);
 
+        \Carbon\Carbon::setLocale(config('app.locale'));
+
 
     }
 

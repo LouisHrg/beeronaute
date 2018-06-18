@@ -1,23 +1,30 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ * Date: Mon, 18 Jun 2018 12:11:18 +0000.
+ */
+
 namespace App;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
-class Subscription extends Eloquent
+class Notif extends Eloquent
 {
 	protected $casts = [
-		'event' => 'int',
-		'bar' => 'int',
+		'recipient' => 'int',
 		'type' => 'int',
-		'user_id' => 'int'
+		'viewed' => 'int',
+		'bar' => 'int',
+		'event' => 'int'
 	];
 
 	protected $fillable = [
-		'event',
-		'bar',
+		'recipient',
 		'type',
-		'user_id'
+		'viewed',
+		'bar',
+		'event'
 	];
 
 	public function place()
@@ -32,6 +39,6 @@ class Subscription extends Eloquent
 
 	public function user()
 	{
-		return $this->belongsTo(\App\User::class);
+		return $this->belongsTo(\App\User::class, 'recipient');
 	}
 }

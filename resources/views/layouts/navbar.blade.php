@@ -36,10 +36,22 @@
           <span class="icon icon-bell"> </span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Evenement bientot</a>
-          <a class="dropdown-item" href="#">Evenement bientot</a>
+          @foreach(App\Notif::where('recipient','=',\Auth::id())->orderBy('created_at','DESC')->get()->take(5) as $notif)
+
+          @if($notif->type == 1 && strtotime($notif->party->startDate) > strtotime(time()))
+          <a class="dropdown-item {{ !$notif->viewed?'unviewed':'' }}" href="{{ route('event-single',$notif->party->id) }}">
+            {{ ucfirst($notif->party->name) }} à {{ date('H:i',strtotime($notif->party->startDate)) }}
+          </a>
+          @endif
+          @if($notif->type == 2 && strtotime($notif->party->startDate) > strtotime(time()))
+          <a class="dropdown-item {{ !$notif->viewed?'unviewed':'' }}" href="{{ route('event-single',$notif->party->id) }}">
+            {{ ucfirst($notif->party->name) }} à commencé
+          </a>
+          @endif
+          @endforeach
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Tout voir</a>
+          <a class="dropdown-item" href="{{ route('notifs') }}">Tout voir</a>
+          <a class="dropdown-item" href="#">Tout marquer comme lu</a>
         </div>
       </li>
 

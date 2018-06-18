@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 use App\Event;
+use App\Bar;
 use App\Subscription;
 use App\User;
 
@@ -19,7 +20,8 @@ class TestController extends Controller
 {
 	function test(){
 
-		// Event::where('id','>',0)->delete();
+
+		// Bar::where('id','>',0)->delete();
 
 		
 		// 	$trigger = date('Y-m-d H:i:s',strtotime("-2 hours", time()));

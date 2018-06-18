@@ -20,7 +20,7 @@ class CreateBarsTable extends Migration {
 			$table->string('phone')->nullable();
 			$table->string('email')->nullable();
 			$table->timestamps();
-			$table->integer('manager')->unsigned()->index();
+			$table->integer('manager')->unsigned()->index('bars_manager_foreign');
 			$table->string('slug', 267)->unique();
 			$table->text('description', 65535);
 			$table->integer('place')->unsigned()->index('bars_place_foreign');

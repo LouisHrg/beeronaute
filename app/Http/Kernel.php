@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'redir' => \App\Http\Middleware\ScopeRedirect::class,
+        'push' => \App\Http\Middleware\PushNotifs::class,
 
     ];
 }

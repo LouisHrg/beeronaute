@@ -16,9 +16,12 @@
 			<div class="img-event-single">{{ $event->getFirstMedia('featured-event') }}</div>
 			
 			<h1> {{ $event->name }} </h1>
-			{{ $event->place->city->name }}
-			{{ $event->place->name }}
-			{{ $event->place->location }}
+			@if( strtotime($event->endDate) > time() )
+			@if( strtotime($event->startDate) > time())
+			<p>Débute {{ $event->startDate->diffForHumans() }}</p>
+			@else
+			<p>Évenement en cours, termine {{ $event->endDate->diffForHumans() }}</p>
+			@endif
 			<div class="row">
 				@if(\Auth::user()->hasRole('user'))
 				<div class="col-md-10">
@@ -41,23 +44,37 @@
 					</div>
 					@endif
 					@endif
-				</div>	
+				</div>
+				<p><strong>Description : </strong></p>
 				{!! $event->description !!}
-
+				<br>
+				<br>
+				<br>
+			<p><strong>Ville :</strong> {{ $event->place->city->name }}</p>
+			<p><strong>Lieu :</strong> {{ $event->place->name }}</p>
+			<p><strong>Adresse :</strong> {{ $event->place->location }}</p>
+			@else
+			<h4> L'évenement est terminé </h4>
+			@endif
 				<div class="card feed-element block-feed block-home feed">
 					<div class="card-header">Participants</div>
 					<div class="card-body">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="row">
-								@foreach(App\Subscription::where('event','=',$event->id)->get() as $sub)
+								@forelse(App\Subscription::where('event','=',$event->id)->get() as $sub)
 								<div class="col-md-2">
 									<a target="_blank" href="{{ route('profile',$sub->user->name) }}">
 										<img src="/storage/{{ $sub->user->avatar }}" class="avatar">
 										<span class="text-muted"> {{ $sub->user->name }}</span>
 									</a>
 								</div>
-								@endforeach
+								@empty
+								<div class="col-md-12">
+								<p> Aucun participant </p>
+								</div>
+								@endforelse
+
 								</div>
 							</div>
 						</div>
@@ -65,7 +82,9 @@
 				</div>
 
 				<br><br><br>
+				@if($posts->isNotEmpty())
 				<h5> Messages : </h5>
+				@endif
 				@foreach($posts as $post)
 
 				<div id="post{{$post->id}}" class="card feed-element block-feed block-home">
@@ -101,7 +120,7 @@
 					{!! Form::open(['action' => ['SubscriptionsController@attachEvent',$event->id], 'method' => 'POST','files'=>false ]) !!}
 					{{ Form::token() }}
 
-					<p>Evenement : {{ $event->name }}</p>
+					<p>Évenement : {{ $event->name }}</p>
 					<p>Lieu : {{ $event->place->location }}, {{ $event->place->name }}</p>
 
 				</div>

@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Fil d'actualité</a></li>
                     <li class="breadcrumb-item active">Bars</li>
                 </ol>
             </nav>

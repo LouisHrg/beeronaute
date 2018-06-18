@@ -276,3 +276,7 @@ img.zoom-img {
   text-align: center;
   line-height: 100px;
 }
+
+.unviewed{
+  font-weight: bold;
+}

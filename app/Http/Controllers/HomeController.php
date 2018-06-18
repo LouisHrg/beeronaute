@@ -10,6 +10,7 @@ use App\Post;
 use App\Event;
 use App\Subscription;
 use App\User;
+use App\Notif;
 use DB;
 
 class HomeController extends Controller
@@ -17,7 +18,24 @@ class HomeController extends Controller
 
     public function index()
     {   
-        $posts = Post::paginate(15);
+
+        
+        $posts = DB::table('subscriptions')
+        ->select(DB::raw('MAX(posts.id) as id'))
+        ->leftJoin('events','subscriptions.event','=','events.id')
+        ->leftJoin('bars','subscriptions.bar','=','bars.id')
+        ->leftjoin('posts', function($join){
+                $join->on('posts.event','=','events.id');
+                $join->orOn('posts.bar','=','bars.id');
+        })
+        ->where('subscriptions.user_id','=',\Auth::id())
+        ->where('posts.id','!=','NULL')
+        ->groupBy('posts.id')
+        ->get();
+
+        $ids = $posts->pluck('id')->toArray();
+
+        $posts = Post::whereIn('id', $ids)->orderBy('created_at','DESC')->paginate(15);
 
         return view('home',compact('posts'));
     }
@@ -42,14 +60,14 @@ class HomeController extends Controller
 
         $bars = Bar::where('status','=','1')->paginate(12);
 
-        return view('searchbars',compact('bars'));
+        return view('bars',compact('bars'));
         
     }
 
     public function singleBar(Request $request, $slug){
 
         $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
-        $posts = Post::where('bar',$bar->id)->get();
+        $posts = Post::where('bar',$bar->id)->where('type',1)->get();
         $events = Event::where('bar',$bar->id)->latest()->limit(2)->get();
         
 
@@ -63,6 +81,14 @@ class HomeController extends Controller
         $events = Event::where('bar',$bar->id)->latest()->paginate(5);
 
         return view('single.barevents', compact('events','bar'));
+
+    }
+
+        public function allNotifs(Request $request){
+
+        $notifs = Notif::where('recipient','=',\Auth::id())->orderBy('created_at','DESC')->paginate('15');
+
+        return view('notifs',compact('notifs'));
 
     }
 
@@ -80,7 +106,7 @@ class HomeController extends Controller
 
     $subs = Subscription::where('user_id','=',\Auth::id())->where('type','=','1')->paginate(10);
 
-    $events = Event::orderBy('published', 'desc')->paginate(10);
+    $events = Event::where('endDate','>',date('Y-m-d H:i:s'))->orderBy('published', 'desc')->paginate(10);
 
     return view('events',compact('events','subs'));
 
@@ -96,7 +122,7 @@ public function eventsMe(){
 public function singleEvent(Request $request, $id){
 
     $event = Event::find($id);
-    $posts = Post::where('event','=',$id)->get();
+    $posts = Post::where('event','=',$id)->where('type',2)->get();
     $exist = Subscription::where('user_id','=',\Auth::id())->where('event',"=",$id)->get()->isNotEmpty();
     return view('single.event', compact('event','exist','posts')  );
 

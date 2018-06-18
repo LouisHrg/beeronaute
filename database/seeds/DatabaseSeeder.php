@@ -15,10 +15,12 @@ class DatabaseSeeder extends Seeder
             PopulatePlaces::class,
     		PopulateMoods::class,
     		RolesAndPermissionsSeeder::class,
-    		UsersTableSeeder::class,
+            UsersTableSeeder::class,
+            FakeManyUsers::class,
+            FakeBars::class,
             FakeNews::class,
             FakeEvents::class,
-    		fakeSubscriptions::class,
+    		FakeSubscriptions::class,
     	]);
     }
 }

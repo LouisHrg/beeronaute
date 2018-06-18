@@ -20,7 +20,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', 'IndexController@index')->name('index')->middleware('guest');
 
-Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
+Route::group(['prefix' => '/',  'middleware' => ['auth','push']], function()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
 
@@ -38,7 +38,7 @@ Route::group(['prefix' => '/',  'middleware' => 'auth'], function()
 	Route::get('/events', 'HomeController@events')->name('events');
 	Route::get('/event/{id}', 'HomeController@singleEvent')->name('event-single');
 
-	
+	Route::get('/notifs', 'HomeController@allNotifs')->name('notifs');
 	
 	Route::get('/news', 'HomeController@news')->name('news');
 	Route::get('/search', 'HomeController@search')->name('search');
@@ -134,7 +134,7 @@ Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], fun
 
 	Route::post('updatePost/{id}','PostsController@updatePost')->name('post-update');	
 
-	Route::post('saveEventSingle','EventsController@saveEventSingle')->name('event-save-single');
+	Route::post('saveEventSingle','EventsController@saveEventSingle')->name('event-save-single')->middleware('redir:manage-events,admin-events');
 	Route::post('saveEvent','EventsController@saveEvent')->name('event-save')->middleware('redir:manage-events,admin-events');
 	Route::post('editEvent/{id}','EventsController@editEvent')->name('event-edit')->middleware('redir:manage-events,admin-events');
 

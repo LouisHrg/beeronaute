@@ -35,5 +35,25 @@ class FakeManyUsers extends Seeder
     	$user->assignRole('user');
 
     	}
+
+        foreach (range(1,50) as $index) {
+
+        $name = $faker->userName;                
+
+        DB::table('users')->insert([
+
+
+            'name' => $name,
+            'email' => $faker->safeEmail,
+            'firstname' => $faker->firstName,
+            'lastname' => $faker->lastName,
+            'bio' => $faker->text($maxNbChars = 200),
+            'password' => bcrypt('user'),
+
+        ]);
+        $user = User::where('name', $name)->first();
+        $user->assignRole('manager');
+
+        }
     }
 }
