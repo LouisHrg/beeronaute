@@ -79,6 +79,9 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 
 	Route::get('/users/create', 'AdminController@newUser')->name('admin-users-create');
 	Route::post('saveUser','UsersController@saveUser');
+	
+VisitStats::routes();
+
 
 });
 

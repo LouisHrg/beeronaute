@@ -149,6 +149,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Reliese\Coders\CodersServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Voerro\Laravel\VisitorTracker\VisitorTrackerServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -161,7 +162,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Voerro\Laravel\VisitorTracker\VisitorTrackerServiceProvider::class,
 
 
 

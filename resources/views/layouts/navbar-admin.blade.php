@@ -9,7 +9,7 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarColor03">
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav mx-auto">
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin-publications-browse') }}">Publications<span class="sr-only">(current)</span></a>
       </li>
@@ -24,6 +24,19 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin-users-browse') }}">Utilisateurs</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Statistiques
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ route('visitortracker.summary') }}">Statistiques</a>
+          <a class="dropdown-item" href="{{ route('visitortracker.all_requests') }}">Toutes les requêtes</a>
+          <a class="dropdown-item" href="{{ route('visitortracker.browsers') }}">Navigateurs</a>
+          <a class="dropdown-item" href="{{ route('visitortracker.countries') }}">Pays</a>
+          <a class="dropdown-item" href="{{ route('visitortracker.users') }}">Utilisateurs</a>
+          <a class="dropdown-item" href="{{ route('visitortracker.login_attempts') }}">Tentatives de login</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin-publications-browse') }}">Paramètres</a>

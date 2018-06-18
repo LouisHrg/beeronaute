@@ -8,15 +8,12 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarColor03">
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav mx-auto">
       <li class="nav-item {{{ ( isset($page) && $page=='posts'? 'active' : '') }}}">
         <a class="nav-link" href="{{ route('manage-posts') }}">Mes posts</a>
       </li>
       <li class="nav-item {{{ ( isset($page) && $page=='bars'? 'active' : '') }}}">
         <a class="nav-link" href="{{ route('manage-bars') }}">Mes bars</a>
-      </li>      
-      <li class="nav-item {{{ ( isset($page) && $page=='stats'? 'active' : '') }}}">
-        <a class="nav-link" href="{{ route('manage-stats') }}">Statistiques</a>
       </li>
       <li class="nav-item {{{ ( isset($page) && $page=='events'? 'active' : '') }}}">
         <a class="nav-link" href="{{ route('manage-events') }}">Mes évenements</a>

@@ -132,7 +132,7 @@ return [
     |
     */
 
-    'layout' => 'layouts.dashboard',
+    'layout' => 'layouts.layout-admin',
 
     'section_content' => 'content',
 
