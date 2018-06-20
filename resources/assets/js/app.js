@@ -25,15 +25,15 @@ let app = new Vue({
     el: '#app',
 
     data: {
-        messages: []
+        messages: [],
+        eventid: ''
     },
 
-    created() {
+    mounted() {
         this.fetchMessages();
 
         Echo.private('chat')
             .listen('MessageSent', (e) => {
-                console.log(this)
                 this.messages.push({
                     message: e.message.message,
                     user: e.user
@@ -42,16 +42,18 @@ let app = new Vue({
     },
 
     methods: {
+
         fetchMessages() {
-            axios.get('/chat/messages').then(response => {
+
+            axios.get('/chat/messages/'+this.eventid).then(response => {
                 this.messages = response.data;
             });
         },
 
         addMessage(message) {
             this.messages.push(message);
-
             axios.post('/chat/messages', message).then(response => {
+                console.log(response.data)
             });
         }
     }

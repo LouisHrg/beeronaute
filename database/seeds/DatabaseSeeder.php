@@ -12,13 +12,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
     	$this->call([
-            PopulatePlaces::class,
-    		PopulateMoods::class,
-    		RolesAndPermissionsSeeder::class,
-    		UsersTableSeeder::class,
-            FakeNews::class,
-            FakeEvents::class,
-    		fakeSubscriptions::class,
+            //PopulatePlaces::class,
+    		//PopulateMoods::class,
+    		//RolesAndPermissionsSeeder::class,
+    		//UsersTableSeeder::class,
+            //FakeBars::class,
+            //FakeNews::class,
+            //FakeEvents::class,
+    		FakeSubscriptions::class,
     	]);
     }
 }

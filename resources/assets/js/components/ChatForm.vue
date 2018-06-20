@@ -12,7 +12,7 @@
 
 <script>
     export default {
-        props: ['user'],
+        props: ['user', 'eventid'],
 
         data() {
             return {
@@ -20,15 +20,19 @@
             }
         },
 
+        created() {
+            this.$root.eventid = this.eventid;
+        },
+
         methods: {
             sendMessage() {
                 this.$emit('messagesent', {
                     user: this.user,
-                    message: this.newMessage
+                    message: this.newMessage,
+                    eventid: this.eventid
                 });
-
                 this.newMessage = ''
-            }
+            },
         }
     }
 </script>
