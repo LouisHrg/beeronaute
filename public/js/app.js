@@ -13994,6 +13994,10 @@ __webpack_require__(14);
 
 window.Vue = __webpack_require__(39);
 
+var autoScroll = function autoScroll() {
+    $(".panel-body").scrollTop($(".panel-body").prop("scrollHeight"));
+};
+
 var token = document.head.querySelector('meta[name="csrf-token"]');
 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 
@@ -14014,6 +14018,9 @@ var app = new Vue({
         eventid: ''
     },
 
+    created: function created() {
+        $(".panel-body").scrollTop($(".panel-body").prop("scrollHeight"));
+    },
     mounted: function mounted() {
         var _this = this;
 
@@ -14035,14 +14042,20 @@ var app = new Vue({
             axios.get('/chat/messages/' + this.eventid).then(function (response) {
                 _this2.messages = response.data;
             });
+            autoScroll();
         },
         addMessage: function addMessage(message) {
             this.messages.push(message);
             axios.post('/chat/messages', message).then(function (response) {
                 console.log(response.data);
+                autoScroll();
             });
         }
     }
+});
+
+$(document).ready(function () {
+    autoScroll();
 });
 
 /***/ }),
@@ -52497,9 +52510,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['messages']
+    props: ['messages', 'user']
 });
 
 /***/ }),
@@ -52517,20 +52537,60 @@ var render = function() {
       return _c("li", { staticClass: "left clearfix" }, [
         _c("div", { staticClass: "chat-body clearfix" }, [
           _c("div", { staticClass: "header" }, [
-            _c("strong", { staticClass: "primary-font" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(message.user.name) +
-                  "\n                "
-              )
+            _c("a", { attrs: { href: "/profile/" + message.user.name } }, [
+              _c("strong", { staticClass: "primary-font" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(message.user.name) +
+                    "\n                "
+                )
+              ])
             ])
           ]),
           _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n                " + _vm._s(message.message) + "\n            "
-            )
-          ])
+          _vm.user.name === message.user.name
+            ? _c(
+                "div",
+                {
+                  staticStyle: {
+                    "background-color": "#696969",
+                    color: "white",
+                    "border-radius": "5px"
+                  }
+                },
+                [
+                  _c(
+                    "p",
+                    { staticStyle: { padding: "10px", "text-align": "right" } },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(message.message) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                ]
+              )
+            : _c(
+                "div",
+                {
+                  staticStyle: {
+                    "background-color": "#1b4f72",
+                    color: "white",
+                    "border-radius": "5px"
+                  }
+                },
+                [
+                  _c("p", { staticStyle: { padding: "10px" } }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(message.message) +
+                        "\n                "
+                    )
+                  ])
+                ]
+              )
         ])
       ])
     })

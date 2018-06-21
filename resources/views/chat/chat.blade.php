@@ -8,8 +8,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Chats</div>
 
-                    <div class="panel-body">
-                        <chat-messages :messages="messages">
+                    <div class="panel-body" style="overflow: auto; height: 80vh;">
+                        <chat-messages :messages="messages" :user="{{ Auth::user() }}">
 
                         </chat-messages>
                     </div>

@@ -9,6 +9,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+let autoScroll = () => {
+    $(".panel-body").scrollTop($(".panel-body").prop("scrollHeight"));
+};
+
 var token = document.head.querySelector('meta[name="csrf-token"]');
 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 
@@ -29,6 +33,10 @@ let app = new Vue({
         eventid: ''
     },
 
+    created() {
+        $(".panel-body").scrollTop($(".panel-body").prop("scrollHeight"))
+    },
+
     mounted() {
         this.fetchMessages();
 
@@ -44,17 +52,22 @@ let app = new Vue({
     methods: {
 
         fetchMessages() {
-
             axios.get('/chat/messages/'+this.eventid).then(response => {
                 this.messages = response.data;
             });
+            autoScroll();
         },
 
         addMessage(message) {
             this.messages.push(message);
             axios.post('/chat/messages', message).then(response => {
                 console.log(response.data)
+                autoScroll();
             });
         }
     }
 });
+
+$(document).ready(() => {
+    autoScroll();
+})
