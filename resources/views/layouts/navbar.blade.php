@@ -68,7 +68,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <h6 class="dropdown-header"></h6>
           <a class="dropdown-item" href="{{ route('profile', \Auth::user()->name) }}"><span class="icon icon-user"></span> Mon profil</a>
-          <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-cogs"></span> Paramètres</a>
+          <a class="dropdown-item" href="{{ route('profile-settings') }}"><span class="icon icon-cogs"></span> Paramètres</a>
           <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-exit"></span> Se déconnecter</a>
         </div>
       </li>

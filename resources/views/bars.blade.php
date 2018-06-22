@@ -22,6 +22,7 @@
     <div class="row">
 
         <div class="mx-auto col-md-12">
+            <a href="{{ route('my-bars') }}" class="btn btn-sm btn-info"> Mes bars </a>
             <div class="form-group mt-3 mb-3">
                 {!! Form::open(['method'=>'GET','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
                 <div class="col-md-12 ml-auto">

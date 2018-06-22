@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateModelHasRolesTable extends Migration {
+class CreateModelHasPermissionsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,12 @@ class CreateModelHasRolesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('model_has_roles', function(Blueprint $table)
+		Schema::create('model_has_permissions', function(Blueprint $table)
 		{
-			$table->integer('role_id')->unsigned();
-			$table->string('model_type');
+			$table->integer('permission_id')->unsigned();
+			$table->string('model_type', 191);
 			$table->bigInteger('model_id')->unsigned();
-			$table->primary(['role_id','model_id','model_type']);
+			$table->primary(['permission_id','model_id','model_type']);
 			$table->index(['model_type','model_id']);
 		});
 	}
@@ -30,7 +30,7 @@ class CreateModelHasRolesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('model_has_roles');
+		Schema::drop('model_has_permissions');
 	}
 
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use \Auth;
 use App\Recommendation;
 
 class RecommendationsController extends Controller

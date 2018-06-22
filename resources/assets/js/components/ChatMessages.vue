@@ -16,7 +16,7 @@
                     <p style="text-align: right;">
                         {{ message.message }}
                         <p class="date-msg-own">
-                            {{  moment(message.created_at,'YYYY-MM-DD HH:mm:ss').fromNow() }}
+                            {{  message.created_at }}
                         </p>
                     </p>
                 </div>
@@ -24,7 +24,7 @@
                     <p>
                         {{ message.message }}
                         <p class="date-msg">
-                            {{  moment(message.created_at,'YYYY-MM-DD HH:mm:ss').fromNow() }}
+                            {{  message.created_at }}
                         </p>
                     </p>
                 </div>
@@ -35,6 +35,6 @@
 
 <script>
     export default {
-        props: ['messages', 'user'],
+        props: ['messages', 'user']
     };
 </script>

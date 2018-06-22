@@ -16,14 +16,14 @@ class CreateUsersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('role_id')->unsigned()->nullable()->index('users_role_id_foreign');
-			$table->string('name')->unique();
+			$table->string('name', 191)->unique();
 			$table->text('bio', 65535)->nullable();
 			$table->date('birthdate')->nullable();
-			$table->string('firstname')->nullable();
-			$table->string('lastname')->nullable();
-			$table->string('email')->unique();
-			$table->string('avatar')->nullable()->default('users/default.png');
-			$table->string('password');
+			$table->string('firstname', 191)->nullable();
+			$table->string('lastname', 191)->nullable();
+			$table->string('email', 191)->unique();
+			$table->string('avatar', 191)->nullable()->default('users/default.png');
+			$table->string('password', 191);
 			$table->string('remember_token', 100)->nullable();
 			$table->text('settings', 65535)->nullable();
 			$table->timestamps();

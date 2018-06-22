@@ -17,16 +17,34 @@
 
 @section('content')
 @include('layouts.navbar')
-<div class="container feed">
+<div class="container">
     <div class="row">
-        <div class="mx-auto col-md-8">
-            @foreach($notifs as $notif)
+        <div class="mx-auto col-md-12">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Notifications</th>
+              </tr>
+          </thead>
+          <tbody>
+            @forelse($notifs as $notif)
 
             @if($notif->type == 1 && strtotime($notif->party->startDate) > strtotime(time()))
-            <a href="{{ route('event-single',$notif->party->id) }}">{{ ucfirst($notif->party->name) }} : commence {{ $notif->party->startDate->diffForHumans() }}</a>
-            @endif
-            @endforeach
-        </div>
-    </div>
+            <tr>
+              <td scope="row"><a href="{{ route('event-single',$notif->party->id) }}">{{ ucfirst($notif->party->name) }} : commence {{ $notif->party->startDate->diffForHumans() }}</a></td>
+             </tr>
+
+          @endif
+
+          @empty
+          <tr>
+              <td scope="row">Aucune notification</td>
+          </tr>
+          @endforelse
+      </tbody>
+      {{ $notifs->links() }}
+  </table> 
+</div>
+</div>
 </div>
 @endsection

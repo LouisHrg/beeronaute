@@ -31,13 +31,14 @@ Route::group(['prefix' => '/',  'middleware' => ['auth','push']], function()
 	Route::get('/home', 'HomeController@index')->name('home');
 
 	Route::get('/profil/{username}', 'HomeController@profile')->name('profile');
-	Route::get('/profil', 'HomeController@myself')->name('profile-me');
+	Route::get('/settings', 'HomeController@userSettings')->name('profile-settings');
 	
-	// Route::get('/news/{slug}', 'HomeController@singlePublication')->name('publication-single');
+	Route::post('updateUser','UsersController@updateUserProfile')->name('update-profile');
 
 	Route::get('/bar/{slug}', 'HomeController@singleBar')->name('bar-single');
 	Route::get('/bars/{slug}/events', 'HomeController@allEvents')->name('bar-events');
 	Route::get('/bar/{slug}/gallery', 'HomeController@barGallery')->name('bar-gallery');
+	Route::get('/bars/following', 'HomeController@myBars')->name('my-bars');
 	
 	Route::get('/bars', 'HomeController@bars')->name('bars');
 	
@@ -48,6 +49,7 @@ Route::group(['prefix' => '/',  'middleware' => ['auth','push']], function()
 	Route::get('/recommendation/{id}', 'HomeController@recommendationSingle')->name('reco-single');
 
 	Route::get('/notifs', 'HomeController@allNotifs')->name('notifs');
+	Route::get('/notifs/idontcare', 'HomeController@flagNotifs')->name('notifs-readed');
 	
 	Route::get('/news', 'HomeController@news')->name('news');
 	Route::get('/search', 'HomeController@search')->name('search');

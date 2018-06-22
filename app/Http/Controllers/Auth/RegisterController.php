@@ -65,12 +65,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'lastname' => $data['password'],
-            'firstname' => $data['password'],
-        ]);
+        
+
+
+        $user = new User;
+        
+        $user->name = $data['name'];
+        $user->firstname = $data['firstname'];
+        $user->lastname = $data['lastname'];
+        $user->email =$data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->save();
+        $user->assignRole('user');
+
+        $user->addMediaFromUrl('https://conferencecloud-assets.s3.amazonaws.com/default_avatar.png')->toMediaCollection('avatar-user');
+        $user->addMediaFromUrl('https://www.parcanimalierdauvergne.fr/wp-content/uploads/2016/02/fichie_gibbon_mains_blanches.jpg')->toMediaCollection('banner-user');
+
+        return $user;
+
     }
 }

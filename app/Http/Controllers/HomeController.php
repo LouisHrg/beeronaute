@@ -91,6 +91,16 @@ class HomeController extends Controller
         return view('single.bar', compact('bar','posts','events','isFollowing'));
 
     }    
+    public function myBars(Request $request){
+
+
+        $subs = Subscription::where('user_id','=',\Auth::id())
+        ->where('type','=','2')
+        ->paginate(15);
+
+        return view('bars.mybars', compact('subs'));
+
+    }    
 
     public function allEvents(Request $request, $slug){
 
@@ -103,7 +113,7 @@ class HomeController extends Controller
 
     public function allNotifs(Request $request){
 
-        $notifs = Notif::where('recipient','=',\Auth::id())->orderBy('created_at','DESC')->paginate('15');
+        $notifs = Notif::where('recipient','=',\Auth::id())->orderBy('created_at','DESC')->paginate(15);
 
         return view('notifs',compact('notifs'));
 
@@ -178,15 +188,28 @@ public function profile($username){
 
     $user = User::where('name','=',$username)->firstOrFail();
 
-    return view('single.profile', compact('user'));
+    $subs = Subscription::where('user_id','=',$user->id)
+    ->where('type','=','2')
+    ->get();
+
+    return view('single.profile', compact('user','subs'));
 
 }
-
-public function myself(){
+public function userSettings(){
 
     $user = \Auth::user();
-    
-    return view('single.profile', compact('user'));
-    
+
+    return view('home.usersettings', compact('user'));    
 }
+
+public function flagNotifs(){
+
+    $user = \Auth::user();
+
+    Notif::where('recipient',\Auth::id())
+    ->update(['viewed'=>1]);
+
+    return back();
+}
+
 }

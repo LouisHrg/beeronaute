@@ -18,7 +18,7 @@ class CreateEventsTable extends Migration {
 			$table->timestamps();
 			$table->integer('author')->unsigned()->index('events_author_foreign');
 			$table->text('description', 65535);
-			$table->string('name');
+			$table->string('name', 191);
 			$table->dateTime('startDate');
 			$table->dateTime('endDate');
 			$table->dateTime('published');

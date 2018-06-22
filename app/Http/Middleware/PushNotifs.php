@@ -13,8 +13,6 @@ class PushNotifs
     public function handle($request, Closure $next)
     {
 
-
-
         $subs = Subscription::where('user_id','=',\Auth::id())
         ->where('type','=','1')
         ->get();

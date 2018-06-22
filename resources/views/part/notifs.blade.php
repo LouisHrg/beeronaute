@@ -14,4 +14,4 @@
 @endforelse
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{ route('notifs') }}">Tout voir</a>
-<a class="dropdown-item" href="#">Tout marquer comme lu</a>
+<a class="dropdown-item" href="{{ route('notifs-readed') }}">Tout marquer comme lu</a>

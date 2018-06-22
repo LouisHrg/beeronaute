@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateRecommendationsTable extends Migration {
+class CreatePublicationsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,14 @@ class CreateRecommendationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('recommendations', function(Blueprint $table)
+		Schema::create('publications', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title');
-			$table->text('body', 65535);
-			$table->string('slug')->unique('lists_slug_unique');
+			$table->string('title', 191);
+			$table->text('content', 65535);
 			$table->dateTime('published');
+			$table->string('slug', 191)->unique('posts_slug_unique');
+			$table->integer('author')->unsigned()->index('posts_author_foreign');
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -32,7 +33,7 @@ class CreateRecommendationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('recommendations');
+		Schema::drop('publications');
 	}
 
 }

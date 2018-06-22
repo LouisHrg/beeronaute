@@ -78,7 +78,49 @@ class UsersController extends Controller
 
 		return redirect()->route('admin-users-browse');
 	}
+	function updateUserProfile(Request $request){
 
+
+		$user = \Auth::user();
+
+		$data = $request->validate([
+			'firstname' => 'required|string|max:100',
+			'lastname' => 'required|string|max:100',
+			'bio' => 'required|string|max:500',
+			'password' => 'nullable|string|min:6|confirmed',
+			'banner' => 'mimes:jpeg,png,jpg',
+			'avatar' => 'mimes:jpeg,png,jpg'
+
+		]);
+
+		$user->firstname = $data['firstname'];
+		$user->lastname = $data['lastname'];
+		$user->bio = $data['bio'];
+
+		if(isset($data->password)){
+			$user->password = Hash::make($data['password']);
+		}
+
+		$user->save();
+
+		if(!empty($data['avatar'])){
+			$user->clearMediaCollection('avatar-user');
+			$user
+			->addMediaFromRequest('avatar')
+			->toMediaCollection('avatar-user');
+		}
+
+		if(!empty($data['banner'])){
+			$user->clearMediaCollection('banner-user');
+			$user
+			->addMediaFromRequest('banner')
+			->toMediaCollection('banner-user');
+		}
+
+
+		return redirect()->route('profile',$user->name);
+
+	}
 	function deleteUser(Request $request, $id){
 
 		$user = User::find($id);

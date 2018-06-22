@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePermissionsTable extends Migration {
+class CreateMessagesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,14 @@ class CreatePermissionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('permissions', function(Blueprint $table)
+		Schema::create('messages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
-			$table->string('guard_name');
+			$table->integer('user_id')->unsigned();
+			$table->integer('event_id')->unsigned();
+			$table->text('message', 65535);
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
@@ -29,7 +31,7 @@ class CreatePermissionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('permissions');
+		Schema::drop('messages');
 	}
 
 }
