@@ -7,11 +7,6 @@ use App\Publication;
 
 class FakeNews extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {	
     	$faker = Faker::create('fr_FR');
@@ -31,7 +26,10 @@ class FakeNews extends Seeder
         ]);
 
         $news = Publication::where('slug', $slug)->first();
-        $news->addMediaFromUrl('https://source.unsplash.com/random')->toMediaCollection('featured-publication');
+        $news
+        ->addMediaFromUrl('https://source.unsplash.com/random')
+        ->withResponsiveImages()
+        ->toMediaCollection('featured-publication');
 
     	}
 

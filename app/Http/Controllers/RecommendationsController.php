@@ -20,7 +20,7 @@ class RecommendationsController extends Controller
 			'body' => 'string|required',
 			'slug' => 'required|max:150|unique:bars|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
 			'published' => 'date_format:d/m/Y H:i|required',
-			'bars' => 'required|array|in:'.$places,
+			'bars' => 'required|array|min:1|exists:bars,id',
 			'featured' => 'mimes:jpeg,png,jpg'
 		]);
 

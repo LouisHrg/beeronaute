@@ -20,7 +20,7 @@
 @include('layouts.navbar')
 <div class="container">
 	<div class="row ">
-		<div class="mx-auto col-md-10">
+		<div class="mx-auto col-md-10 mb-5">
 			<div class="card text-white bg-dark">
 				<div class="img-bar-home">
 					{{ $bar->getFirstMedia('featured-bar') }}

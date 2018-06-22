@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 
 
-class Recommendation extends Model
+class Recommendation extends Model implements HasMedia
 {
 
 	use HasMediaTrait;

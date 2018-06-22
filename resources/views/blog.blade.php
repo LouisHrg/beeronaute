@@ -11,9 +11,11 @@
 				@foreach($news as $article)
 				<div class="col-md-3">
 					<div class="container-news">
-						<img src="{{ $article->getFirstMedia('featured-publication')->getUrl() }}" alt="Avatar" class="image">
+						<div class="image-div">
+							{{ $article->getFirstMedia('featured-publication') }}
+						</div>
 						<a href="{{ route('single-guest',$article->slug) }}">
-							<div class="overlay">
+							<div class="overlay overlay-home">
 								<div class="text">
 									<p>{{ ucfirst($article->title) }}</p>
 									<p>{{ $article->published->diffForHumans() }}</p>

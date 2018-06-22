@@ -31,6 +31,10 @@ class PushNotifs
                 continue;
             }
 
+            if($sub->party->canceled){
+                continue;
+            }
+
             if( $eventStart > $nowMinusTwo && $eventStart < $now){
 
                 if( Notif::where('recipient',\Auth::id())->where('event',$sub->party->id)->where('type','=',1)->get()->isEmpty() ){

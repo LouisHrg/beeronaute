@@ -9,6 +9,7 @@ use App\Bar;
 use App\Post;
 use App\Event;
 use App\Subscription;
+use App\Recommendation;
 use App\User;
 use App\Notif;
 use DB;
@@ -23,8 +24,8 @@ class HomeController extends Controller
         ->leftJoin('events','subscriptions.event','=','events.id')
         ->leftJoin('bars','subscriptions.bar','=','bars.id')
         ->leftjoin('posts', function($join){
-                $join->on('posts.event','=','events.id');
-                $join->orOn('posts.bar','=','bars.id');
+            $join->on('posts.event','=','events.id');
+            $join->orOn('posts.bar','=','bars.id');
         })
         ->where('subscriptions.user_id','=',\Auth::id())
         ->where('posts.id','!=','NULL')
@@ -53,12 +54,28 @@ class HomeController extends Controller
         return view('single.publication', ['post'=>$post]);
 
     }
-    public function bars()
+    public function bars(Request $request)
     {
+        $search = $request->input('search');
 
-        $bars = Bar::where('status','=','1')->paginate(12);
+        $bars = DB::table('bars')
+        ->select(DB::raw('MAX(bars.id) as id'))
+        ->leftJoin('places','bars.place','=','places.id')
+        ->leftJoin('moods','bars.mood','=','moods.id')
+        ->where('places.name','like', '%'.$search.'%')
+        ->orWhere('moods.name','like', '%'.$search.'%')
+        ->orWhere('bars.name','like', '%'.$search.'%')
+        ->orWhere('bars.description','like', '%'.$search.'%')
+        ->orWhere('bars.location','like', '%'.$search.'%')
+        ->groupBy('bars.id')
+        ->get();
 
-        return view('bars',compact('bars'));
+        $ids = $bars->pluck('id')->toArray();
+
+        $bars = Bar::whereIn('id', $ids)->where('status',1)->orderBy('created_at','DESC')->paginate(12);
+
+
+        return view('bars',['bars'=>$bars->appends($request->except('page'))]);
         
     }
 
@@ -66,7 +83,8 @@ class HomeController extends Controller
 
         $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
         $posts = Post::where('bar',$bar->id)->where('type',1)->get();
-        $events = Event::where('bar',$bar->id)->latest()->limit(2)->get();
+        $events = Event::where('bar',$bar->id)->where('canceled','=',0)->latest()->limit(2)->get();
+
         
         $isFollowing = Subscription::where('user_id','=',\Auth::id())->where('bar',"=",$bar->id)->get()->isNotEmpty();
 
@@ -77,13 +95,13 @@ class HomeController extends Controller
     public function allEvents(Request $request, $slug){
 
         $bar = Bar::where('slug',$slug)->where('status','=','1')->firstOrFail();
-        $events = Event::where('bar',$bar->id)->latest()->paginate(5);
+        $events = Event::where('bar',$bar->id)->where('canceled','=',0)->latest()->paginate(5);
 
         return view('single.barevents', compact('events','bar'));
 
     }
 
-        public function allNotifs(Request $request){
+    public function allNotifs(Request $request){
 
         $notifs = Notif::where('recipient','=',\Auth::id())->orderBy('created_at','DESC')->paginate('15');
 
@@ -101,11 +119,37 @@ class HomeController extends Controller
 
  }
 
- public function events(){
+ public function recommendations(Request $request){
+
+
+
+    $search = $request->input('search');
+
+    $items = Recommendation::where('title', 'like', '%'.$search.'%')
+    ->orWhere('body', 'like', '%' . $search . '%')
+    ->orderBy('published', 'desc')
+    ->paginate(10);
+
+
+    return view('recommendations',['items'=>$items->appends($request->except('page'))]);
+
+}   
+public function recommendationSingle($id){
+
+    $reco = Recommendation::find($id);
+
+    return view('single.recommendation',compact('reco'));
+
+}   
+public function events(){
 
     $subs = Subscription::where('user_id','=',\Auth::id())->where('type','=','1')->paginate(10);
 
-    $events = Event::where('endDate','>',date('Y-m-d H:i:s'))->orderBy('published', 'desc')->paginate(10);
+    $events = 
+    Event::where('endDate','>',date('Y-m-d H:i:s'))
+    ->where('canceled','=',0)
+    ->orderBy('published', 'desc')
+    ->paginate(10);
 
     return view('events',compact('events','subs'));
 
@@ -120,7 +164,7 @@ public function eventsMe(){
 
 public function singleEvent(Request $request, $id){
 
-    $event = Event::where('published','<',date('Y-m-d H:i:s'))->firstOrFail();
+    $event = Event::find($id);
 
     $posts = Post::where('event','=',$id)->where('type',2)->get();
     $exist = Subscription::where('user_id','=',\Auth::id())->where('event',"=",$id)->get()->isNotEmpty();

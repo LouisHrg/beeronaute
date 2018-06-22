@@ -33,7 +33,7 @@
 			<div class="col-md-3">
 				<div class="container-news">
 					<img src="{{ $item->getFirstMedia('featured-publication')->getUrl() }}" alt="Avatar" class="image">
-					<a href="{{ $item->id }}">
+					<a href="{{ route('single-guest',$item->slug) }}">
 					<div class="overlay">
 						<div class="text">
 						<p>{{ ucfirst($item->title) }}</p>

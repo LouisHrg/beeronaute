@@ -19,8 +19,8 @@ Auth::routes();
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', 'IndexController@index')->name('index')->middleware('guest');
-Route::get('/blog', 'IndexController@blog')->name('blog')->middleware('guest');
-Route::get('/article/{slug}', 'IndexController@singleArticle')->name('single-guest')->middleware('guest');
+Route::get('/blog', 'IndexController@blog')->name('blog');
+Route::get('/article/{slug}', 'IndexController@singleArticle')->name('single-guest');
 
 Route::group(['prefix' => '/',  'middleware' => ['auth','push']], function()
 {
@@ -29,7 +29,7 @@ Route::group(['prefix' => '/',  'middleware' => ['auth','push']], function()
 	Route::get('/profil/{username}', 'HomeController@profile')->name('profile');
 	Route::get('/profil', 'HomeController@myself')->name('profile-me');
 	
-	Route::get('/news/{slug}', 'HomeController@singlePublication')->name('publication-single');
+	// Route::get('/news/{slug}', 'HomeController@singlePublication')->name('publication-single');
 
 	Route::get('/bar/{slug}', 'HomeController@singleBar')->name('bar-single');
 	Route::get('/bars/{slug}/events', 'HomeController@allEvents')->name('bar-events');
@@ -39,6 +39,9 @@ Route::group(['prefix' => '/',  'middleware' => ['auth','push']], function()
 	
 	Route::get('/events', 'HomeController@events')->name('events');
 	Route::get('/event/{id}', 'HomeController@singleEvent')->name('event-single');
+	
+	Route::get('/recommendations', 'HomeController@recommendations')->name('recommendations');
+	Route::get('/recommendation/{id}', 'HomeController@recommendationSingle')->name('reco-single');
 
 	Route::get('/notifs', 'HomeController@allNotifs')->name('notifs');
 	

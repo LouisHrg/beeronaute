@@ -18,9 +18,20 @@
 @section('content')
 @include('layouts.navbar')
 <div class="container">
-    <div class="row">
-        <div class="mx-auto col-md-12">
 
+    <div class="row">
+
+        <div class="mx-auto col-md-12">
+            <div class="form-group mt-3 mb-3">
+                {!! Form::open(['method'=>'GET','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
+                <div class="col-md-12 ml-auto">
+                    <div class="form-group row ">
+                        <input type="text" class="form-control col-md-11" name="search" id="search" aria-describedby="search" placeholder="Rechercher parmis less recommendations" >
+                        <button type="submit" class="btn btn-secondary col-md-1"><span class="icon icon-search"></span></button>
+                    </div>
+                </div>
+                {!! Form::close() !!}
+            </div>
         <div class="row">
         @foreach($bars as $bar)
         <div class="col-md-4">

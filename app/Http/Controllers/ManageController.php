@@ -83,19 +83,8 @@ class ManageController extends Controller
 
         return view('bars.gallery',compact('bar'));
 
-    }    
-    function settings(){
-
-        return view('manage.settings');
-
-    }    
-    function saveSettings(){
-
-        return view('manage.settings');
-
     }
-
-
+    
     function posts(Request $request){
 
         $search = $request->input('search');

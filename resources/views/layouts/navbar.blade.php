@@ -17,7 +17,7 @@
         <a class="nav-link" href="{{ route('bars') }}">Rechercher un bar</a>
       </li>      
       <li class="nav-item">
-        <a class="nav-link" href="">Recommandations</a>
+        <a class="nav-link" href="{{ route('recommendations') }}">Recommandations</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,29 +29,14 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('news') }} ">News </a>
+        <a class="nav-link" href="{{ route('blog') }} ">Blog </a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="icon icon-bell"> </span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          @foreach(\Request::get('notifs') as $notif)
-
-          @if($notif->type == 1 && strtotime($notif->party->startDate) > strtotime(time()))
-          <a class="dropdown-item {{ !$notif->viewed?'unviewed':'' }}" href="{{ route('event-single',$notif->party->id) }}">
-            {{ ucfirst($notif->party->name) }} à {{ date('H:i',strtotime($notif->party->startDate)) }}
-          </a>
-          @endif
-          @if($notif->type == 2 && strtotime($notif->party->startDate) > strtotime(time()))
-          <a class="dropdown-item {{ !$notif->viewed?'unviewed':'' }}" href="{{ route('event-single',$notif->party->id) }}">
-            {{ ucfirst($notif->party->name) }} à commencé
-          </a>
-          @endif
-          @endforeach
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{ route('notifs') }}">Tout voir</a>
-          <a class="dropdown-item" href="#">Tout marquer comme lu</a>
+          @include('part.notifs')
         </div>
       </li>
 

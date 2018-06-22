@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" id="navbar-home">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-info" id="navbar-home">
   <a class="navbar-brand" href="#">
     <img src="{{ asset('img/brand/beer.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
     Beeronaute Blog 
@@ -26,7 +26,8 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <h6 class="dropdown-header"></h6>
-          <a class="dropdown-item" href=""><span class="icon icon-user"></span> Mon profil</a>
+          <a class="dropdown-item" href="{{ route('profile', \Auth::user()->name) }}"><span class="icon icon-user"></span> Mon profil</a>
+          <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-cogs"></span> Paramètres</a>
           <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-exit"></span> Se déconnecter</a>
         </div>
       </li>
