@@ -94,6 +94,8 @@ class UsersController extends Controller
 
 	}
 
-
+	function getUserAvatar(Request $request, $id){
+		return redirect(User::find($id)->getFirstMedia('avatar-user')->getUrl());
+	}
 	
 }

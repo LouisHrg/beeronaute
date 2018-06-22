@@ -22,6 +22,10 @@ Route::get('/', 'IndexController@index')->name('index')->middleware('guest');
 Route::get('/blog', 'IndexController@blog')->name('blog');
 Route::get('/article/{slug}', 'IndexController@singleArticle')->name('single-guest');
 
+
+Route::get('/getUserUrl/{id}', 'UsersController@getUserAvatar')->name('user-avatar');
+
+
 Route::group(['prefix' => '/',  'middleware' => ['auth','push']], function()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
@@ -183,8 +187,8 @@ Route::group(['prefix' => '','middleware' => ['role:moderator|admin','auth']], f
 });
 
 
-Route::group(['prefix' => 'chat', 'middleware' => 'auth'], function () {
-    Route::get('/{eventId}', 'ChatsController@index');
+Route::group(['prefix' => 'chat', 'middleware' => ['auth','push']], function () {
+    Route::get('/{eventId}', 'ChatsController@index')->name('chat-lobby');
     Route::get('messages/{eventId}', 'ChatsController@fetchMessages');
     Route::post('messages', 'ChatsController@sendMessage');
 });

@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title></title>
     <link rel="icon" type="img/png" href="{{ asset('img/brand/beer.png') }}">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -16,6 +18,8 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('icomoon/style.css') }}" rel="stylesheet">
     
+
+
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600|Roboto" rel="stylesheet" type="text/css">
 

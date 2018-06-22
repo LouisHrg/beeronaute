@@ -17,6 +17,7 @@
 @endsection
 
 @section('content')
+@include('layouts.navbar')
 <div class="container">
 	<div class="row ">
 		<div class="mx-auto col-md-10 mb-5">

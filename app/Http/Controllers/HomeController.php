@@ -169,8 +169,9 @@ public function singleEvent(Request $request, $id){
     $posts = Post::where('event','=',$id)->where('type',2)->get();
     $exist = Subscription::where('user_id','=',\Auth::id())->where('event',"=",$id)->get()->isNotEmpty();
     $participate = Subscription::where('user_id','=',\Auth::id())->where('event',"=",$event->id)->get()->isNotEmpty();
+    $participants = Subscription::where('event','=',$event->id)->get();
     
-    return view('single.event', compact('event','exist','posts','participate')  );
+    return view('single.event', compact('event','exist','posts','participate','participants')  );
 
 }    
 public function profile($username){

@@ -7,6 +7,7 @@
 		<div class="col-md-12">
 			<div class="form-group">
 				<a class="btn btn-sm btn-primary" href="{{ route('bar-single',$event->place->slug) }}" > Retour au bar</a>
+				<a class="btn btn-sm btn-info" href="{{ route('chat-lobby',$event->id) }}" > Accéder au chat</a>
 				@if(\Auth::id() == $event->place->manager)
 				<button class="btn btn-sm btn-info" data-toggle="modal" data-target="#newPostModal"  > Poster un message</button>
 				<a class="btn btn-sm btn-success" href="{{ route('manage-event-edit',$event->id) }}" > Modifier l'évenement</a>
@@ -29,7 +30,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="row">
-								@forelse(App\Subscription::where('event','=',$event->id)->get() as $sub)
+								@forelse($participants as $sub)
 								<div class="col-md-2">
 									<a target="_blank" href="{{ route('profile',$sub->user->name) }}">
 										<img src="{{ Auth::user()->getFirstMedia('avatar-user')->getUrl() }}" class="avatar">

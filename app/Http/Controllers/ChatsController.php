@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
 use App\Message;
+use App\Event;
 use App\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,13 +27,14 @@ class ChatsController extends Controller
     public function index($eventId)
     {
 
-
         $participate = Subscription::where('user_id', "=", Auth::id())
             ->where('event', "=", $eventId)
             ->get()->isNotEmpty();
-        if($participate){
-            return view('chat.chat')->with("eventId", $eventId);
+        if($participate){  
+            $event = Event::find($eventId)->first();
+            return view('chat.chat',compact('event'));
         }
+
 
         abort(404);
 

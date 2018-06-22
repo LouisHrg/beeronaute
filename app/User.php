@@ -55,6 +55,8 @@ class User extends Authenticatable implements HasMedia
         'subscriptions'
     ];
 
+    
+
     public function bars()
     {
         return $this->hasOne(\App\Bar::class, 'manager');
