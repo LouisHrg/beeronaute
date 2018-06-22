@@ -67,4 +67,6 @@ class ChatsController extends Controller
 
         return ['status' => 'Message Sent!'];
     }
+
+
 }
