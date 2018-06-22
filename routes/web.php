@@ -182,4 +182,9 @@ Route::group(['prefix' => '','middleware' => ['role:moderator|admin','auth']], f
 	Route::post('deletePublication/{id}','PublicationsController@deletePublication')->name('publication-delete');
 });
 
-Route::get('/test/{test?}', 'TestController@test')->name('test');
+
+Route::group(['prefix' => 'chat', 'middleware' => 'auth'], function () {
+    Route::get('/{eventId}', 'ChatsController@index');
+    Route::get('messages/{eventId}', 'ChatsController@fetchMessages');
+    Route::post('messages', 'ChatsController@sendMessage');
+});

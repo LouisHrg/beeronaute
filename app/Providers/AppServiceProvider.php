@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,8 +40,7 @@ class AppServiceProvider extends ServiceProvider
         \Form::component('bsNumber','form.number',['name','value','displayname','helper'=>null]);
 
         \Carbon\Carbon::setLocale(config('app.locale'));
-
-
+        Schema::defaultStringLength(191);
     }
 
     /**

@@ -9,14 +9,65 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+let autoScroll = () => {
+    $(".panel-body").scrollTop($(".panel-body").prop("scrollHeight"));
+};
+
+var token = document.head.querySelector('meta[name="csrf-token"]');
+window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('chat-messages', require('./components/ChatMessages.vue'));
+Vue.component('chat-form', require('./components/ChatForm.vue'));
 
-const app = new Vue({
-    el: '#app'
+let app = new Vue({
+    el: '#app',
+
+    data: {
+        messages: [],
+        eventid: ''
+    },
+
+    created() {
+        $(".panel-body").scrollTop($(".panel-body").prop("scrollHeight"))
+    },
+
+    mounted() {
+        this.fetchMessages();
+
+        Echo.private('chat')
+            .listen('MessageSent', (e) => {
+                this.messages.push({
+                    message: e.message.message,
+                    user: e.user
+                });
+            });
+    },
+
+    methods: {
+
+        fetchMessages() {
+            axios.get('/chat/messages/'+this.eventid).then(response => {
+                this.messages = response.data;
+            });
+            autoScroll();
+        },
+
+        addMessage(message) {
+            this.messages.push(message);
+            axios.post('/chat/messages', message).then(response => {
+                console.log(response.data)
+                autoScroll();
+            });
+        }
+    }
 });
+
+$(document).ready(() => {
+    autoScroll();
+})
