@@ -7,6 +7,8 @@ use App\Event;
 use App\Post;
 use App\Bar;
 
+use \Auth;
+
 class EventsController extends Controller
 {
 	public function saveEventSingle(Request $request){
@@ -35,6 +37,7 @@ class EventsController extends Controller
 		$event->author = \Auth::id();
 		$event->slot = $data['number'];
 		$event->bar = $data['bar'];
+		$event->canceled = 0;
 		
 		$event->save();
 
@@ -59,6 +62,14 @@ class EventsController extends Controller
 			
 			$post->save();
 
+		}
+
+		if(Auth::user()->hasRole('admin')){
+			return redirect()->route('admin-publications-browse');
+		}else if(Auth::user()->hasRole('manager')){
+			return redirect()->route('manage-events');
+		}else{
+			return redirect()->route('home');
 		}
 
 	}
@@ -94,16 +105,68 @@ class EventsController extends Controller
 		$event->author = \Auth::id();
 		$event->slot = $data['number'];
 		$event->bar = $data['bar'];
-		
+
 		$event->save();
 
-		if(!empty($data['image'])){
-		$event
-		->addMediaFromRequest('featured')
-		->withResponsiveImages()
-		->toMediaCollection('featured-event');
+		if(!empty($data['featured'])){
+			$event
+			->clearMediaCollection('featured-event');
+			$event
+			->addMediaFromRequest('featured')
+			->withResponsiveImages()
+			->toMediaCollection('featured-event');
 		}
 
+		if(Auth::user()->hasRole('admin')){
+			return redirect()->route('admin-publications-browse');
+		}else if(Auth::user()->hasRole('manager')){
+			return redirect()->route('manage-events');
+		}else{
+			return redirect()->route('home');
+		}
+
+	}
+
+	function deleteEvent(Request $request,$id){	
+
+		$event = Event::find($id);
+
+
+		if(!Auth::user()->hasRole('admin'))
+		{
+			if($event->place->manager == \Auth::id()){
+				$event->delete();
+			}
+		}else{
+			$event->delete();
+		}
+
+		if(Auth::user()->hasRole('admin')){
+			return redirect()->route('admin-events');
+		}else if(Auth::user()->hasRole('manager')){
+			return redirect()->route('manage-events');
+		}else{
+			return redirect()->route('home');
+		}
+
+	}
+
+	function cancelEvent(Request $request,$id){
+
+		$event = Event::find($id);
+
+		if($event->place->manager == \Auth::id()){
+			$event->canceled = 1;
+			$event->save();
+		}
+
+		if(Auth::user()->hasRole('admin')){
+			return redirect()->route('admin-events');
+		}else if(Auth::user()->hasRole('manager')){
+			return redirect()->route('manage-events');
+		}else{
+			return redirect()->route('home');
+		}
 
 
 	}

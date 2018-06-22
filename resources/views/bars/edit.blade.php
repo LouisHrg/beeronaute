@@ -56,6 +56,9 @@
         @role('admin')
         {{ Form::bsSelect('user', \App\User::role('manager')->get(),$bar->user->id,'Manager') }}
         @endrole
+        @role('manager')
+        {{ Form::hidden('user',\Auth::id()) }}
+        @endrole
 
         {{ Form::bsText('name','Nom du bar','Le nom du bar', $bar->name,[]) }}
 
@@ -66,13 +69,20 @@
 
         {{ Form::bsText('number','Numéro de téléphone','Numéro', $bar->phone,[]) }}
 
+
+
         {{ Form::bsText('address','Adresse du bar','Adresse', $bar->location,[]) }}
 
         {{ Form::bsSelect('city', \App\Place::all(),$bar->city->id,'Ville') }}
 
         {{ Form::bsSelect('mood', \App\Mood::all(),$bar->mood,'Ambiance') }}
-
         
+        <div class="form-group">
+          {{ Form::label('Prix', null, ['class' => 'control-label']) }}
+          {{ Form::select('price', ['1' => 'Pas cher', '2' => 'Peu cher','3'=>'Normal','4'=>'Cher','5'=>'Fouquets'],$bar->price,['class'=>'custom-select']) }}
+        </div>
+
+
         {{ Form::bsEmail('email','E-mail','Adresse email du bar', $bar->email,[]) }}     
 
         <div class="img-prog-form">
@@ -84,7 +94,7 @@
 
         {{ Form::schedule('schedule',$schedule,'Horraires d\'ouverture') }}
 
-        {{ Form::bsSubmit('Ajouter') }}
+        {{ Form::bsSubmit('Modifier') }}
 
 
         {!! Form::close() !!}

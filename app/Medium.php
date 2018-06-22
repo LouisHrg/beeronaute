@@ -37,13 +37,19 @@ class Medium extends Eloquent
 
 	public function registerMediaCollections()
 {
-      $this->addMediaCollection('avatar')->singleFile();
       
       $this->addMediaCollection('featured-bar')->singleFile();
 
       $this->addMediaCollection('featured-publication')->singleFile();
       
       $this->addMediaCollection('featured-event')->singleFile();
+      
+      $this->addMediaCollection('featured-reco')->singleFile();
+      
+      $this->addMediaCollection('avatar-user')->singleFile();
+      
+      $this->addMediaCollection('banner-user')->singleFile();
+
 
       $this->addMediaCollection('gallery-bar');
 

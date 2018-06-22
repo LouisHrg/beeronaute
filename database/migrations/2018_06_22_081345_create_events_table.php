@@ -24,6 +24,8 @@ class CreateEventsTable extends Migration {
 			$table->dateTime('published');
 			$table->integer('slot');
 			$table->integer('bar')->unsigned()->index('events_bar_foreign');
+			$table->boolean('canceled');
+			$table->softDeletes();
 		});
 	}
 

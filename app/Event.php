@@ -11,12 +11,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 class Event extends Eloquent implements HasMedia
 {
 
 	use HasMediaTrait;
-
+	use SoftDeletes, CascadeSoftDeletes;
+    
 	protected $casts = [
 		'author' => 'int',
 		'slot' => 'int',

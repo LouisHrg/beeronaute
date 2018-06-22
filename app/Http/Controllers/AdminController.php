@@ -28,7 +28,16 @@ class AdminController extends Controller
         ->orderBy('published', 'desc')
         ->paginate(15);
 
-        return view('publications.browse',['items'=>$items->appends($request->except('page'))]);
+        $newAction = 'publications-create';
+        $editAction = 'admin-publications-edit';
+
+        return view('publications.browse',
+            [
+                'items'=>$items->appends($request->except('page')),
+                'newAction' => $newAction,
+                'editAction' => $editAction
+
+            ]);
 
     }
     
@@ -43,8 +52,8 @@ class AdminController extends Controller
     $action = ['PublicationsController@updatePublication',$post->id];
     $method = "POST";
 
-
     return view('publications.edit',compact('post', 'action', 'method'));
+
 }
 
 
@@ -109,6 +118,13 @@ function Bars(){
         'editAction'=>$editAction,
         'deleteAction'=>$deleteAction,
         'editGalleryAction'=>$editGalleryAction]);
+}
+
+function pendingBars(){
+
+    $items = Bar::where('status','=',0)->paginate(15); 
+
+    return view('bars.pending',compact('items'));
 }
 
     function newBar(){

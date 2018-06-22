@@ -65,7 +65,6 @@ class ManageController extends Controller
         $action = ['BarsController@updateBar',$bar->id];
         $method = "POST";
 
-
         $schedule = Bar::jsonToFormSchedule($bar->schedule);
 
         $page = 'bars';
@@ -84,6 +83,16 @@ class ManageController extends Controller
 
         return view('bars.gallery',compact('bar'));
 
+    }    
+    function settings(){
+
+        return view('manage.settings');
+
+    }    
+    function saveSettings(){
+
+        return view('manage.settings');
+
     }
 
 
@@ -93,11 +102,26 @@ class ManageController extends Controller
 
         $items = Post::where([['author','=',\Auth::id()],['body', 'like', '%'.$search.'%']])
         ->orderBy('created_at', 'desc')
-        ->paginate(15);
+        ->paginate(15); 
+
+        $editAction = 'manage-post-edit';
+        $deleteAction = 'manage-post-delete';
 
         return view('posts.browse',
-            ['page'=>'posts','items'=>$items->appends($request->except('page'))
+            ['page'=>'posts',
+            'items'=>$items->appends($request->except('page')),
+            'editAction' => $editAction,
+            'deleteAction' => $deleteAction
         ]);
+    }    
+
+    function editPost(Request $request,$id){
+
+        dd($id);
+    }    
+    function deletePost(Request $request,$id){
+
+        dd($id);
     }
 
     function newPost(){

@@ -9,14 +9,16 @@
 				<a class="btn btn-sm btn-primary" href="{{ route('bar-single',$event->place->slug) }}" > Retour au bar</a>
 				@if(\Auth::id() == $event->place->manager)
 				<button class="btn btn-sm btn-info" data-toggle="modal" data-target="#newPostModal"  > Poster un message</button>
-				<a class="btn btn-sm btn-warning" href="{{ route('manage-event-edit',$event->id) }}" > Modifier l'évenement</a>
+				<a class="btn btn-sm btn-success" href="{{ route('manage-event-edit',$event->id) }}" > Modifier l'évenement</a>
+				<a class="btn btn-sm btn-warning" href="{{ route('manage-event-edit',$event->id) }}" > Annuler cet évenement</a>
 				<a class="btn btn-sm btn-danger" href="{{ route('manage-event-edit',$event->id) }}" > Supprimer cet évenement</a>
 				@endif
 			</div>
-			<div class="img-event-single">{{ $event->getFirstMedia('featured-event') }}</div>
+			<div class="img-event-single"><img src="{{ $event->getFirstMedia('featured-event')->getUrl() }}"></div>
 			
 			<h1> {{ $event->name }} </h1>
-			@if( strtotime($event->endDate) > time() )
+			@if(!$event->canceled)
+			@if( strtotime($event->endDate) > time())
 			@if( strtotime($event->startDate) > time())
 			<p>Débute {{ $event->startDate->diffForHumans() }}</p>
 			@else
@@ -34,7 +36,7 @@
 						<p class="text-muted">Il reste {{$event->slot-$event->subscriptions()->count()}} places </p> 
 					</div>
 					@if(\Auth::user()->hasRole('user') && $event->subscriptions()->count() != $event->slot )
-					@if(!App\Subscription::where('user_id','=',\Auth::id())->where('event',"=",$event->id)->get()->isNotEmpty())
+					@if(!$participate)
 					<div class="col-md-2">
 						<button data-toggle="modal" data-target="#signupModal" class="btn btn-info btn-sm btn-block"> S'incrire </button>
 					</div>
@@ -51,10 +53,13 @@
 				<br>
 				<br>
 			<p><strong>Ville :</strong> {{ $event->place->city->name }}</p>
-			<p><strong>Lieu :</strong> {{ $event->place->name }}</p>
+			<p><strong>Lieu :</strong> <a target="_blank" href="{{ route('bar-single',$event->place->slug) }}">{{ $event->place->name }}</a></p>
 			<p><strong>Adresse :</strong> {{ $event->place->location }}</p>
 			@else
 			<h4> L'évenement est terminé </h4>
+			@endif
+			@else
+			<h4> L'évenement a été annulé </h4>
 			@endif
 				<div class="card feed-element block-feed block-home feed">
 					<div class="card-header">Participants</div>
@@ -65,8 +70,8 @@
 								@forelse(App\Subscription::where('event','=',$event->id)->get() as $sub)
 								<div class="col-md-2">
 									<a target="_blank" href="{{ route('profile',$sub->user->name) }}">
-										<img src="/storage/{{ $sub->user->avatar }}" class="avatar">
-										<span class="text-muted"> {{ $sub->user->name }}</span>
+										<img src="{{ Auth::user()->getFirstMedia('avatar-user')->getUrl() }}" class="avatar">
+										<span class="text-muted"> {{ ucfirst($sub->user->name) }}</span>
 									</a>
 								</div>
 								@empty

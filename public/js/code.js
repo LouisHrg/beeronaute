@@ -20,11 +20,11 @@ function slugify(text)
   }
 
   if(slugifyme){
-  var slugifyme = document.getElementById('slugifyme');
+    var slugifyme = document.getElementById('slugifyme');
 
-  slugifyme.onkeyup = function(){
-    document.getElementById('slugifyme').value = slugify(slugifyme.value);
-  }
+    slugifyme.onkeyup = function(){
+      document.getElementById('slugifyme').value = slugify(slugifyme.value);
+    }
   }
 
   $('#published').datetimepicker({
@@ -43,7 +43,7 @@ function slugify(text)
   });
 
   $('#startat').datetimepicker({
-        widgetPositioning: {
+    widgetPositioning: {
       horizontal: 'auto',
       vertical: 'top'
     },
@@ -82,22 +82,68 @@ function slugify(text)
   });
 
 
-    $(function () {
-        $("#startat").on("change.datetimepicker", function (e) {
-            $('#published').datetimepicker('maxDate', e.date);
-        });
-        $("#startat").on("change.datetimepicker", function (e) {
-            $('#endat').datetimepicker('minDate', e.date);
-        });
+  $(function () {
+    $("#startat").on("change.datetimepicker", function (e) {
+      $('#published').datetimepicker('maxDate', e.date);
     });
+    $("#startat").on("change.datetimepicker", function (e) {
+      $('#endat').datetimepicker('minDate', e.date);
+    });
+  });
 
 
 
-$('#deleteBarModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget)
-  var actionelement = button.data('url')
-  var nameelement = button.data('name')
-  var modal = $(this)
-  modal.find('.modal-title').text('Supprimer le bar ' + nameelement)
-  modal.find('#form-delete').attr('action',actionelement)
-})
+  $('#deleteBarModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var actionelement = button.data('url')
+    var nameelement = button.data('name')
+    var modal = $(this)
+    modal.find('.modal-title').text('Supprimer le bar ' + nameelement)
+    modal.find('#form-delete').attr('action',actionelement)
+  })
+
+  $('#cancelEventModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var actionelement = button.data('url')
+    var nameelement = button.data('name')
+    var modal = $(this)
+    modal.find('.modal-title').text("Annuler l'évenement " + nameelement)
+    modal.find('#form-delete').attr('action',actionelement)
+  })
+
+
+  $('#deleteEventModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var actionelement = button.data('url')
+    var nameelement = button.data('name')
+    var modal = $(this)
+    modal.find('.modal-title').text("Supprimer l'évenement"  + nameelement)
+    modal.find('#form-delete').attr('action',actionelement)
+  })
+
+  $('#deletePublicationModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var actionelement = button.data('url')
+    var nameelement = button.data('name')
+    var modal = $(this)
+    modal.find('.modal-title').text("Supprimer la publication"  + nameelement)
+    modal.find('#form-delete').attr('action',actionelement)
+  })
+
+
+  $('#deleteUserModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var actionelement = button.data('url')
+    var nameelement = button.data('name')
+    var modal = $(this)
+    modal.find('.modal-title').text("Supprimer l'utilisateur"  + nameelement)
+    modal.find('#form-delete').attr('action',actionelement)
+  })
+
+
+
+  $(document).ready(function() {
+    $('#customselect').select2();
+  });
+
+

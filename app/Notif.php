@@ -9,8 +9,12 @@ namespace App;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Iatstuti\Database\Support\CascadeSoftDeletes;
+
 class Notif extends Eloquent
-{
+{	
+
 	protected $casts = [
 		'recipient' => 'int',
 		'type' => 'int',

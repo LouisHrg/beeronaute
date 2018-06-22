@@ -19,6 +19,8 @@ Auth::routes();
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', 'IndexController@index')->name('index')->middleware('guest');
+Route::get('/blog', 'IndexController@blog')->name('blog')->middleware('guest');
+Route::get('/article/{slug}', 'IndexController@singleArticle')->name('single-guest')->middleware('guest');
 
 Route::group(['prefix' => '/',  'middleware' => ['auth','push']], function()
 {
@@ -52,6 +54,9 @@ Route::group(['prefix' => '/',  'middleware' => ['auth','push']], function()
 
 	Route::post('/subscribe-to-bar/{id}', 'SubscriptionsController@attachBar')->name('subscribe-to-bar');
 	Route::post('/unsubscribe-to-bar/{id}', 'SubscriptionsController@dettachBar')->name('unsubscribe-to-bar');
+
+	Route::post('/editBanner','indexController@editUserBanner')->name('edit-banner');
+
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], function () {
@@ -65,7 +70,11 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 
 	Route::get('/users', 'AdminController@users')->name('admin-users-browse');
 	Route::get('/users/edit/{id}', 'AdminController@editUser')->name('admin-users-edit');
+	Route::get('/users/create', 'AdminController@newUser')->name('admin-users-create');
+
 	Route::post('updateUser/{id}','UsersController@updateUser')->name('admin-users-update');
+	Route::post('saveUser','UsersController@saveUser');
+	Route::post('deleteUser/{id}','UsersController@deleteUser')->name('admin-users-delete');
 
 
 	Route::get('/events', 'AdminController@events')->name('admin-events');
@@ -76,13 +85,33 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin','auth']], functi
 	Route::get('/bars/create', 'AdminController@newBar')->name('admin-bars-create');
 	Route::get('/bars/edit/{id}','AdminController@editBar')->name('admin-bars-edit');
 	Route::get('/bars/edit/gallery/{id}','AdminController@editBarGallery')->name('admin-bars-edit-gallery');
+	Route::get('/bars/pending','AdminController@pendingBars')->name('pending-bars');
 
-	Route::get('/users/create', 'AdminController@newUser')->name('admin-users-create');
-	Route::post('saveUser','UsersController@saveUser');
+	Route::get('/settings', 'AdminController@settings')->name('admin-settings');
+	Route::get('/saveSettings', 'AdminController@saveSettings')->name('admin-save-settings');
 	
-VisitStats::routes();
+	
+	VisitStats::routes();
 
 
+});
+
+Route::group(['prefix' => 'back','middleware' => ['role:moderator','auth']], function () {
+
+	Route::get('/', 'ModeratorController@home')->name('moderator-home');
+
+	Route::get('/bars', 'ManageController@bars')->name('moderator-bars');
+
+	Route::get('/publications', 'ModeratorController@publications')->name('moderator-publications-browse');
+	Route::get('/publications/create', 'ModeratorController@newPublication')->name('moderator-publications-create');
+	Route::get('/publications/edit/{id}', 'ModeratorController@editPublication')->name('moderator-publications-edit');
+
+	Route::get('/recommendations', 'ModeratorController@recommendations')->name('moderator-reco');
+	
+	Route::get('/recommendation/create', 'ModeratorController@newRecommendation')->name('moderator-reco-create');
+	Route::post('saveRecommendation', 'RecommendationsController@saveReco')->name('moderator-reco-save');
+	// Route::get('/publications/edit/{id}', 'ModeratorController@editPublication')->name('moderator-publications-edit');
+	
 });
 
 Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], function () {
@@ -101,48 +130,53 @@ Route::group(['prefix' => 'manage','middleware' => ['role:manager','auth']], fun
 	Route::get('/posts', 'ManageController@posts')->name('manage-posts');
 	Route::get('/posts/create', 'ManageController@newPost')->name('manage-post-create');
 	Route::get('/posts/edit/{id}', 'ManageController@editPost')->name('manage-post-edit');
+	Route::get('/posts/delete/{id}', 'ManageController@deletePost')->name('manage-post-delete');
 
 
 	Route::get('/events', 'ManageController@events')->name('manage-events');
 	Route::get('/events/create', 'ManageController@newEvent')->name('manage-event-create');
 	Route::get('/events/edit/{id}', 'ManageController@editEvent')->name('manage-event-edit');
 
-	Route::get('/settings', 'ManageController@home')->name('manage-settings');
+	Route::get('/settings', 'ManageController@settings')->name('manage-settings');
+	Route::get('/saveSettings', 'ManageController@saveSettings')->name('manage-save-settings');
 	
-
 });
 
 
 Route::group(['prefix' => '','middleware' => ['role:manager|admin','auth']], function () {
 	
 
-	Route::post('saveBar','BarsController@saveBar')->middleware('redir:manage-bars,admin-bars');
-	
-	Route::post('updateBar/{id}','BarsController@updateBar')->middleware('redir:manage-bars,admin-bars');
+	Route::post('saveBar','BarsController@saveBar');
+	Route::post('updateBar/{id}','BarsController@updateBar');
+	Route::post('/bar-delete/{id}','BarsController@deleteBar')->name('bar-delete');
 	
 	Route::post('/saveFeatured/{id}','BarsController@saveFeatured');
-
 	Route::post('/addToGallery/{id}','BarsController@addToGallery');
-
-	Route::post('/bar-delete/{id}','BarsController@deleteBar')->name('bar-delete')->middleware('redir:manage-bars,manage-bars');
-
 	Route::get('/deleteFromGallery/{bar}/{img}','BarsController@deleteFromGallery')->name('deleteFromGallery');
 
-	Route::post('savePublication','PublicationsController@savePublication');
 
-	Route::post('updatePublication/{id}','PublicationsController@updatePublication')->name('publication-update');
+
 
 	Route::post('savePost/{id}','PostsController@savePost')->name('post-save');
+	Route::post('updatePost/{id}','PostsController@updatePost')->name('post-update');	
 	Route::post('savePostEvent/{id}','PostsController@savePostEvent')->name('post-save-event');
 
-	Route::post('updatePost/{id}','PostsController@updatePost')->name('post-update');	
+	Route::post('saveEventSingle','EventsController@saveEventSingle')->name('event-save-single');
+	Route::post('saveEvent','EventsController@saveEvent')->name('event-save');
+	
+	Route::post('editEvent/{id}','EventsController@editEvent')->name('event-edit');
 
-	Route::post('saveEventSingle','EventsController@saveEventSingle')->name('event-save-single')->middleware('redir:manage-events,admin-events');
-	Route::post('saveEvent','EventsController@saveEvent')->name('event-save')->middleware('redir:manage-events,admin-events');
-	Route::post('editEvent/{id}','EventsController@editEvent')->name('event-edit')->middleware('redir:manage-events,admin-events');
-
-	Route::post('updateEvent/{id}','EventsController@updateEvent')->name('event-update');
+	Route::post('deleteEvent/{id}','EventsController@deleteEvent')->name('event-delete');
+	Route::post('cancelEvent/{id}','EventsController@cancelEvent')->name('event-cancel');
 
 });
 
-Route::get('/test', 'TestController@test')->name('test');
+
+Route::group(['prefix' => '','middleware' => ['role:moderator|admin','auth']], function () {
+
+	Route::post('savePublication','PublicationsController@savePublication');
+	Route::post('updatePublication/{id}','PublicationsController@updatePublication')->name('publication-update');
+	Route::post('deletePublication/{id}','PublicationsController@deletePublication')->name('publication-delete');
+});
+
+Route::get('/test/{test?}', 'TestController@test')->name('test');

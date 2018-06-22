@@ -20,6 +20,7 @@ class CreateSubscriptionsTable extends Migration {
 			$table->smallInteger('type')->unsigned();
 			$table->timestamps();
 			$table->integer('user_id')->unsigned()->index('subscriptions_user_id_foreign');
+			$table->softDeletes();
 		});
 	}
 

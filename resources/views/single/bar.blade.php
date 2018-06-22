@@ -74,7 +74,7 @@
 					@role('user')
 					<div class="row">
 						<div class="text-center mx-auto col-md-12 actions-bar">
-							@if(!App\Subscription::where('user_id','=',\Auth::id())->where('bar',"=",$bar->id)->get()->isNotEmpty())
+							@if(!$isFollowing)
 							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#subTobar">Suivre ce bar</button>
 							@else
 							<a class="btn btn-danger btn-sm" href="">Ne plus suivre ce bar</a>
@@ -121,9 +121,6 @@
 									<h5 class="card-title">{{ $event->name }}</h5>
 									<h6 class="card-subtitle mb-2 text-muted">Publié {{ $event->published->diffForHumans() }}</h6>
 									<p class="text-muted">Du {{ date('d/m/Y H:i',strtotime($event->startDate)).' au '.date('d/m/Y H:i',strtotime($event->endDate)) }}</p>
-									@if(\App\Subscription::where('user_id','=',\Auth::id())->where('event',"=",$event->id)->get()->isNotEmpty())
-									Vous êtes inscrit
-									@endif
 									<div class="row">
 										<div class="col-md-8">
 											<div class="progress">
@@ -154,10 +151,10 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-md-1">
-										<img class="avatar" src="/storage/{{ $post->user->avatar }}">
+										<img class="avatar" src="{{ $post->place->getFirstMedia('featured-bar')->getUrl() }}">
 									</div>
 									<div class="col-md-11">
-										<p class="text-muted">{{ ucfirst($post->user->name) }} dit : </p>
+										<p class="text-muted"><a href="{{ route('bar-single',$post->place->slug) }}">{{ ucfirst($post->place->name) }}</a> dit : </p>
 										<p class="card-text">{{ $post->body }}</p>
 										<h6 class="card-subtitle mb-2 text-muted">{{ $post->created_at->diffForHumans() }}</h6>
 									</div>

@@ -19,7 +19,7 @@
       <li class="nav-item">
         <a class="nav-link" href="">Recommandations</a>
       </li>
-        <li class="nav-item dropdown">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Evenements
         </a>
@@ -36,7 +36,7 @@
           <span class="icon icon-bell"> </span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          @foreach(App\Notif::where('recipient','=',\Auth::id())->orderBy('created_at','DESC')->get()->take(5) as $notif)
+          @foreach(\Request::get('notifs') as $notif)
 
           @if($notif->type == 1 && strtotime($notif->party->startDate) > strtotime(time()))
           <a class="dropdown-item {{ !$notif->viewed?'unviewed':'' }}" href="{{ route('event-single',$notif->party->id) }}">
@@ -68,17 +68,23 @@
         <a class="nav-link" href="{{ route('manage-home') }}">Espace Manager</a>
       </li>
       @endrole
+      @role('moderator')
+      <li class="nav-item" style="margin-top: 3px;">
+        <a class="nav-link" href="{{ route('moderator-home') }}">Espace Modérateur</a>
+      </li>
+      @endrole
       @if (Route::has('login'))
       @auth
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ Auth::user()->name }}
-          <img src="/storage/{{ Auth::user()->avatar }}" class="avatar img-responsive">
+          <img src="{{ Auth::user()->getFirstMedia('avatar-user')->getUrl() }}" class="avatar img-responsive">
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <h6 class="dropdown-header"></h6>
-          <a class="dropdown-item" href="{{ route('profile', \Auth::user()->name) }}"><span class="icon icon-user"></span> Profile</a>
-          <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-exit"></span> Logout</a>
+          <a class="dropdown-item" href="{{ route('profile', \Auth::user()->name) }}"><span class="icon icon-user"></span> Mon profil</a>
+          <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-cogs"></span> Paramètres</a>
+          <a class="dropdown-item" href="{{ route('logout') }}"><span class="icon icon-exit"></span> Se déconnecter</a>
         </div>
       </li>
       @else

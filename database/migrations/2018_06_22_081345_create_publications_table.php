@@ -21,7 +21,7 @@ class CreatePublicationsTable extends Migration {
 			$table->string('slug')->unique('posts_slug_unique');
 			$table->integer('author')->unsigned()->index('posts_author_foreign');
 			$table->timestamps();
-			$table->string('abstract');
+			$table->softDeletes();
 		});
 	}
 

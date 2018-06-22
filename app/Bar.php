@@ -4,7 +4,9 @@ namespace App;
 	
 
 use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -15,7 +17,8 @@ class Bar extends Model implements HasMedia
 {
 
 	use HasMediaTrait;
-	use SoftDeletes;
+	use SoftDeletes; 
+	use CascadeSoftDeletes;
 
 	protected $table = 'bars';
 	public $timestamps = true;

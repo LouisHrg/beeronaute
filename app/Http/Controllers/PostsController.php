@@ -36,7 +36,7 @@ class PostsController extends Controller
 
    }
 
-   function updatePost(Request $request){
+   function updatePost(Request $request,$id){
        dd($request);
    }
 

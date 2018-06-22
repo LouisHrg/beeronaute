@@ -17,13 +17,16 @@
 
 @section('content')
 @include('layouts.navbar')
+<img class="banner" src="{{ $user->getFirstMedia('banner-user')->getUrl() }}">
 <div class="container">
     <div class="row">
-        <div class="mx-auto col-md-8">
-            <img class="avatar" src="/storage/{{ $user->avatar }}">
-
+        <div class="mx-auto col-md-8 text-center profile-infos">
+            <img class="avatar-profile" src="{{ $user->getFirstMedia('avatar-user')->getUrl() }}">
+            <h3> {{ ucfirst($user->name) }}</h3>
+            <p> {{ $user->bio }} </p>
+            <p> A rejoint beeronaute {{ $user->created_at->diffForHumans() }} </p>
+        </div>
     </div>
-</div>
 </div>
 @endsection
 

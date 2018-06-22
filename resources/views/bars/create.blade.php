@@ -57,6 +57,10 @@
         {{ Form::bsSelect('user', \App\User::role('manager')->get(),old('user'),'Manager') }}
         @endrole
 
+        @role('manager')
+        {{ Form::hidden('user',\Auth::id()) }}
+        @endrole
+
         {{ Form::bsText('name','Nom du bar','Le nom du bar', old('title'),[]) }}
 
         {{ Form::bsTextLong('description','Description',"Quelque mots pour décrire votre établissement", old('description'),[],"Saisissez une description pour votre bar") }}           
@@ -71,6 +75,11 @@
         {{ Form::bsSelect('city', \App\Place::all(),'city','Ville') }}
 
         {{ Form::bsSelect('mood', \App\Mood::all(),old('mood'),'Ambiance') }}
+
+        <div class="form-group">
+          {{ Form::label('Prix', null, ['class' => 'control-label']) }}
+          {{ Form::select('price', ['1' => 'Pas cher', '2' => 'Peu cher','3'=>'Normal','4'=>'Cher','5'=>'Fouquets'],1,['class'=>'custom-select']) }}
+        </div>
 
         {{ Form::bsEmail('email','E-mail','Adresse email du bar', old('email'),[]) }}     
 

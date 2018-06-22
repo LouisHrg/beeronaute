@@ -34,12 +34,17 @@
 			<div class="block">
 				<div class="col-md-12">
 					<a class="btn btn-success" href="{{ route($newAction)}}"> Ajouter un bar </a>
+					@role('admin')
+					<a class="btn btn-secondary" href="{{ route('pending-bars')}}"> Voir les nouveaux bars </a>
+					@endrole
 				</div>
 				<br>
 				<table class="table table-hover">
 					<thead class="thead-dark">
 						<tr>
+        					@role('admin')
 							<th scope="col">#</th>
+							@endrole
 							<th scope="col">Nom de l'établissement</th>
 							<th scope="col">Description</th>
 							@role('admin')
@@ -53,7 +58,9 @@
 						@foreach($items as $item)
 
 						<tr>
+        					@role('admin')
 							<th scope="row">{{ $item->id }}</th>
+							@endrole
 							<td scope="row">{{ $item->name }}</td>
 							<td scope="row">{{ $item->description }}</td>
 							@role('admin')
@@ -72,7 +79,7 @@
 										<button class="btn btn-danger btn-sm" 
 												data-toggle="modal" 
 												data-target="#deleteBarModal" 
-												data-url="{{ route('bar-delete',$item->id) }}" 
+												data-url="{{ route('publication-delete',$item->id) }}" 
 												data-name="{{ $item->name }}" 
 												data-toggle="modal" data-target="#exampleModal"><span class="icon icon-bin"></button>
 												</td>
@@ -85,7 +92,7 @@
 									@endrole
 									@role('admin')
 									{{ $items->links() }}
-									{{ $items->count()}}/{{$items->total()}}
+									{{ $items->count()*$items->currentPage() }}/{{$items->total()}}
 									@endrole
 								</div>
 							</div>

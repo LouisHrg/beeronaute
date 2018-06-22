@@ -74,7 +74,7 @@
 							<td scope="row">{{ $item->user->name }}</td>
 							@endrole
 							<td scope="row">
-								<a href="{{ route('admin-publications-edit',$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
+								<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
 								<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
 							</td>
 						</tr>

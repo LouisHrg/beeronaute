@@ -16,10 +16,8 @@ use DB;
 class HomeController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {   
-
-        
         $posts = DB::table('subscriptions')
         ->select(DB::raw('MAX(posts.id) as id'))
         ->leftJoin('events','subscriptions.event','=','events.id')
@@ -70,8 +68,9 @@ class HomeController extends Controller
         $posts = Post::where('bar',$bar->id)->where('type',1)->get();
         $events = Event::where('bar',$bar->id)->latest()->limit(2)->get();
         
+        $isFollowing = Subscription::where('user_id','=',\Auth::id())->where('bar',"=",$bar->id)->get()->isNotEmpty();
 
-        return view('single.bar', compact('bar','posts','events'));
+        return view('single.bar', compact('bar','posts','events','isFollowing'));
 
     }    
 
@@ -121,10 +120,13 @@ public function eventsMe(){
 
 public function singleEvent(Request $request, $id){
 
-    $event = Event::find($id);
+    $event = Event::where('published','<',date('Y-m-d H:i:s'))->firstOrFail();
+
     $posts = Post::where('event','=',$id)->where('type',2)->get();
     $exist = Subscription::where('user_id','=',\Auth::id())->where('event',"=",$id)->get()->isNotEmpty();
-    return view('single.event', compact('event','exist','posts')  );
+    $participate = Subscription::where('user_id','=',\Auth::id())->where('event',"=",$event->id)->get()->isNotEmpty();
+    
+    return view('single.event', compact('event','exist','posts','participate')  );
 
 }    
 public function profile($username){

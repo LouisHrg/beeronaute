@@ -14,18 +14,19 @@ class FakeNews extends Seeder
      */
     public function run()
     {	
-    	$faker = Faker::create();
+    	$faker = Faker::create('fr_FR');
         
     	$user = User::where('name','admin')->first();
     	foreach (range(1,60) as $index) {
     	$slug = $faker->slug;
         DB::table('publications')->insert([
             'content' => $faker->paragraphs(rand(1,10),true),
-            'abstract' => $faker->text(200),
             'title' => $faker->words(3,true),
             'published' => $faker->dateTime,
             'slug' => $slug,
-            'author' => $user->id
+            'author' => $user->id,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
 
         ]);
 

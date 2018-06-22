@@ -4,8 +4,13 @@ namespace App;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Subscription extends Eloquent
 {
+
+	use SoftDeletes;
+
 	protected $casts = [
 		'event' => 'int',
 		'bar' => 'int',

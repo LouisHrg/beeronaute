@@ -59,9 +59,14 @@
 							<td scope="row">{{ $item->roles->first()->name }}</td>
 							<td scope="row">{{ $item->email }}</td>
 							<td scope="row">
-								<a href="{{ route('publication-single',$item->id) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
+								<a href="{{ route('profile',$item->name) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
 								<a href="{{ route('admin-users-edit',$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
-								<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
+										<button class="btn btn-danger btn-sm" 
+												data-toggle="modal" 
+												data-target="#deleteUserModal" 
+												data-url="{{ route('admin-users-delete',$item->id) }}" 
+												data-name="{{ $item->name }}" 
+												data-toggle="modal" data-target="#exampleModal"><span class="icon icon-bin"></button>
 							</td>
 						</tr>
 						@endforeach
@@ -80,5 +85,29 @@
 		</div>
 	</div>
 </div>
+
+					<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="deleteUserModal">Supprimer l'utilisateur'</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form id="form-delete" method="POST" action="" accept-charset="UTF-8">
+										{{ Form::token() }}
+										Voulez vous vraiment supprimer cet utilisateur ? 
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+										<button type="submit" class="btn btn-danger">Confirmer</button>
+									</div>
+								</form>  
+								
+							</div>
+						</div>
+					</div>
 
 @endsection

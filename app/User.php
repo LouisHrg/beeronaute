@@ -9,12 +9,20 @@ use Spatie\Permission\Traits\HasRoles;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     use Notifiable;
     use HasRoles;
+    use HasMediaTrait;
+    use SoftDeletes;
+    use CascadeSoftDeletes;
 
     protected $guard_name = 'web';
 
@@ -39,16 +47,17 @@ class User extends Authenticatable
         'password',
     ];
 
-
+    protected $cascadeDeletes = [
+        'bars',
+        'posts',
+        'publications',
+        'events',
+        'subscriptions'
+    ];
 
     public function bars()
     {
         return $this->hasOne(\App\Bar::class, 'manager');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(\App\Comment::class, 'author');
     }
 
     public function events()

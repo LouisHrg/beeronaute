@@ -16,6 +16,7 @@
 
 
 @section('content')
+
 @include('layouts.navbar')
 <div class="container">
 	<div class="row">
@@ -23,13 +24,13 @@
 			@forelse($posts as $post)
 			<div id="post{{$post->id}}" class="card feed-element block-feed block-home">
 				@if($post->type == 3)
-				<div class="img-bar-home">{{ $post->party->getFirstMedia('featured-event') }}</div>
+				<div class="img-bar-home"><img src="{{ $post->party->getFirstMedia('featured-event')->getUrl() }}"></div>
 				@endif
 				<div class="card-body">
 					<div class="row">
 
 						<div class="col-md-1">
-							<img class="avatar" src="/storage/{{ $post->user->avatar }}">
+						<img class="avatar" src="{{ $post->place->getFirstMedia('featured-bar')->getUrl() }}">
 						</div>
 						<div class="col-md-11">
 							@if($post->type == 1)
@@ -59,7 +60,9 @@
 				</div>
 				@empty
 				<div class="col-md-12 text-center">
-					<img src="{{ asset('img/ui/empty.png') }}">
+					<div class="img-ui">
+						<img src="{{ asset('img/ui/empty.png') }}">
+					</div>
 				</div>
 				<br>
 				<div class="col-md-12 text-center">

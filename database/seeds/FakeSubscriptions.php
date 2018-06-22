@@ -28,6 +28,8 @@ class FakeSubscriptions extends Seeder
             'type' => 1,
             'user_id' => $user->id,
             'event' => $event->id,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
 
         ]);
 

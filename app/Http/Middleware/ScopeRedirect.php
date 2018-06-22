@@ -17,7 +17,9 @@ class ScopeRedirect
     {
         
         $response = $next($request);
-           
+
+        dd($)
+
         if(\Auth::user()->hasRole('manager')){
             return redirect()->route($manage);
         }

@@ -62,7 +62,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
-        'redir' => \App\Http\Middleware\ScopeRedirect::class,
         'push' => \App\Http\Middleware\PushNotifs::class,
 
     ];

@@ -55,7 +55,7 @@
         		{{ Form::bsFile('featured',"Image d'illustration de l'évenement",'Uploader')}}
 
 
-				{{ Form::bsDate('published', \Carbon\Carbon::now(), "Date de publication" , "La date de publication de l'article")}}
+				{{ Form::bsDate('published', date('d/m/Y H:i'), "Date de publication" , "La date de publication de l'article")}}
 				
 				{{ Form::bsNumber('number',old('number'),"Nombre de place","Nombre d'utilisateur pouvant s'inscrire à l'évenement")}}
 
@@ -64,10 +64,10 @@
 
 				<div class="row">
 					<div class="col-md-6">        		
-						{{ Form::bsDate('startat', \Carbon\Carbon::now(), "Commence le" , "La date de début de l'évenement")}}
+						{{ Form::bsDate('startat', date('d/m/Y H:i'), "Commence le" , "La date de début de l'évenement")}}
 					</div>
 					<div class="col-md-6">        		
-						{{ Form::bsDate('endat', \Carbon\Carbon::now(), "Termine le" , "La date de fin de l'évenement")}}
+						{{ Form::bsDate('endat', date('d/m/Y H:i'), "Termine le" , "La date de fin de l'évenement")}}
 					</div>
 				</div>
 				

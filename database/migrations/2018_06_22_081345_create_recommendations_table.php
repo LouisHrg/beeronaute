@@ -20,6 +20,7 @@ class CreateRecommendationsTable extends Migration {
 			$table->string('slug')->unique('lists_slug_unique');
 			$table->dateTime('published');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

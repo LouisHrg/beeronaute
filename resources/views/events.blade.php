@@ -34,10 +34,14 @@
                     <h4 class="card-title">{{ $event->name }}</h4>
                     <h5 class="card-text">{{ $event->place->city->name }}</h5>
                     <h6 class="card-text">{{ ucfirst($event->place->name) }}</h6>
+                    @if(!$event->status)
                     @if(strtotime($event->startDate) > time())
                     <p class="text-muted">Débute {{ $event->startDate->diffForHumans() }}</p>
                     @else
                     <p>Évenement en cours, termine {{ $event->endDate->diffForHumans() }}</p>
+                    @endif
+                    @else
+                    <p>Évenement annulé</p>
                     @endif
 
                     <a href="{{ route('event-single',$event->id) }}" class="btn btn-sm btn-info">Voir plus</a>
@@ -45,14 +49,15 @@
             </div>
             @empty
             <div class="col-md-12 text-center">
+                <div class="img-ui">
                 <img src="{{ asset('img/ui/event.png') }}">
+                </div>
             </div>
             <br>
             <div class="col-md-12 text-center">
                 <h5> Il n'y aucun évenement ici, essaie de revenir plus tard !</h5>
             </div>
             @endforelse
-
             {{ $events->links() }}
 
         </div>

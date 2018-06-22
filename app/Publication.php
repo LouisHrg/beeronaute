@@ -1,19 +1,18 @@
 <?php
 
-/**
- * Created by Reliese Model.
- * Date: Tue, 05 Jun 2018 10:54:33 +0000.
- */
-
 namespace App;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Publication extends Eloquent implements HasMedia
 {
-use HasMediaTrait;
+	
+	use HasMediaTrait;
+	use SoftDeletes;
 
 	protected $casts = [
 		'author' => 'int'

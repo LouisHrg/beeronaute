@@ -18,8 +18,9 @@ use Carbon\Carbon;
 
 class TestController extends Controller
 {
-	function test(){
+	function test($test){
 
+		dd($test);
 
 		// Bar::where('id','>',0)->delete();
 

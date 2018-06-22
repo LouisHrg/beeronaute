@@ -55,15 +55,17 @@
       {{ $subs->links() }}
       @else
       <div class="col-md-12 text-center">
-      <img src="{{ asset('img/ui/empty3.png') }}">
-    </div>
-    <div class="col-md-12 text-center">
-      <h5> Oups, tu n'as aucun évenement pour l'instant</h5>
-    </div>
-    @endif
+        <div class="img-ui">
+          <img src="{{ asset('img/ui/empty3.png') }}">
+        </div>
+      </div>
+      <div class="col-md-12 text-center">
+        <h5> Oups, tu n'as aucun évenement pour l'instant</h5>
+      </div>
+      @endif
 
+    </div>
   </div>
-</div>
 </div>
 @endsection
 

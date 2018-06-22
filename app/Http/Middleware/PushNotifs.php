@@ -10,15 +10,10 @@ use App\Notif;
 
 class PushNotifs
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
     public function handle($request, Closure $next)
     {
+
+
 
         $subs = Subscription::where('user_id','=',\Auth::id())
         ->where('type','=','1')
@@ -26,7 +21,6 @@ class PushNotifs
 
         $nowMinusTwo = strtotime("-2 hours", time());
         $now = time();
-
 
         foreach($subs as $sub){
 
@@ -66,6 +60,10 @@ class PushNotifs
             }
 
         }
+
+        $request->request
+        ->add(['notifs'=>Notif::where('recipient','=',\Auth::id())->orderBy('created_at','DESC')->get()->take(5)]);
+
         return $next($request);
     }
 }

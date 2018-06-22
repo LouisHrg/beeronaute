@@ -28,6 +28,25 @@
 	</div>
 	<div id="news" class="bigblock news-block">
 		<h1>News</h1>
+		<div class="row no-gutters">
+			@foreach($news as $item)
+			<div class="col-md-3">
+				<div class="container-news">
+					<img src="{{ $item->getFirstMedia('featured-publication')->getUrl() }}" alt="Avatar" class="image">
+					<a href="{{ $item->id }}">
+					<div class="overlay">
+						<div class="text">
+						<p>{{ ucfirst($item->title) }}</p>
+						<p>{{ $item->published->diffForHumans() }}</p>
+						</div>
+					</div>
+					</a>
+				</div>
+			</div>
+			@endforeach
+		
+		<a class="btn btn-sm btn-primary ml-auto mt-2" href="{{ route('blog') }}">Voir plus</a>
+		</div>
 	</div>
 </div>
 @endsection

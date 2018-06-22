@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\User;
 
+use Illuminate\Validation\Rule;
+
+
+
 class UsersController extends Controller
 {
 	
@@ -45,12 +49,12 @@ class UsersController extends Controller
 		$user = User::find($id);
 
 		$data = $request->validate([
-			'name' => ['required','string','max:50',Rule::unique('users')->ignore($publication->slug,'slug')],
+			'name' => ['required','string','max:50',Rule::unique('users')->ignore($user->name,'name')],
 			'firstname' => 'required|string|max:100',
 			'lastname' => 'required|string|max:100',
-			'email' => 'required|string|email|max:255|unique:users',
+			'email' => ['required','string','max:255','email',Rule::unique('users')->ignore($user->email,'email')],
 			'role' => 'required|in:'.$rolesId,
-			'password' => 'present|string|min:6|confirmed'
+			'password' => 'nullable|string|min:6|confirmed'
 
 		]);
 
@@ -69,6 +73,22 @@ class UsersController extends Controller
 
 		return redirect()->route('admin-users-browse');
 	}
+
+	function deleteUser(Request $request, $id){
+
+		$user = User::find($id);
+
+		if($user->id == \Auth::id()){
+			return redirect()->route('admin-users-browse');
+		}else{
+			$user->delete();
+		}
+
+
+			return redirect()->route('admin-users-browse');
+
+	}
+
 
 	
 }

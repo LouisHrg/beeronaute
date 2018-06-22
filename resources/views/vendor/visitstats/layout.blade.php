@@ -15,7 +15,7 @@
 </div>
 @endsection
 
-@section($visitortrackerSectionContent)*
+@section($visitortrackerSectionContent)
 @include('layouts.navbar-admin')
 <div class="container">
 <div class="col-md-12">

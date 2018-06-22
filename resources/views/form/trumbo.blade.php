@@ -1,6 +1,6 @@
 <div class="form-group">
     {{ Form::label($displayname, null, ['class' => 'control-label']) }}
-    <div id="customcontent" name="{{ $name }}" value="{{ $value }}">{{ $value }}</div>
+    <textarea id="customcontent" name="{{ $name }}" >{{ $value }}</textarea> 
     @if (isset($helper))
     <small class="form-text text-muted">{{ $helper }}</small>
     @endif

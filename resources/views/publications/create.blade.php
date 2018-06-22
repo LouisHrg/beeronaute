@@ -1,6 +1,11 @@
 @extends ('layouts.layout-admin')
 
+@role('moderator')
+@include('layouts.navbar-moderator')
+@endrole
+@role('admin')
 @include('layouts.navbar-admin')
+@endrole
 
 @section('title','Admin | Beeronaute')
 
@@ -38,7 +43,7 @@
         @endif
 
 
-        {!! Form::open(['action' => 'PublicationsController@savePublication', 'method' => 'post']) !!}
+        {!! Form::open(['action' => 'PublicationsController@savePublication', 'method' => 'post','files'=>true]) !!}
         {{ Form::token() }}
 
 
@@ -46,9 +51,10 @@
 
         {{ Form::trumbo('content','Contenu', old('content'),[],"Le contenu de l'article") }}           
 
-        {{ Form::bsDate('published', \Carbon\Carbon::now(), "Date de publication" , "La date de publication de l'article")}}
+        {{ Form::bsDate('published', date('d/m/Y H:i'), "Date de publication" , "La date de publication de l'article")}}
 
-        {{ Form::slug('slug','Slug','Slug', old('title'),[],"Chemin vers l'article sur le site") }}
+        {{ Form::slug('slug','Lien de la publication','Lien', old('slug'),[],"Chemin vers le bar sur le site") }}
+
 
         {{ Form::bsFile('featured','Image mise en avant','Uploader')}}
         

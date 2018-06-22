@@ -33,7 +33,9 @@
 		<div class="col-md-12">
 			<div class="block">
 				<div class="col-md-12">
+					@role('manager')
 					<a class="btn btn-success" href="{{ route($newAction)}}"> Ajouter un évenement </a>
+					@endrole
 				</div>
 				@if (null !== app('request')->input('search'))
 				<a href="{{ Request::url() }}" class="btn btn-info"><- Voir tous les éléments </a>
@@ -60,7 +62,8 @@
 							<th scope="col">Auteur</th>
 							@endrole
 							<th scope="col">Lieu</th>
-							<th scope="col" class="w-15">Actions</th>
+							<th scope="col">Status</th>
+							<th scope="col" class="w-20">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -76,21 +79,84 @@
 							<td scope="row">{{ $item->user->name }}</th>
 								@endrole
 								<td scope="row">
-									{{-- <a target="_blank" href="/bar/{{ $item->place->slug }}">{{ $item->place->name }}</a> --}}
+									<a target="_blank" href="/bar/{{ $item->place->slug }}">{{ $item->place->name }}</a>
 								</td>
+								<td scope="row">{{ $item->canceled==1?"Annulé":"RAS" }}</th>
 								<td scope="row">
 									<a href="{{ route('event-single',$item->id) }}" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
 										<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
-											<a href="" class="btn btn-danger btn-sm"><span class="icon icon-bin"></a>
-											</td>
-										</tr>
-										@endforeach
-									</tbody>
-								</table>
+											@if($item->canceled==0)
+											<button class="btn btn-warning btn-sm" 
+												data-toggle="modal" 
+												data-target="#cancelEventModal" 
+												data-url="{{ route('event-cancel',$item->id) }}" 
+												data-name="{{ $item->name }}" 
+												data-toggle="modal" data-target="#cancelEventModal"><span class="icon icon-cross"></button>
+											@endif
+												<button class="btn btn-danger btn-sm" 
+												data-toggle="modal" 
+												data-target="#deleteEventModal" 
+												data-url="{{ route('event-delete',$item->id) }}" 
+												data-name="{{ $item->name }}" 
+												data-toggle="modal" data-target="#exampleModal"><span class="icon icon-bin"></button>
+												</td>
+											</tr>
+											@endforeach
+										</tbody>
+									</table>
 
-								{{ $items->links() }}
+									{{ $items->links() }}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				@endsection
+
+
+					<div class="modal fade" id="deleteEventModal" tabindex="-1" role="dialog" aria-labelledby="deleteEventModal" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="deleteEventModal">Supprimer l'évenement</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form id="form-delete" method="POST" action="" accept-charset="UTF-8">
+										{{ Form::token() }}
+										Voulez vous vraiment supprimer cet évenemnt ? Cette action est irreversible
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+										<button type="submit" class="btn btn-danger">Confirmer</button>
+									</div>
+								</form>  
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="modal fade" id="cancelEventModal" tabindex="-1" role="dialog" aria-labelledby="cancelEventModal" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="cancelEventModal">Annuler l'évenement</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form id="form-delete" method="POST" action="" accept-charset="UTF-8">
+										{{ Form::token() }}
+										Voulez vous vraiment annuler cet évenement ? Cette action est irréversible.
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+										<button type="submit" class="btn btn-danger">Confirmer</button>
+									</div>
+								</form>  
+								
+							</div>
+						</div>
+					</div>
+					@endsection

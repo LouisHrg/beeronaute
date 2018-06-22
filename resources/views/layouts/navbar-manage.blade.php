@@ -8,7 +8,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarColor03">
-    <ul class="navbar-nav mx-auto">
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item {{{ ( isset($page) && $page=='posts'? 'active' : '') }}}">
         <a class="nav-link" href="{{ route('manage-posts') }}">Mes posts</a>
       </li>
@@ -24,17 +24,15 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
-      @role('manager')
       <li class="nav-item" style="margin-top: 3px;">
-        <a class="nav-link" href="{{ route('index') }}">Retour au site</a>
+        <a class="nav-link" href="{{ route('home') }}">Retour au site</a>
       </li>
-      @endrole
       @if (Route::has('login'))
       @auth
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ Auth::user()->name }}
-          <img src="/storage/{{ Auth::user()->avatar }}" class="avatar img-responsive">
+          <img src="{{ Auth::user()->getFirstMedia('avatar-user')->getUrl() }}" class="avatar img-responsive">
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <h6 class="dropdown-header"></h6>

@@ -10,7 +10,7 @@ class FakeBars extends Seeder
 
     public function run()
     {	
-    	$faker = Faker::create();
+    	$faker = Faker::create('fr_FR');;
         
     	$user = User::where('name','admin')->first();
     	foreach (range(1,150) as $index) {
@@ -22,7 +22,7 @@ class FakeBars extends Seeder
         DB::table('bars')->insert([
             'name' => $faker->company(),
             'location' => $faker->address,
-            'phone' => $faker->phoneNumber,
+            'phone' => '0'.rand(1,9).$faker->phoneNumber07,
             'email' => $faker->email,
             'place' => rand(1,5),
             'manager' => $user->id,
@@ -32,6 +32,8 @@ class FakeBars extends Seeder
             'description' => $faker->text($maxNbChars = 200),
             'schedule' => '{"monday":"17:00-02:00","tuesday":"17:00-02:00","wednesday":"17:00-02:00","thursday":"17:00-02:00","friday":"17:00-02:00","saturday":"17:00-02:00"}',
             'status' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
 
         ]);
 
