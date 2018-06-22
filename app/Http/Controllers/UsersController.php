@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -38,6 +39,10 @@ class UsersController extends Controller
 		$user->save();
 
 		$user->assignRole(\Spatie\Permission\Models\Role::find($data['role']));
+
+
+        $user->addMediaFromUrl('https://conferencecloud-assets.s3.amazonaws.com/default_avatar.png')->toMediaCollection('avatar-user');
+        $user->addMediaFromUrl('https://source.unsplash.com/random/')->toMediaCollection('banner-user');
 
 		return redirect()->route('admin-users-browse');
 	}

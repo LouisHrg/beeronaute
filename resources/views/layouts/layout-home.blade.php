@@ -12,7 +12,6 @@
     <link href="{{ asset('icomoon/style.css') }}" rel="stylesheet">
     
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600|Roboto" rel="stylesheet" type="text/css">
-
 </head>
 <body class="home-bg">
     @yield('breadcrumb')

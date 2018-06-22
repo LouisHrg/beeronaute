@@ -18,9 +18,6 @@
       <li class="nav-item {{{ ( isset($page) && $page=='events'? 'active' : '') }}}">
         <a class="nav-link" href="{{ route('manage-events') }}">Mes évenements</a>
       </li>
-      <li class="nav-item {{{ ( isset($page) && $page=='settings'? 'active' : '') }}}">
-        <a class="nav-link" href="{{ route('manage-settings') }}">Paramètres</a>
-      </li>
     </ul>
 
     <ul class="navbar-nav ml-auto">

@@ -16,6 +16,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('icomoon/style.css') }}" rel="stylesheet">
     
+
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600|Roboto" rel="stylesheet" type="text/css">
 
 </head>
@@ -30,11 +31,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha18/js/tempusdominus-bootstrap-4.min.js"></script>
     
 
-    <script src="{{ asset('js/zoom.js') }}"></script>
-    
+    <script src="{{ asset('js/zoom.js') }}"></script>    
     <script src="{{ asset('js/code.js') }}"></script>
-
-
 
 
 </body>

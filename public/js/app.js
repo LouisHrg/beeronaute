@@ -52466,7 +52466,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/ChatMessages.vue"
+Component.options.__file = "resources\\assets\\js\\components\\ChatMessages.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -52475,9 +52475,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2915307b", Component.options)
+    hotAPI.createRecord("data-v-74203dbb", Component.options)
   } else {
-    hotAPI.reload("data-v-2915307b", Component.options)
+    hotAPI.reload("data-v-74203dbb", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52602,7 +52602,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-2915307b", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-74203dbb", module.exports)
   }
 }
 
@@ -52632,7 +52632,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/ChatForm.vue"
+Component.options.__file = "resources\\assets\\js\\components\\ChatForm.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -52641,9 +52641,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3f0ca373", Component.options)
+    hotAPI.createRecord("data-v-4a3050b3", Component.options)
   } else {
-    hotAPI.reload("data-v-3f0ca373", Component.options)
+    hotAPI.reload("data-v-4a3050b3", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52761,7 +52761,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3f0ca373", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-4a3050b3", module.exports)
   }
 }
 
