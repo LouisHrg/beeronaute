@@ -23,37 +23,43 @@
 		<div class="mx-auto col-md-8">
 			@forelse($posts as $post)
 			<div id="post{{$post->id}}" class="card feed-element block-feed block-home">
-				@if($post->type == 3)
+				@if($post->type == 3 && isset($post->party))
 				<div class="img-bar-home"><img src="{{ $post->party->getFirstMedia('featured-event')->getUrl() }}"></div>
 				@endif
 				<div class="card-body">
 					<div class="row">
 
 						<div class="col-md-1">
+						@if($post->type == 2)
+						<img class="avatar" src="{{ $post->party->place->getFirstMedia('featured-bar')->getUrl() }}">
+						@else
 						<img class="avatar" src="{{ $post->place->getFirstMedia('featured-bar')->getUrl() }}">
+						@endif
 						</div>
 						<div class="col-md-11">
+
 							@if($post->type == 1)
 							<p class="card-text"><a target='_blank' href="{{ route('bar-single',$post->place->slug) }}">{{ ucfirst($post->place->name) }}</a> a écit :</p>							
 							<p class="card-text">{{ $post->body }}</p>
 							<h6 class="card-subtitle mb-2 text-muted">{{ $post->created_at->diffForHumans() }}</h6>
-							
 							@endif
+
 							@if($post->type == 2)
 							<p class="card-text"><a target='_blank' href="{{ route('bar-single',$post->party->place->slug) }}">{{ ucfirst($post->party->place->name) }}</a> a écit sur <a target="_blank" href="{{ route('event-single',$post->party->id) }}">{{ $post->party->name }}</a> :</p>							
 							<p class="card-text">{{ $post->body }}</p>
 							<h6 class="card-subtitle mb-2 text-muted">{{ $post->created_at->diffForHumans() }}</h6>
-							
 							@endif
-							@if($post->type == 3)
-							<p class="card-text"><a target='_blank' href="{{ route('bar-single',$post->place->slug) }}">{{ ucfirst($post->place->name) }}</a> a créé un nouvel évenement : <a href="{{ route('event-single',$post->party->id) }}">{{ ucfirst($post->party->name) }}</a></p>
+
+							@if($post->type == 3 && isset($post->party))
+							<p class="card-text"><a target='_blank' href="{{ route('bar-single',$post->party->place->slug) }}">{{ ucfirst($post->place->name) }}</a> a créé un nouvel évenement : <a href="{{ route('event-single',$post->party->id) }}">{{ ucfirst($post->party->name) }}</a></p>
 							<h6 class="card-subtitle mb-2 text-muted">{{ $post->created_at->diffForHumans() }}</h6>
 							<h6> 
 								Du {{ date('d/m/Y à H:s',strtotime($post->party->startDate)) }} au {{ date('d/m/Y à H:s',strtotime($post->party->endDate)) }}</h6>
 								<h6> <strong>Lieu : </strong>{{ ucfirst($post->party->place->name) }},  {{ ucfirst($post->party->place->city->name) }}</h6>
 								<h6> <strong> Participants :</strong> {{ $post->party->subscriptions()->count() }}</h6>
 								<a target="_blank" href="{{ route('event-single',$post->party->id) }}" class="btn btn-sm btn-primary btn-block"> Voir plus </a>
-								@endif
+							@endif
+							
 							</div>
 						</div>
 					</div>

@@ -2,7 +2,7 @@
 
 @section('title','Nouvelle souscritption')
 
-@section('greetings','Hey '.ucfirst($event->place->manager->firstname))
+@section('greetings','Hey '.ucfirst($event->place->user->firstname))
 
 @section('toptext')
     <p>Un nouvel utilisateur s'est inscrit à l'événement : {{$event->name}}</p>

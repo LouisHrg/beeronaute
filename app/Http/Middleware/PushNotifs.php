@@ -17,15 +17,15 @@ class PushNotifs
         ->where('type','=','1')
         ->get();
 
-        $nowMinusTwo = strtotime("-2 hours", time());
-        $now = time();
-
         foreach($subs as $sub){
+        
+        $nowMinusTwo = strtotime("-2 hours", strtotime(time()));
+        $now = strtotime(time());
 
             $eventStart = strtotime($sub->party->startDate);
             $eventEnd = strtotime($sub->party->endDate);
 
-            if($eventEnd < $now){
+            if($eventEnd <= $now){
                 continue;
             }
 
@@ -33,7 +33,7 @@ class PushNotifs
                 continue;
             }
 
-            if( $eventStart > $nowMinusTwo && $eventStart < $now){
+            if( $eventStart > $nowMinusTwo && $eventStart < $now ){
 
                 if( Notif::where('recipient',\Auth::id())->where('event',$sub->party->id)->where('type','=',1)->get()->isEmpty() ){
                     
@@ -48,7 +48,8 @@ class PushNotifs
 
             }
 
-            if($eventStart < $now && $eventEnd > $now){
+            if($eventStart < time() && $eventEnd > time()){
+
                 if(Notif::where('recipient',\Auth::id())->where('event',$sub->party->id)->where('type','=',2)->get()->isEmpty() ){
 
                     $notif = new Notif;

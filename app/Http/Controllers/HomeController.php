@@ -36,6 +36,7 @@ class HomeController extends Controller
 
         $posts = Post::whereIn('id', $ids)->orderBy('created_at','DESC')->paginate(15);
 
+
         return view('home',compact('posts'));
     }
 

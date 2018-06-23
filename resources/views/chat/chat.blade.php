@@ -32,7 +32,7 @@
                     </chat-messages>
                 </div>
                 <div class="panel-footer">
-                    <chat-form v-on:messagesent="addMessage" :user="{{ Auth::user() }}" :eventid="'{!! $event->id !!}'">
+                    <chat-form v-on:messagesent="addMessage" :user="{{ Auth::user() }}" :eventid="'{!! $eventId !!}'">
 
                     </chat-form>
                 </div>

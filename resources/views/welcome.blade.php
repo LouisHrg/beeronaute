@@ -21,10 +21,32 @@
 </div>
 <div class="container" data-spy="scroll" data-target="#navbar-home" data-offset="0" >
 	<div id="us" class="bigblock us-block">
-		<h1>Nous</h1>
+		<div class="row">
+			<div class="bg-text">
+				<div class="col-md-6 mx-auto">
+					<h2>Nous<br>Beeronaute, les aventuriers de la bière</h2>
+					<img src="{{ asset('img/brand/beer.png') }}" class="us-logo">
+					<p>	Nous : Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="concept" class="bigblock concept-block">
-		<h1>Concept</h1>
+		<div class="row">
+			<div class="bg-text">
+				<div class="col-md-6 mx-auto">
+					<h1>Concept</h1>
+					<p>Chuck fact : {!!   html_entity_decode($chuck[0]["fact"]) !!}</p>
+
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<div id="news" class="bigblock news-block">
 		<h1>News</h1>

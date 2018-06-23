@@ -10,13 +10,15 @@ class IndexController extends Controller
 {
 
 	
-    function index(){
+function index(){
 
-    	$news = Publication::take(8)->orderBy('created_at','DESC')->get();
+        $news = Publication::take(8)->orderBy('created_at','DESC')->get();
 
-        return view('welcome',compact('news'));
+        $chuck = json_decode(file_get_contents('https://www.chucknorrisfacts.fr/api/get?data=nb:1;tri:alea'), true);
+
+        return view('welcome',compact('news','chuck'));
     }
-
+    
     function blog(){
 
     	$news = Publication::orderBy('published','DESC')->paginate(16);

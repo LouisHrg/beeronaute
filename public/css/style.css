@@ -123,18 +123,24 @@ ul.inline{
 }
 
 
+
 .concept-block{
-    background: #294929;
+    background-image: url("../img/onepage/beeronaute.jpg");
+}
+
+.concept-block  h1{
+    color: white;
 }
 
 .us-block{
-    background: #194A13
+    background-image: url("../img/onepage/choppe.jpg");
+    background-size:cover;
 }
-
-.news-block{
-
+.us-block h1, .us-block h2{
+    color: #ffffff;
+    text-shadow: 2px 2px rgba(0,0,0,0.4);
+    background-color: rgba(0,0,0,0.5);
 }
-
 .block{
     padding:20px;
     border: 1px solid #f0f0f0;
@@ -398,3 +404,4 @@ color:#FEFEFE;
 .select2-dropdown--below {
     top: -2.8rem; /*your input height*/
 }
+

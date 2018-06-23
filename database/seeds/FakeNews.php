@@ -12,7 +12,7 @@ class FakeNews extends Seeder
     	$faker = Faker::create('fr_FR');
         
     	$user = User::where('name','admin')->first();
-    	foreach (range(1,60) as $index) {
+    	foreach (range(1,20) as $index) {
     	$slug = $faker->slug;
         DB::table('publications')->insert([
             'content' => $faker->paragraphs(rand(1,10),true),

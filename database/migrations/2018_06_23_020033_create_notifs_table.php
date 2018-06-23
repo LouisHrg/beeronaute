@@ -16,6 +16,7 @@ class CreateNotifsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->timestamps();
+			$table->softDeletes();
 			$table->integer('recipient')->unsigned()->index('notifs_recipient_foreign');
 			$table->integer('type')->unsigned();
 			$table->integer('viewed')->unsigned();

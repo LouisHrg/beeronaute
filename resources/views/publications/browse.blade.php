@@ -76,7 +76,7 @@
 							<td scope="row">{{ $item->abstract }}</td>
 							<td scope="row">{{ $item->user->name }}</td>
 							<td scope="row">
-								<a href="{{ route('publication-single',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
+								<a href="{{ route('single-guest',$item->slug) }}/" target="_blank" class="btn btn-info btn-sm"><span class="icon icon-binoculars"></a>
 										@if(Auth::id() == $item->user->id || Auth::user()->hasRole('admin'))
 									<a href="{{ route($editAction,$item->id)}}" class="btn btn-success btn-sm"><span class="icon icon-wrench"></a>
 										<button class="btn btn-danger btn-sm" 

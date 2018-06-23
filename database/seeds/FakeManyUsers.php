@@ -16,7 +16,7 @@ class FakeManyUsers extends Seeder
 		
         $faker = Faker::create('fr_FR');
         
-        foreach (range(1,50) as $index) {
+        foreach (range(1,25) as $index) {
 
         $name = $faker->userName;                
 
@@ -43,7 +43,7 @@ class FakeManyUsers extends Seeder
 
     	}
 
-        foreach (range(1,50) as $index) {
+        foreach (range(1,25) as $index) {
 
         $name = $faker->userName;                
 

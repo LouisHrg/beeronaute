@@ -29,12 +29,16 @@
           <tbody>
             @forelse($notifs as $notif)
 
-            @if($notif->type == 1 && strtotime($notif->party->startDate) > strtotime(time()))
+            @if($notif->type == 1 && strtotime($notif->party->startDate) > strtotime("-2 hours", time()) ))
             <tr>
               <td scope="row"><a href="{{ route('event-single',$notif->party->id) }}">{{ ucfirst($notif->party->name) }} : commence {{ $notif->party->startDate->diffForHumans() }}</a></td>
              </tr>
-
-          @endif
+            @endif            
+            @if($notif->type == 2 && strtotime($notif->party->startDate) > strtotime(time()) )
+            <tr>
+              <td scope="row"><a href="{{ route('event-single',$notif->party->id) }}">{{ ucfirst($notif->party->name) }} a commencé</a></td>
+             </tr>
+            @endif
 
           @empty
           <tr>

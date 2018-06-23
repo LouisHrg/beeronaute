@@ -13,7 +13,7 @@ class FakeBars extends Seeder
     	$faker = Faker::create('fr_FR');;
         
     	$user = User::where('name','admin')->first();
-    	foreach (range(1,150) as $index) {
+    	foreach (range(1,25) as $index) {
 
     	$user = User::role('manager')->inRandomOrder()->first();
 

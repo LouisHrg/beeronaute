@@ -15,6 +15,8 @@ use Iatstuti\Database\Support\CascadeSoftDeletes;
 class Notif extends Eloquent
 {	
 
+	use SoftDeletes, CascadeSoftDeletes;
+
 	protected $casts = [
 		'recipient' => 'int',
 		'type' => 'int',

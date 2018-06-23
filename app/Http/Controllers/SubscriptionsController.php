@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 use App\Subscription;
 
 use App\Mail\EventSubscription;
+use App\Mail\EventSubscriptionManager;
+use App\Mail\EventUnsubscribe;
+
 use Illuminate\Support\Facades\Mail;
 
 use App\Event;
+use App\User;
 use App\Bar;
 
 class SubscriptionsController extends Controller
@@ -28,7 +32,12 @@ class SubscriptionsController extends Controller
             $sub->save();
         }
 
-        Mail::to(\Auth::user())->send(new EventSubscription(Event::find($id)));
+        $event = Event::find($id);
+
+        Mail::to(\Auth::user())->send(new EventSubscription($event));
+
+        Mail::to($event->place->user)->send(new EventSubscriptionManager($event, \Auth::user()));
+
 
         return redirect()->route('event-single',$id);
 
@@ -40,8 +49,9 @@ class SubscriptionsController extends Controller
         if($exist->isNotEmpty()){
 
             $exist->each->delete();
+            Mail::to($event->place->user)->send(new EventUnsubscribe($event, \Auth::user()));
+            
         }
-
 
         return redirect()->route('event-single',$id);
 

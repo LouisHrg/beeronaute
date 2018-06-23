@@ -34,20 +34,6 @@
 		<div class="col-md-12">
 			<div class="block">
 				<div class="col-md-12">
-					<h4> Image mise en avant </h4>
-					<div class="img-bar-home-event">{{ $bar->getFirstMedia('featured-bar') }}</div>
-					
-					{!! Form::open(['action' => ['BarsController@saveFeatured',$bar->id], 'method' => 'POST','files'=>true ]) !!}
-					
-					{{ Form::token() }}
-					
-					{{ Form::bsFile('featured','Image mise en avant','Upload')}}
-					{{ Form::bsSubmit("Modifier l'image mise en avant")}}
-					{!! Form::close() !!}
-
-					<br>
-					<br>
-					<br>
 					<h5> Galerie :</h5> 
 					<button data-toggle="modal" data-target="#newImgModal" class="btn btn-sm btn-info"> Ajouter une image à la galerie </button>
 					<div class="row">

@@ -30,7 +30,8 @@ class FakeEvents extends Seeder
            $event->startDate = date('Y-m-d H:i:s',strtotime("+3 hours",time()));
            $event->endDate = date('Y-m-d H:i:s',strtotime("+13 hours",time()));
            $event->created_at = date('Y-m-d H:i:s');
-          $event->updated_at = date('Y-m-d H:i:s');
+           $event->canceled = 0;
+            $event->updated_at = date('Y-m-d H:i:s');
            $event->save();
            
            $event->addMediaFromUrl('https://source.unsplash.com/random')->toMediaCollection('featured-event');

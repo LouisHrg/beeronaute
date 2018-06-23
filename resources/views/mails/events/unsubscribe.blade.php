@@ -1,8 +1,8 @@
 @extends('mails.layouts.mail')
 
-@section('title','Un utilisateur s\' est désinscrit)
+@section('title','Un utilisateur s\' est désinscrit')
 
-@section('greetings','Hey '.ucfirst($event->place->manager->firstname))
+@section('greetings','Hey '.ucfirst($event->place->user->firstname))
 
 @section('toptext')
     <p>Un utilisateur s'est désinscrit : {{$event->name}}</p>

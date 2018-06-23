@@ -17,9 +17,6 @@
         <a class="nav-link" href="{{ route('admin-bars') }}">Bars</a>
       </li>      
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin-publications-browse') }}">Recommandations</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="{{ route('admin-events') }}">Evenements</a>
       </li>
       <li class="nav-item">
@@ -36,16 +33,6 @@
           <a class="dropdown-item" href="{{ route('visitortracker.countries') }}">Pays</a>
           <a class="dropdown-item" href="{{ route('visitortracker.users') }}">Utilisateurs</a>
           <a class="dropdown-item" href="{{ route('visitortracker.login_attempts') }}">Tentatives de login</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Paramètres
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ route('admin-settings') }}">Général</a>
-          <a class="dropdown-item" href="{{ route('admin-settings') }}">Ambiances</a>
-          <a class="dropdown-item" href="{{ route('admin-settings') }}">Villes</a>
         </div>
       </li>
     </ul>
