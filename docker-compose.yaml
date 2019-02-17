@@ -1,0 +1,43 @@
+version: '3'
+services:
+    php-fpm:
+        build: docker/php/
+        volumes:
+            - './:/usr/share/nginx/html'
+    networks:
+    - traefik
+    composer:
+        image: 'composer:latest'
+        volumes:
+            - './:/app'
+    mariadb:
+        image: 'mariadb:10.3'
+        ports:
+            - '3306:3306'
+        volumes:
+            - './docker/database:/var/lib/mysql'
+        environment:
+            - MYSQL_DATABASE=docker
+            - MYSQL_USER=docker
+            - MYSQL_PASSWORD=s3cr3t
+            - MYSQL_RANDOM_ROOT_PASSWORD=yes
+    networks:
+    - traefik
+    nginx:
+        build: docker/nginx/
+        ports:
+            - '8080:80'
+        volumes:
+            - './:/usr/share/nginx/html'
+    networks:
+    - traefik
+    labels:
+    - "traefik.backend=beeronaute"
+    - "traefik.frontend.rule=Host:beer.narah.io"
+    - "trafik.enable=true"
+    - "traefik.port=80"
+    - "traefik.protocol=http"
+    - "traefik.frontend.entryPoints=http"
+networks:
+  traefik:
+    external: true

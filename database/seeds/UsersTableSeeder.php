@@ -26,11 +26,11 @@ class UsersTableSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
 
     	]);
-    	
+
     	$user = User::where('name', 'admin')->first();
     	$user->assignRole('admin');
 
-        $user->addMediaFromUrl('https://conferencecloud-assets.s3.amazonaws.com/default_avatar.png')->toMediaCollection('avatar-user');
+        $user->addMediaFromUrl('http://fanfare-makabes.fr/wp-content/uploads/2015/09/user-image.jpg')->toMediaCollection('avatar-user');
         $user->addMediaFromUrl('https://source.unsplash.com/random/')->toMediaCollection('banner-user');
 
 
@@ -43,11 +43,11 @@ class UsersTableSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
 
         ]);
-        
+
         $user = User::where('name', 'manager')->first();
         $user->assignRole('manager');
 
-        $user->addMediaFromUrl('https://conferencecloud-assets.s3.amazonaws.com/default_avatar.png')->toMediaCollection('avatar-user');
+        $user->addMediaFromUrl('http://fanfare-makabes.fr/wp-content/uploads/2015/09/user-image.jpg')->toMediaCollection('avatar-user');
         $user->addMediaFromUrl('https://source.unsplash.com/random/')->toMediaCollection('banner-user');
 
 
@@ -60,11 +60,11 @@ class UsersTableSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
 
         ]);
-        
+
         $user = User::where('name', 'user')->first();
         $user->assignRole('user');
 
-        $user->addMediaFromUrl('https://conferencecloud-assets.s3.amazonaws.com/default_avatar.png')->toMediaCollection('avatar-user');
+        $user->addMediaFromUrl('http://fanfare-makabes.fr/wp-content/uploads/2015/09/user-image.jpg')->toMediaCollection('avatar-user');
         $user->addMediaFromUrl('https://source.unsplash.com/random/')->toMediaCollection('banner-user');
 
 
@@ -78,11 +78,11 @@ class UsersTableSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
 
         ]);
-        
+
         $user = User::where('name', 'moderator')->first();
         $user->assignRole('moderator');
-        
-        $user->addMediaFromUrl('https://conferencecloud-assets.s3.amazonaws.com/default_avatar.png')->toMediaCollection('avatar-user');
+
+        $user->addMediaFromUrl('http://fanfare-makabes.fr/wp-content/uploads/2015/09/user-image.jpg')->toMediaCollection('avatar-user');
         $user->addMediaFromUrl('https://source.unsplash.com/random/')->toMediaCollection('banner-user');
 
 

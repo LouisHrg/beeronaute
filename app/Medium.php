@@ -50,9 +50,7 @@ class Medium extends Eloquent
       
       $this->addMediaCollection('banner-user')->singleFile();
 
-
       $this->addMediaCollection('gallery-bar');
-
 
 }
 

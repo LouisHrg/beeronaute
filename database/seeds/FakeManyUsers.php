@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Database\Seeder; 
+use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use App\User;
 
@@ -13,12 +13,12 @@ class FakeManyUsers extends Seeder
      */
     public function run()
     {
-		
+
         $faker = Faker::create('fr_FR');
-        
+
         foreach (range(1,25) as $index) {
 
-        $name = $faker->userName;                
+        $name = $faker->userName;
 
 		DB::table('users')->insert([
 
@@ -37,7 +37,7 @@ class FakeManyUsers extends Seeder
     	$user->assignRole('user');
 
 
-        $user->addMediaFromUrl('https://conferencecloud-assets.s3.amazonaws.com/default_avatar.png')->toMediaCollection('avatar-user');
+        $user->addMediaFromUrl('http://fanfare-makabes.fr/wp-content/uploads/2015/09/user-image.jpg')->toMediaCollection('avatar-user');
         $user->addMediaFromUrl('https://source.unsplash.com/random/')->toMediaCollection('banner-user');
 
 
@@ -45,7 +45,7 @@ class FakeManyUsers extends Seeder
 
         foreach (range(1,25) as $index) {
 
-        $name = $faker->userName;                
+        $name = $faker->userName;
 
         DB::table('users')->insert([
 
@@ -63,8 +63,8 @@ class FakeManyUsers extends Seeder
         $user = User::where('name', $name)->first();
         $user->assignRole('manager');
 
-        
-        $user->addMediaFromUrl('https://conferencecloud-assets.s3.amazonaws.com/default_avatar.png')->toMediaCollection('avatar-user');
+
+        $user->addMediaFromUrl('http://fanfare-makabes.fr/wp-content/uploads/2015/09/user-image.jpg')->toMediaCollection('avatar-user');
         $user->addMediaFromUrl('https://source.unsplash.com/random/')->toMediaCollection('banner-user');
 
 

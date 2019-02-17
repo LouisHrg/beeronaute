@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Database\Seeder; 
+use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use App\User;
 use App\Bar;
@@ -9,9 +9,9 @@ class FakeBars extends Seeder
 {
 
     public function run()
-    {	
+    {
     	$faker = Faker::create('fr_FR');;
-        
+
     	$user = User::where('name','admin')->first();
     	foreach (range(1,25) as $index) {
 
@@ -34,7 +34,6 @@ class FakeBars extends Seeder
             'status' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
-
         ]);
 
         $bar = Bar::where('slug', $slug)->first();
